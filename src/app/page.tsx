@@ -1,23 +1,21 @@
 import { Hero } from "@/components/sections/hero";
+import { MarqueeBand } from "@/components/sections/marquee-band";
+import { Overview } from "@/components/sections/overview";
 import { Presentation } from "@/components/sections/presentation";
-import { Services } from "@/components/sections/services";
-import { Method } from "@/components/sections/method";
-import { Skills } from "@/components/sections/skills";
-import { Projects } from "@/components/sections/projects";
 import { FinalCta } from "@/components/sections/final-cta";
-import { Contact } from "@/components/sections/contact";
 
+/**
+ * Home volutamente corta: cinematica del marchio, panoramica a schede e
+ * invito al contatto. I contenuti estesi vivono nelle pagine del menu.
+ */
 export default function Home() {
   return (
     <>
       <Hero />
+      <MarqueeBand />
+      <Overview />
       <Presentation />
-      <Services />
-      <Method />
-      <Skills />
-      <Projects />
       <FinalCta />
-      <Contact />
     </>
   );
 }

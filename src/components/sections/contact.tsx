@@ -1,9 +1,8 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { Loader2, TriangleAlert, Mail } from "lucide-react";
+import { CheckCircle2, Loader2, Mail, TriangleAlert } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 import { contactConfig } from "@/config/site";
@@ -50,7 +49,7 @@ const initialValues: FormValues = {
 
 type FormErrors = Partial<Record<keyof FormValues, string>>;
 
-type Status = "idle" | "submitting" | "not-configured" | "error";
+type Status = "idle" | "submitting" | "sent" | "not-configured" | "error";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -85,7 +84,7 @@ function validate(values: FormValues): FormErrors {
 }
 
 const inputStyles =
-  "w-full rounded border bg-ink-900 px-4 py-3 text-sm text-paper placeholder:text-ink-400 transition-colors duration-200 focus-visible:outline-none";
+  "w-full rounded border bg-ink-900/70 px-4 py-3 text-sm text-paper placeholder:text-ink-400 transition-colors duration-200 focus-visible:outline-none";
 
 export function Contact() {
   const [values, setValues] = useState<FormValues>(initialValues);
@@ -115,7 +114,7 @@ export function Contact() {
         budget: values.budget,
         message: values.message,
       });
-      setStatus("idle");
+      setStatus("sent");
     } catch (err) {
       if (err instanceof ContactBackendNotConfiguredError) {
         setStatus("not-configured");
@@ -128,26 +127,31 @@ export function Contact() {
   const isSubmitting = status === "submitting";
 
   return (
-    <section id="contatti" className="border-t border-ink-800 py-24 sm:py-32">
+    <section id="contatti" className="py-8 sm:py-12">
       <Container>
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.85fr_1.15fr]">
           <div>
-            <SectionHeading
-              eyebrow="Contatti"
-              title="Parliamo del tuo progetto."
-              description="Compila il modulo con qualche dettaglio: obiettivo, tipologia di progetto e budget indicativo. Ti rispondiamo con una prima valutazione."
-            />
-            {contactConfig.email ? (
-              <Reveal delay={0.12}>
-                <a
-                  href={`mailto:${contactConfig.email}`}
-                  className="mt-8 inline-flex items-center gap-2 text-sm text-ink-200 transition-colors hover:text-paper"
-                >
-                  <Mail size={16} className="text-accent-light" aria-hidden />
-                  {contactConfig.email}
-                </a>
-              </Reveal>
-            ) : null}
+            <Reveal>
+              <div className="border-ocean rounded-lg glass p-8">
+                <h2 className="font-display text-xl font-medium text-paper">
+                  Scrivici
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-ink-300">
+                  Compila il modulo con qualche dettaglio: obiettivo, tipologia
+                  di progetto e budget indicativo. Ti rispondiamo con una prima
+                  valutazione.
+                </p>
+                {contactConfig.email ? (
+                  <a
+                    href={`mailto:${contactConfig.email}`}
+                    className="mt-6 inline-flex items-center gap-2 text-sm text-ink-200 transition-colors hover:text-paper"
+                  >
+                    <Mail size={16} className="text-accent-light" aria-hidden />
+                    {contactConfig.email}
+                  </a>
+                ) : null}
+              </div>
+            </Reveal>
           </div>
 
           <Reveal delay={0.1}>
@@ -333,6 +337,25 @@ export function Contact() {
               </button>
 
               <div aria-live="polite">
+                {status === "sent" ? (
+                  <p className="flex items-start gap-2 rounded border border-accent-aqua/30 bg-accent-aqua/10 px-4 py-3 text-sm text-ink-100">
+                    <CheckCircle2
+                      size={16}
+                      className="mt-0.5 shrink-0 text-accent-aqua"
+                      aria-hidden
+                    />
+                    Abbiamo preparato la richiesta nel tuo client di posta:
+                    controlla che si sia aperta e premi invio. Se non succede
+                    nulla, scrivici direttamente a{" "}
+                    <a
+                      href={`mailto:${contactConfig.email}`}
+                      className="underline underline-offset-2"
+                    >
+                      {contactConfig.email}
+                    </a>
+                    .
+                  </p>
+                ) : null}
                 {status === "not-configured" ? (
                   <p className="flex items-start gap-2 rounded border border-accent-light/30 bg-accent-soft px-4 py-3 text-sm text-ink-100">
                     <TriangleAlert

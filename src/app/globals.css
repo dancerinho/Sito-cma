@@ -26,6 +26,23 @@
     border-radius: 4px;
   }
 
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: theme("colors.ink.950");
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      to bottom,
+      theme("colors.accent.dim"),
+      theme("colors.accent.deep")
+    );
+    border-radius: 999px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -48,5 +65,48 @@
 
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Testo con gradiente oceano animato. */
+  .text-ocean {
+    @apply bg-ocean-text bg-clip-text text-transparent;
+    background-size: 220% 220%;
+    @apply animate-gradient-pan;
+  }
+
+  /* Bordo con gradiente oceano (usa una maschera per lasciare vuoto l'interno). */
+  .border-ocean {
+    position: relative;
+  }
+
+  .border-ocean::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      130deg,
+      rgba(111, 224, 255, 0.55),
+      rgba(31, 162, 255, 0.15) 42%,
+      rgba(37, 224, 200, 0.5)
+    );
+    background-size: 200% 200%;
+    animation: gradient-pan 12s ease-in-out infinite;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .glass {
+    background: linear-gradient(
+      160deg,
+      rgba(8, 33, 52, 0.72),
+      rgba(2, 8, 15, 0.55)
+    );
+    backdrop-filter: blur(14px);
   }
 }

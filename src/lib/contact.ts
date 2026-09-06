@@ -1,3 +1,5 @@
+import { contactConfig } from "@/config/site";
+
 export type ContactFormPayload = {
   name: string;
   email: string;
@@ -8,34 +10,25 @@ export type ContactFormPayload = {
 
 export class ContactBackendNotConfiguredError extends Error {
   constructor() {
-    super("Nessun servizio di invio è ancora collegato al modulo contatti.");
+    super("Nessun indirizzo email è configurato per il modulo contatti.");
     this.name = "ContactBackendNotConfiguredError";
   }
 }
 
 /**
- * Punto di integrazione per l'invio reale del modulo contatti.
+ * Invio del modulo contatti.
  *
- * Il modulo è validato e pronto: collega qui uno di questi servizi prima
- * di andare in produzione, poi rimuovi il throw sottostante.
+ * Il sito è pubblicato come export statico su GitHub Pages, quindi non c'è
+ * un runtime server per inviare email. La richiesta viene quindi composta e
+ * aperta nel client di posta dell'utente, già precompilata.
  *
- * Opzione A — Resend (consigliata, via API route):
- *   1. crea `src/app/api/contact/route.ts` con un handler POST che usa
- *      il pacchetto `resend` lato server (chiave API in variabile d'ambiente);
- *   2. qui sotto sostituisci il throw con:
- *      const res = await fetch("/api/contact", {
- *        method: "POST",
- *        headers: { "Content-Type": "application/json" },
- *        body: JSON.stringify(payload),
- *      });
- *      if (!res.ok) throw new Error("Invio non riuscito");
- *   Nota: le API route richiedono un hosting con runtime Node
- *   (es. Vercel), non l'export statico attuale per GitHub Pages.
+ * Per passare a un invio in background (senza client di posta) basta
+ * sostituire il corpo di questa funzione con una chiamata a un servizio
+ * compatibile con l'export statico, ad esempio Formspree:
  *
- * Opzione B — Formspree (funziona anche con export statico):
  *   const res = await fetch("https://formspree.io/f/IL_TUO_ID", {
  *     method: "POST",
- *     headers: { Accept: "application/json" },
+ *     headers: { "Content-Type": "application/json", Accept: "application/json" },
  *     body: JSON.stringify(payload),
  *   });
  *   if (!res.ok) throw new Error("Invio non riuscito");
@@ -43,6 +36,23 @@ export class ContactBackendNotConfiguredError extends Error {
 export async function submitContactForm(
   payload: ContactFormPayload,
 ): Promise<void> {
-  void payload;
-  throw new ContactBackendNotConfiguredError();
+  if (!contactConfig.email) {
+    throw new ContactBackendNotConfiguredError();
+  }
+
+  const lines = [
+    `Nome: ${payload.name}`,
+    `Email: ${payload.email}`,
+    `Tipologia di progetto: ${payload.projectType || "non indicata"}`,
+    `Budget indicativo: ${payload.budget || "non indicato"}`,
+    "",
+    payload.message,
+  ];
+
+  const subject = `Nuova richiesta dal sito — ${payload.name}`;
+  const href = `mailto:${contactConfig.email}?subject=${encodeURIComponent(
+    subject,
+  )}&body=${encodeURIComponent(lines.join("\n"))}`;
+
+  window.location.href = href;
 }

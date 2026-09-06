@@ -3,6 +3,8 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { PageTransition } from "@/components/layout/page-transition";
+import { OceanBackground } from "@/components/graphics/ocean-background";
 import "./globals.css";
 
 const inter = Inter({
@@ -62,11 +64,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="it" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body className="flex min-h-screen flex-col bg-ink-950 font-sans text-paper">
+    <html
+      lang="it"
+      className={`${inter.variable} ${spaceGrotesk.variable} bg-ink-950`}
+    >
+      <body className="flex min-h-screen flex-col bg-transparent font-sans text-paper">
+        <OceanBackground />
         <Header />
         <main id="main" className="flex-1">
-          {children}
+          <PageTransition>{children}</PageTransition>
         </main>
         <Footer />
       </body>

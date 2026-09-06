@@ -6,28 +6,32 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        /* Blu oceano profondo: base scura del sito. */
         ink: {
-          950: "#08090B",
-          900: "#0D0F12",
-          850: "#111318",
-          800: "#15181E",
-          700: "#1D2129",
-          600: "#2A2F38",
-          500: "#454B56",
-          400: "#6B7280",
-          300: "#9AA1AC",
-          200: "#C8CDD4",
-          100: "#E6E8EB",
+          950: "#02080F",
+          900: "#04121F",
+          850: "#06192A",
+          800: "#082134",
+          700: "#0E3049",
+          600: "#164463",
+          500: "#255F86",
+          400: "#5389AD",
+          300: "#96BFDA",
+          200: "#CBE5F5",
+          100: "#E6F3FB",
         },
         paper: {
-          DEFAULT: "#FAF8F5",
-          dim: "#F1EEE9",
+          DEFAULT: "#F1FAFF",
+          dim: "#DCEDF8",
         },
+        /* Accento oceano: dal blu profondo al turchese di superficie. */
         accent: {
-          DEFAULT: "#3358FF",
-          light: "#6C8CFF",
-          dim: "#1F3FCC",
-          soft: "rgba(51, 88, 255, 0.12)",
+          DEFAULT: "#1FA2FF",
+          light: "#6FE0FF",
+          dim: "#0B6FC4",
+          deep: "#0A3D77",
+          aqua: "#25E0C8",
+          soft: "rgba(31, 162, 255, 0.12)",
         },
       },
       fontFamily: {
@@ -50,12 +54,15 @@ const config: Config = {
         xl: "22px",
       },
       boxShadow: {
-        subtle: "0 1px 0 0 rgba(255,255,255,0.04) inset, 0 12px 32px -16px rgba(0,0,0,0.55)",
-        glow: "0 0 0 1px rgba(51,88,255,0.25), 0 8px 40px -8px rgba(51,88,255,0.35)",
+        subtle: "0 1px 0 0 rgba(255,255,255,0.05) inset, 0 12px 32px -16px rgba(0,0,0,0.6)",
+        glow: "0 0 0 1px rgba(31,162,255,0.28), 0 8px 40px -8px rgba(31,162,255,0.45)",
+        aqua: "0 0 0 1px rgba(37,224,200,0.25), 0 10px 44px -10px rgba(37,224,200,0.35)",
       },
       backgroundImage: {
         "grid-fade":
-          "linear-gradient(to bottom, rgba(250,248,245,0) 0%, rgba(8,9,11,1) 92%)",
+          "linear-gradient(to bottom, rgba(241,250,255,0) 0%, rgba(2,8,15,1) 92%)",
+        "ocean-text":
+          "linear-gradient(100deg, #6FE0FF 0%, #1FA2FF 38%, #25E0C8 68%, #6FE0FF 100%)",
       },
       transitionTimingFunction: {
         premium: "cubic-bezier(0.16, 1, 0.3, 1)",
@@ -69,10 +76,64 @@ const config: Config = {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        /* Correnti oceaniche: le macchie di gradiente si spostano lentamente. */
+        "current-a": {
+          "0%, 100%": { transform: "translate3d(-6%, -4%, 0) scale(1)" },
+          "50%": { transform: "translate3d(8%, 6%, 0) scale(1.18)" },
+        },
+        "current-b": {
+          "0%, 100%": { transform: "translate3d(6%, 5%, 0) scale(1.12)" },
+          "50%": { transform: "translate3d(-7%, -6%, 0) scale(0.92)" },
+        },
+        "current-c": {
+          "0%, 100%": { transform: "translate3d(0, 3%, 0) scale(0.95)" },
+          "33%": { transform: "translate3d(-9%, -5%, 0) scale(1.2)" },
+          "66%": { transform: "translate3d(9%, 2%, 0) scale(1.05)" },
+        },
+        "gradient-pan": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        "caustic-drift": {
+          "0%": { backgroundPosition: "0 0, 0 0" },
+          "100%": { backgroundPosition: "180px 120px, -140px 90px" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "pulse-ring": {
+          "0%": { opacity: "0.55", transform: "scale(0.92)" },
+          "70%": { opacity: "0", transform: "scale(1.35)" },
+          "100%": { opacity: "0", transform: "scale(1.35)" },
+        },
+        shimmer: {
+          "0%": { transform: "translateX(-120%)" },
+          "100%": { transform: "translateX(220%)" },
+        },
+        "draw-in": {
+          "0%": { strokeDashoffset: "1400", opacity: "0" },
+          "20%": { opacity: "1" },
+          "100%": { strokeDashoffset: "0", opacity: "1" },
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.7s cubic-bezier(0.16,1,0.3,1) both",
         marquee: "marquee 28s linear infinite",
+        "current-a": "current-a 22s ease-in-out infinite",
+        "current-b": "current-b 28s ease-in-out infinite",
+        "current-c": "current-c 34s ease-in-out infinite",
+        "gradient-pan": "gradient-pan 14s ease-in-out infinite",
+        "caustic-drift": "caustic-drift 40s linear infinite",
+        float: "float 7s ease-in-out infinite",
+        "pulse-ring": "pulse-ring 3.2s cubic-bezier(0.16,1,0.3,1) infinite",
+        shimmer: "shimmer 2.4s ease-in-out infinite",
+        "draw-in": "draw-in 2.6s cubic-bezier(0.16,1,0.3,1) both",
+        "spin-slow": "spin-slow 48s linear infinite",
       },
     },
   },

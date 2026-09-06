@@ -7,10 +7,11 @@ import {
 } from "@/components/icons/social-icons";
 import {
   contactConfig,
-  navItems,
+  footerNavItems,
   siteConfig,
   socialLinks,
 } from "@/config/site";
+import { Logo } from "@/components/brand/logo";
 
 const socialIcons = {
   linkedin: LinkedinIcon,
@@ -23,13 +24,11 @@ export function Footer() {
   const activeSocials = Object.entries(socialLinks).filter(([, url]) => url);
 
   return (
-    <footer className="border-t border-ink-800 bg-ink-950">
+    <footer className="relative border-t border-ink-800/80">
       <Container className="py-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div className="max-w-sm">
-            <span className="font-display text-lg font-semibold tracking-tight text-paper">
-              {siteConfig.name}
-            </span>
+            <Logo />
             <p className="mt-4 text-sm leading-relaxed text-ink-300">
               {siteConfig.tagline} Progettiamo e sviluppiamo siti, software e
               prodotti digitali su misura, dalla strategia al lancio.
@@ -60,14 +59,14 @@ export function Footer() {
               Navigazione
             </h3>
             <ul className="mt-5 flex flex-col gap-3">
-              {navItems.map((item) => (
+              {footerNavItems.map((item) => (
                 <li key={item.href}>
-                  <a
+                  <Link
                     href={item.href}
                     className="text-sm text-ink-300 transition-colors hover:text-paper"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
