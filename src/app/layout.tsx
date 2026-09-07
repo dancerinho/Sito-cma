@@ -31,7 +31,6 @@ export const metadata: Metadata = {
     "sviluppo siti web",
     "web app",
     "software su misura",
-    "e-commerce",
     "agenzia sviluppo software",
     "CMA Enterprise",
   ],

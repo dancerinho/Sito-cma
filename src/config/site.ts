@@ -9,7 +9,7 @@ export const siteConfig = {
   shortName: "CMA",
   tagline: "Progettiamo e sviluppiamo prodotti digitali su misura.",
   description:
-    "CMA Enterprise progetta e sviluppa siti web, e-commerce, web app, software su misura e automazioni, unendo strategia, design e tecnologia.",
+    "CMA Enterprise progetta e sviluppa siti web, web app, software su misura e automazioni, unendo strategia, design e tecnologia.",
   url: "https://cma-enterprise.it",
   locale: "it_IT",
 } as const;
@@ -42,11 +42,6 @@ export const navItems: NavItem[] = [
         label: "Siti web e landing page",
         href: "/servizi#siti-web",
         description: "Presenza online veloce, chiara e costruita per convertire.",
-      },
-      {
-        label: "E-commerce",
-        href: "/servizi#ecommerce",
-        description: "Negozi online scalabili, con backend gestibile in autonomia.",
       },
       {
         label: "Web app e prodotti digitali",
@@ -156,18 +151,6 @@ export const services: ServiceItem[] = [
     title: "Siti web e landing page",
     description:
       "Progettiamo siti e landing page veloci, chiari e costruiti per convertire, dal primo contatto alla richiesta di preventivo.",
-  },
-  {
-    id: "ecommerce",
-    icon: "ShoppingBag",
-    highlights: [
-      "Catalogo e checkout semplici da usare",
-      "Gestione ordini e prodotti in autonomia",
-      "Integrazione con pagamenti e spedizioni",
-    ],
-    title: "E-commerce",
-    description:
-      "Sviluppiamo negozi online solidi e scalabili, con un percorso d'acquisto semplice e un backend gestibile in autonomia.",
   },
   {
     id: "web-app",
@@ -309,10 +292,6 @@ export const projectTypes: ProjectType[] = [
   {
     title: "Siti vetrina e landing page",
     description: "Presenza online chiara, orientata alla generazione di contatti.",
-  },
-  {
-    title: "Piattaforme e-commerce",
-    description: "Negozi online pensati per un'esperienza d'acquisto solida.",
   },
   {
     title: "Applicazioni web su misura",

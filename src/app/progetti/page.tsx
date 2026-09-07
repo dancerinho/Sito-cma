@@ -7,7 +7,7 @@ import { projectTypesNote } from "@/config/site";
 export const metadata: Metadata = {
   title: "Progetti",
   description:
-    "Le tipologie di prodotto che costruiamo: siti vetrina, piattaforme e-commerce e applicazioni web su misura.",
+    "Le tipologie di prodotto che costruiamo: siti vetrina, applicazioni web su misura e software dedicato.",
 };
 
 export default function ProgettiPage() {

@@ -10,7 +10,7 @@ import { siteConfig } from "@/config/site";
 
 const easePremium = [0.16, 1, 0.3, 1] as const;
 
-const focusAreas = ["Web", "E-commerce", "Web app", "Software", "Automazioni"];
+const focusAreas = ["Web", "Web app", "Software", "Automazioni", "Bot"];
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -96,7 +96,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.55, ease: easePremium }}
             className="mt-6 max-w-xl text-balance text-lg leading-relaxed text-ink-300"
           >
-            Siti web, e-commerce, applicazioni e software su misura. Strategia,
+            Siti web, applicazioni e software su misura. Strategia,
             design e tecnologia in un unico percorso.
           </motion.p>
 

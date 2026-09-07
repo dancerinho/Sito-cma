@@ -6,7 +6,7 @@ import { FinalCta } from "@/components/sections/final-cta";
 export const metadata: Metadata = {
   title: "Servizi",
   description:
-    "Siti web, e-commerce, web app, software su misura, automazioni, bot per investimenti e manutenzione: le aree di lavoro di CMA Enterprise.",
+    "Siti web, web app, software su misura, automazioni, bot per investimenti e manutenzione: le aree di lavoro di CMA Enterprise.",
 };
 
 export default function ServiziPage() {

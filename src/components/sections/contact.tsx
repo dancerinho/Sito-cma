@@ -14,7 +14,6 @@ import {
 const projectTypeOptions = [
   { value: "", label: "Seleziona una tipologia" },
   { value: "sito-landing", label: "Sito web / Landing page" },
-  { value: "ecommerce", label: "E-commerce" },
   { value: "web-app", label: "Web app / prodotto digitale" },
   { value: "software", label: "Software su misura" },
   { value: "automazioni", label: "Automazioni e integrazioni" },
