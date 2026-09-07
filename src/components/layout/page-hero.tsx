@@ -29,7 +29,7 @@ export function PageHero({
         transition={{ duration: 1.6, ease: easePremium }}
         className="pointer-events-none absolute -right-24 -top-10 hidden lg:block"
       >
-        <LogoMark className="h-96 w-96 animate-spin-slow" />
+        <LogoMark className="h-96 w-96 transform-gpu animate-spin-slow [will-change:transform]" />
       </motion.div>
 
       <Container>

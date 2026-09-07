@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import {
   motion,
   useMotionTemplate,
@@ -12,6 +12,25 @@ import {
 import { cn } from "@/lib/utils";
 
 const easePremium = [0.16, 1, 0.3, 1] as const;
+
+/**
+ * Vero solo su dispositivi con puntatore preciso e hover reale.
+ * Su touch gli effetti che seguono il cursore non si vedono mai: evitarli
+ * risparmia listener e ridisegni proprio dove la GPU è più debole.
+ */
+function useHoverCapable() {
+  const [capable, setCapable] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => setCapable(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  return capable;
+}
 
 /**
  * Titolo animato parola per parola: ogni parola sale ed entra in dissolvenza.
@@ -80,12 +99,13 @@ export function Magnetic({
   strength?: number;
 }) {
   const shouldReduceMotion = useReducedMotion();
+  const hoverCapable = useHoverCapable();
   const ref = useRef<HTMLSpanElement>(null);
   const x = useSpring(useMotionValue(0), { stiffness: 220, damping: 18 });
   const y = useSpring(useMotionValue(0), { stiffness: 220, damping: 18 });
 
   function handleMove(event: React.MouseEvent<HTMLSpanElement>) {
-    if (shouldReduceMotion || !ref.current) return;
+    if (shouldReduceMotion || !hoverCapable || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     x.set((event.clientX - (rect.left + rect.width / 2)) * strength);
     y.set((event.clientY - (rect.top + rect.height / 2)) * strength);
@@ -122,6 +142,7 @@ export function SpotlightCard({
   tilt?: number;
 }) {
   const shouldReduceMotion = useReducedMotion();
+  const hoverCapable = useHoverCapable();
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -133,7 +154,7 @@ export function SpotlightCard({
   const spotlight = useMotionTemplate`radial-gradient(220px circle at ${mouseX}px ${mouseY}px, rgba(111,224,255,0.14), transparent 70%)`;
 
   function handleMove(event: React.MouseEvent<HTMLDivElement>) {
-    if (!ref.current) return;
+    if (!hoverCapable || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const px = event.clientX - rect.left;
     const py = event.clientY - rect.top;
@@ -162,13 +183,15 @@ export function SpotlightCard({
         className,
       )}
     >
-      <motion.span
-        aria-hidden
-        style={{ background: spotlight }}
-        animate={{ opacity: isHovered ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
-        className="pointer-events-none absolute inset-0"
-      />
+      {hoverCapable ? (
+        <motion.span
+          aria-hidden
+          style={{ background: spotlight }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+          className="pointer-events-none absolute inset-0"
+        />
+      ) : null}
       <div className="relative">{children}</div>
     </motion.div>
   );

@@ -88,7 +88,7 @@ export function Header() {
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-premium",
           isScrolled || isMenuOpen || openGroup
-            ? "border-b border-ink-700/70 glass"
+            ? "border-b border-ink-700/70 glass-nav"
             : "border-b border-transparent bg-transparent",
         )}
         onMouseLeave={closeWithDelay}
@@ -154,7 +154,7 @@ export function Header() {
                              usa `transform` per l'animazione di ingresso. */
                           className="absolute left-1/2 top-full ml-[max(-17rem,-40vw)] w-[min(34rem,80vw)] pt-3"
                         >
-                          <div className="border-ocean overflow-hidden rounded-lg bg-ink-950/95 p-2 shadow-subtle backdrop-blur-xl">
+                          <div className="border-ocean overflow-hidden rounded-lg bg-ink-950/95 p-2 shadow-subtle">
                             <ul className="grid grid-cols-1 gap-1 sm:grid-cols-2">
                               {item.children?.map((child, index) => (
                                 <motion.li
@@ -226,7 +226,7 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: easePremium }}
-            className="fixed inset-0 z-40 overflow-y-auto bg-ink-950/95 backdrop-blur-md lg:hidden"
+            className="fixed inset-0 z-40 overflow-y-auto bg-ink-950 lg:hidden"
           >
             <div className="flex min-h-full flex-col px-6 pb-16 pt-24">
               <ul className="flex flex-col gap-1">

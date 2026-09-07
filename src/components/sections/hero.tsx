@@ -43,7 +43,7 @@ export function Hero() {
         style={shouldReduceMotion ? undefined : { y: mediaY }}
         className="pointer-events-none absolute inset-x-[-14%] top-12 -z-10 h-[34svh] mix-blend-screen sm:inset-x-[-6%] lg:inset-x-auto lg:inset-y-0 lg:left-[44%] lg:right-[-8%] lg:top-0 lg:h-auto"
       >
-        <div className="relative isolate h-full w-full bg-black [mask-image:radial-gradient(closest-side,rgba(0,0,0,1)_40%,rgba(0,0,0,0.5)_66%,rgba(0,0,0,0)_85%)] [-webkit-mask-image:radial-gradient(closest-side,rgba(0,0,0,1)_40%,rgba(0,0,0,0.5)_66%,rgba(0,0,0,0)_85%)]">
+        <div className="relative h-full w-full transform-gpu bg-black [will-change:transform] [mask-image:radial-gradient(closest-side,rgba(0,0,0,1)_40%,rgba(0,0,0,0.5)_66%,rgba(0,0,0,0)_85%)] [-webkit-mask-image:radial-gradient(closest-side,rgba(0,0,0,1)_40%,rgba(0,0,0,0.5)_66%,rgba(0,0,0,0)_85%)]">
           <video
             className="h-full w-full scale-150 object-contain opacity-90 lg:scale-125 lg:opacity-95"
             autoPlay
@@ -53,13 +53,8 @@ export function Hero() {
             preload="metadata"
             poster="/media/cinematic-poster.jpg"
           >
-            <source src="/media/cinematic.webm" type="video/webm" />
             <source src="/media/cinematic.mp4" type="video/mp4" />
           </video>
-
-          {/* Tinta oceano: prende tinta e saturazione dal gradiente e
-              lascia al video la luminosità delle linee. */}
-          <span className="absolute inset-0 bg-[linear-gradient(140deg,#1FA2FF_0%,#6FE0FF_45%,#25E0C8_100%)] mix-blend-color" />
         </div>
       </motion.div>
 

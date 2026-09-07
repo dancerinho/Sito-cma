@@ -78,25 +78,21 @@ const config: Config = {
         },
         /* Correnti oceaniche: le macchie di gradiente si spostano lentamente. */
         "current-a": {
-          "0%, 100%": { transform: "translate3d(-6%, -4%, 0) scale(1)" },
-          "50%": { transform: "translate3d(8%, 6%, 0) scale(1.18)" },
+          "0%, 100%": { transform: "translate3d(-6%, -4%, 0)" },
+          "50%": { transform: "translate3d(9%, 7%, 0)" },
         },
         "current-b": {
-          "0%, 100%": { transform: "translate3d(6%, 5%, 0) scale(1.12)" },
-          "50%": { transform: "translate3d(-7%, -6%, 0) scale(0.92)" },
+          "0%, 100%": { transform: "translate3d(7%, 6%, 0)" },
+          "50%": { transform: "translate3d(-8%, -7%, 0)" },
         },
         "current-c": {
-          "0%, 100%": { transform: "translate3d(0, 3%, 0) scale(0.95)" },
-          "33%": { transform: "translate3d(-9%, -5%, 0) scale(1.2)" },
-          "66%": { transform: "translate3d(9%, 2%, 0) scale(1.05)" },
+          "0%, 100%": { transform: "translate3d(0, 4%, 0)" },
+          "33%": { transform: "translate3d(-10%, -6%, 0)" },
+          "66%": { transform: "translate3d(10%, 3%, 0)" },
         },
         "gradient-pan": {
           "0%, 100%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
-        },
-        "caustic-drift": {
-          "0%": { backgroundPosition: "0 0, 0 0" },
-          "100%": { backgroundPosition: "180px 120px, -140px 90px" },
         },
         float: {
           "0%, 100%": { transform: "translateY(0)" },
@@ -128,7 +124,6 @@ const config: Config = {
         "current-b": "current-b 28s ease-in-out infinite",
         "current-c": "current-c 34s ease-in-out infinite",
         "gradient-pan": "gradient-pan 14s ease-in-out infinite",
-        "caustic-drift": "caustic-drift 40s linear infinite",
         float: "float 7s ease-in-out infinite",
         "pulse-ring": "pulse-ring 3.2s cubic-bezier(0.16,1,0.3,1) infinite",
         shimmer: "shimmer 2.4s ease-in-out infinite",

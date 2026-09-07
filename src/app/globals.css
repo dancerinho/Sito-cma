@@ -91,8 +91,6 @@
       rgba(31, 162, 255, 0.15) 42%,
       rgba(37, 224, 200, 0.5)
     );
-    background-size: 200% 200%;
-    animation: gradient-pan 12s ease-in-out infinite;
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
@@ -101,12 +99,19 @@
     pointer-events: none;
   }
 
+  /* Le superfici a vetro non usano backdrop-filter: sopra allo sfondo
+     animato costringerebbe il browser a rifare la sfocatura a ogni frame.
+     Solo l'header, che è piccolo e fisso, se lo può permettere. */
   .glass {
     background: linear-gradient(
       160deg,
-      rgba(8, 33, 52, 0.72),
-      rgba(2, 8, 15, 0.55)
+      rgba(8, 33, 52, 0.88),
+      rgba(2, 8, 15, 0.82)
     );
-    backdrop-filter: blur(14px);
+  }
+
+  .glass-nav {
+    background: rgba(2, 8, 15, 0.78);
+    backdrop-filter: blur(12px);
   }
 }
