@@ -18,6 +18,7 @@ const projectTypeOptions = [
   { value: "web-app", label: "Web app / prodotto digitale" },
   { value: "software", label: "Software su misura" },
   { value: "automazioni", label: "Automazioni e integrazioni" },
+  { value: "trading-bot", label: "Bot / software per investimenti" },
   { value: "altro", label: "Altro" },
 ];
 

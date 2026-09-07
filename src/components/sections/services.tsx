@@ -9,13 +9,14 @@ import {
   Globe,
   LayoutGrid,
   LifeBuoy,
+  LineChart,
   ShoppingBag,
   Workflow,
   type LucideIcon,
 } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SpotlightCard } from "@/components/ui/motion-primitives";
-import { services } from "@/config/site";
+import { services, servicesDisclaimer } from "@/config/site";
 
 const easePremium = [0.16, 1, 0.3, 1] as const;
 
@@ -25,6 +26,7 @@ const icons: Record<string, LucideIcon> = {
   LayoutGrid,
   Code2,
   Workflow,
+  LineChart,
   LifeBuoy,
 };
 
@@ -105,6 +107,16 @@ export function Services() {
             );
           })}
         </ul>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: easePremium }}
+          className="mt-10 max-w-3xl text-xs leading-relaxed text-ink-400"
+        >
+          {servicesDisclaimer}
+        </motion.p>
       </Container>
     </section>
   );

@@ -64,6 +64,11 @@ export const navItems: NavItem[] = [
         description: "Colleghiamo strumenti e togliamo lavoro ripetitivo ai team.",
       },
       {
+        label: "Bot e software per investimenti",
+        href: "/servizi#trading-bot",
+        description: "Automazione di strategie definite dal cliente, con backtest e controlli di rischio.",
+      },
+      {
         label: "Manutenzione ed evoluzione",
         href: "/servizi#manutenzione",
         description: "Aggiornamenti, correzioni e nuove funzionalità nel tempo.",
@@ -127,7 +132,14 @@ export type ServiceItem = {
   title: string;
   description: string;
   /** Nome dell'icona lucide-react usata nel menu e nelle card. */
-  icon: "Globe" | "ShoppingBag" | "LayoutGrid" | "Code2" | "Workflow" | "LifeBuoy";
+  icon:
+    | "Globe"
+    | "ShoppingBag"
+    | "LayoutGrid"
+    | "Code2"
+    | "Workflow"
+    | "LineChart"
+    | "LifeBuoy";
   /** Punti concreti mostrati nella pagina Servizi. */
   highlights: string[];
 };
@@ -192,6 +204,18 @@ export const services: ServiceItem[] = [
     title: "Automazioni e integrazioni",
     description:
       "Colleghiamo strumenti e automatizziamo processi ripetitivi, per far risparmiare tempo a persone e team.",
+  },
+  {
+    id: "trading-bot",
+    icon: "LineChart",
+    highlights: [
+      "Strategie tradotte in regole eseguibili e verificabili",
+      "Backtest su dati storici e ambiente di test prima del live",
+      "Limiti di rischio, log delle operazioni e arresto di emergenza",
+    ],
+    title: "Bot e software per investimenti",
+    description:
+      "Sviluppiamo software che automatizza strategie di investimento definite dal cliente: connessione ai broker, esecuzione, monitoraggio e report.",
   },
   {
     id: "manutenzione",
@@ -295,6 +319,14 @@ export const projectTypes: ProjectType[] = [
     description: "Strumenti digitali costruiti attorno a processi specifici.",
   },
 ];
+
+/**
+ * Nota mostrata sotto la griglia dei servizi: chiarisce che il lavoro sui
+ * bot di investimento è sviluppo software su specifica del cliente e non
+ * un servizio di investimento, che in Italia richiede autorizzazione.
+ */
+export const servicesDisclaimer =
+  "I bot e i software per investimenti sono sviluppati su specifica del cliente: CMA Enterprise realizza la tecnologia e non presta servizi di investimento, consulenza finanziaria o gestione di patrimoni, né garantisce risultati o rendimenti.";
 
 export const projectTypesNote =
   "Non abbiamo ancora case study pubblicabili: questa sezione verrà aggiornata con i progetti realizzati.";
