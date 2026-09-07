@@ -5,7 +5,6 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import { Container } from "@/components/ui/container";
-import { LogoMark } from "@/components/brand/logo-mark";
 import { AnimatedHeading, Magnetic } from "@/components/ui/motion-primitives";
 import { siteConfig } from "@/config/site";
 
@@ -22,7 +21,7 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const mediaY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
+  const mediaY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "24%"]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
@@ -30,146 +29,133 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="top"
-      className="relative flex min-h-[100svh] items-center overflow-hidden pb-24 pt-28 sm:pt-32"
+      className="relative flex min-h-[100svh] items-center overflow-hidden pb-24 pt-[calc(32svh+6rem)] lg:pt-32"
     >
-      {/* Alone diffuso dietro alla cinematica. */}
+      {/* Cinematica del marchio come luce ambientale: nessuna cornice, il
+          nero del video sparisce in fusione "screen" e i bordi sfumano nel
+          gradiente oceano. Su telefono è una fascia larga sopra al testo
+          (niente riquadro quadrato), da desktop occupa la metà destra. */}
+      <motion.div
+        aria-hidden
+        initial={{ opacity: 0, scale: 1.06 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.6, ease: easePremium }}
+        style={shouldReduceMotion ? undefined : { y: mediaY }}
+        className="pointer-events-none absolute inset-x-[-14%] top-12 -z-10 h-[34svh] mix-blend-screen sm:inset-x-[-6%] lg:inset-x-auto lg:inset-y-0 lg:left-[44%] lg:right-[-8%] lg:top-0 lg:h-auto"
+      >
+        <div className="relative isolate h-full w-full bg-black [mask-image:radial-gradient(closest-side,rgba(0,0,0,1)_40%,rgba(0,0,0,0.5)_66%,rgba(0,0,0,0)_85%)] [-webkit-mask-image:radial-gradient(closest-side,rgba(0,0,0,1)_40%,rgba(0,0,0,0.5)_66%,rgba(0,0,0,0)_85%)]">
+          <video
+            className="h-full w-full scale-150 object-contain opacity-90 lg:scale-125 lg:opacity-95"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/media/cinematic-poster.jpg"
+          >
+            <source src="/media/cinematic.webm" type="video/webm" />
+            <source src="/media/cinematic.mp4" type="video/mp4" />
+          </video>
+
+          {/* Tinta oceano: prende tinta e saturazione dal gradiente e
+              lascia al video la luminosità delle linee. */}
+          <span className="absolute inset-0 bg-[linear-gradient(140deg,#1FA2FF_0%,#6FE0FF_45%,#25E0C8_100%)] mix-blend-color" />
+        </div>
+      </motion.div>
+
+      {/* Su telefono la fascia video sfuma nel fondo prima del titolo. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute right-[-10%] top-1/4 -z-10 h-[60vh] w-[60vw] animate-current-b rounded-full bg-[radial-gradient(circle_at_center,rgba(31,162,255,0.22)_0%,rgba(31,162,255,0)_65%)] blur-3xl"
+        className="pointer-events-none absolute inset-x-0 top-[calc(32svh+2rem)] -z-10 h-32 bg-[linear-gradient(180deg,rgba(2,8,15,0)_0%,rgba(2,8,15,0.85)_70%,rgba(2,8,15,1)_100%)] lg:hidden"
       />
 
       <Container>
-        <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[1fr_0.9fr] lg:gap-12">
-          <motion.div
-            style={shouldReduceMotion ? undefined : { y: textY, opacity: textOpacity }}
-            className="order-2 lg:order-1"
+        <motion.div
+          style={shouldReduceMotion ? undefined : { y: textY, opacity: textOpacity }}
+          className="max-w-2xl lg:max-w-[52%]"
+        >
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: easePremium }}
+            className="border-ocean mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-ink-200"
           >
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: easePremium }}
-              className="border-ocean mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-ink-200"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-accent-aqua" aria-hidden />
-              {siteConfig.name} — Digital Studio
-            </motion.span>
+            <span className="h-1.5 w-1.5 rounded-full bg-accent-aqua" aria-hidden />
+            {siteConfig.name} — Digital Studio
+          </motion.span>
 
-            <AnimatedHeading
-              text="Trasformiamo idee in prodotti digitali che funzionano."
-              className="text-balance text-display-xl font-display font-medium text-paper"
-              delay={0.15}
-            />
+          <AnimatedHeading
+            text="Trasformiamo idee in prodotti digitali che funzionano."
+            className="text-balance text-display-xl font-display font-medium text-paper"
+            delay={0.15}
+          />
 
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.55, ease: easePremium }}
-              className="mt-6 max-w-xl text-balance text-lg leading-relaxed text-ink-300"
-            >
-              Siti web, e-commerce, applicazioni e software su misura. Strategia,
-              design e tecnologia in un unico percorso.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7, ease: easePremium }}
-              className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center"
-            >
-              <Magnetic>
-                <Link
-                  href="/contatti"
-                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded bg-accent px-7 py-3.5 text-sm font-medium text-white shadow-glow transition-colors duration-300 ease-premium hover:bg-accent-dim"
-                >
-                  <span
-                    aria-hidden
-                    className="absolute inset-y-0 -left-1/3 w-1/3 skew-x-[-20deg] bg-white/25 opacity-0 transition-opacity duration-300 group-hover:animate-shimmer group-hover:opacity-100"
-                  />
-                  <span className="relative">Parliamo del tuo progetto</span>
-                  <ArrowRight
-                    size={16}
-                    aria-hidden
-                    className="relative transition-transform duration-300 ease-premium group-hover:translate-x-1"
-                  />
-                </Link>
-              </Magnetic>
-              <Magnetic strength={0.18}>
-                <Link
-                  href="/servizi"
-                  className="border-ocean inline-flex items-center gap-2 rounded px-7 py-3.5 text-sm font-medium text-paper transition-colors duration-300 ease-premium hover:bg-ink-800/60"
-                >
-                  Esplora i servizi
-                </Link>
-              </Magnetic>
-            </motion.div>
-
-            <motion.ul
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-              className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3"
-            >
-              {focusAreas.map((area, index) => (
-                <motion.li
-                  key={area}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.95 + index * 0.07, ease: easePremium }}
-                  className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-ink-400"
-                >
-                  <span
-                    aria-hidden
-                    className="h-px w-5 bg-gradient-to-r from-accent to-transparent"
-                  />
-                  {area}
-                </motion.li>
-              ))}
-            </motion.ul>
-          </motion.div>
-
-          {/* Cinematica del marchio, incorniciata: resta leggibile e non
-              passa mai sotto al testo. */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.1, ease: easePremium }}
-            style={shouldReduceMotion ? undefined : { y: mediaY }}
-            className="order-1 lg:order-2"
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.55, ease: easePremium }}
+            className="mt-6 max-w-xl text-balance text-lg leading-relaxed text-ink-300"
           >
-            <div className="border-ocean relative mx-auto aspect-square w-full max-w-lg overflow-hidden rounded-xl glass shadow-glow">
-              <video
-                className="h-full w-full scale-105 object-cover opacity-90 mix-blend-screen"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster="/media/cinematic-poster.jpg"
-                aria-label={`Animazione del marchio ${siteConfig.name}`}
+            Siti web, e-commerce, applicazioni e software su misura. Strategia,
+            design e tecnologia in un unico percorso.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7, ease: easePremium }}
+            className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center"
+          >
+            <Magnetic>
+              <Link
+                href="/contatti"
+                className="group relative inline-flex items-center gap-2 overflow-hidden rounded bg-accent px-7 py-3.5 text-sm font-medium text-white shadow-glow transition-colors duration-300 ease-premium hover:bg-accent-dim"
               >
-                <source src="/media/cinematic.webm" type="video/webm" />
-                <source src="/media/cinematic.mp4" type="video/mp4" />
-              </video>
-
-              {/* Tinta oceano: colora le linee del video mantenendone la luce. */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 bg-[linear-gradient(140deg,#1FA2FF_0%,#6FE0FF_45%,#25E0C8_100%)] opacity-80 mix-blend-color"
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_70%_at_50%_50%,rgba(2,8,15,0)_35%,rgba(2,8,15,0.55)_100%)]"
-              />
-
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center gap-3 bg-gradient-to-t from-ink-950/90 to-transparent p-5">
-                <LogoMark className="h-8 w-8" />
-                <span className="text-[11px] uppercase tracking-[0.22em] text-ink-200">
-                  {siteConfig.shortName} — identità in movimento
-                </span>
-              </div>
-            </div>
+                <span
+                  aria-hidden
+                  className="absolute inset-y-0 -left-1/3 w-1/3 skew-x-[-20deg] bg-white/25 opacity-0 transition-opacity duration-300 group-hover:animate-shimmer group-hover:opacity-100"
+                />
+                <span className="relative">Parliamo del tuo progetto</span>
+                <ArrowRight
+                  size={16}
+                  aria-hidden
+                  className="relative transition-transform duration-300 ease-premium group-hover:translate-x-1"
+                />
+              </Link>
+            </Magnetic>
+            <Magnetic strength={0.18}>
+              <Link
+                href="/servizi"
+                className="border-ocean inline-flex items-center gap-2 rounded px-7 py-3.5 text-sm font-medium text-paper transition-colors duration-300 ease-premium hover:bg-ink-800/60"
+              >
+                Esplora i servizi
+              </Link>
+            </Magnetic>
           </motion.div>
-        </div>
+
+          <motion.ul
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3"
+          >
+            {focusAreas.map((area, index) => (
+              <motion.li
+                key={area}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.95 + index * 0.07, ease: easePremium }}
+                className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-ink-400"
+              >
+                <span
+                  aria-hidden
+                  className="h-px w-5 bg-gradient-to-r from-accent to-transparent"
+                />
+                {area}
+              </motion.li>
+            ))}
+          </motion.ul>
+        </motion.div>
       </Container>
 
       <motion.a
