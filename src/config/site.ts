@@ -52,6 +52,8 @@ export const contactLinks = {
   mailto: `mailto:${contactConfig.email}?subject=${encode(contactConfig.emailSubject)}&body=${encode(contactConfig.emailBody)}`,
   /** Chat WhatsApp con il messaggio iniziale già scritto. */
   whatsapp: `https://wa.me/${contactConfig.phone.replace(/\D/g, "")}?text=${encode(contactConfig.whatsappMessage)}`,
+  /** Chiamata diretta (da telefono). */
+  tel: `tel:${contactConfig.phone.replace(/\s/g, "")}`,
 };
 
 /**
@@ -59,8 +61,9 @@ export const contactLinks = {
  * l'icona corrispondente nel footer. Nessun link viene inventato di default.
  */
 export const socialLinks = {
+  instagram: "https://www.instagram.com/cma_enterprise_/",
+  tiktok: "https://www.tiktok.com/@cma_enterprise.it",
   linkedin: "",
-  instagram: "",
   github: "",
 } as const;
 

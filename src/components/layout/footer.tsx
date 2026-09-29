@@ -4,6 +4,7 @@ import {
   GithubIcon,
   InstagramIcon,
   LinkedinIcon,
+  TiktokIcon,
   WhatsappIcon,
 } from "@/components/icons/social-icons";
 import { contactConfig, contactLinks, navItems, siteConfig, socialLinks } from "@/config/site";
@@ -12,6 +13,7 @@ import { Logo } from "@/components/brand/logo";
 const socialIcons = {
   linkedin: LinkedinIcon,
   instagram: InstagramIcon,
+  tiktok: TiktokIcon,
   github: GithubIcon,
 } as const;
 
@@ -59,7 +61,7 @@ export function Footer() {
             </li>
           </ul>
           {activeSocials.length > 0 ? (
-            <div className="mt-6 flex items-center gap-4">
+            <div className="mt-4 flex items-center gap-5">
               {activeSocials.map(([key, url]) => {
                 const Icon = socialIcons[key as keyof typeof socialIcons];
                 return (
@@ -68,8 +70,8 @@ export function Footer() {
                     href={url}
                     target="_blank"
                     rel="noreferrer noopener"
-                    aria-label={key}
-                    className="text-ink-400 transition-colors hover:text-paper"
+                    aria-label={key === "tiktok" ? "TikTok" : key.charAt(0).toUpperCase() + key.slice(1)}
+                    className="-m-2 inline-flex p-2 text-ink-400 transition-colors hover:text-paper"
                   >
                     <Icon width={18} height={18} />
                   </a>

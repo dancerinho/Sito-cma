@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Instrument_Serif } from "next/font/google";
-import { contactConfig, services, siteConfig } from "@/config/site";
+import { contactConfig, services, siteConfig, socialLinks } from "@/config/site";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { PageTransition } from "@/components/layout/page-transition";
@@ -73,6 +73,7 @@ const structuredData = {
   logo: `${siteConfig.url}/favicon.svg`,
   image: `${siteConfig.url}/media/cinematic-poster.jpg`,
   areaServed: "IT",
+  sameAs: Object.values(socialLinks).filter(Boolean),
   knowsLanguage: "it",
   hasOfferCatalog: {
     "@type": "OfferCatalog",
