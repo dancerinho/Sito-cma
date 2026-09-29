@@ -4,8 +4,9 @@ import {
   GithubIcon,
   InstagramIcon,
   LinkedinIcon,
+  WhatsappIcon,
 } from "@/components/icons/social-icons";
-import { contactConfig, navItems, siteConfig, socialLinks } from "@/config/site";
+import { contactConfig, contactLinks, navItems, siteConfig, socialLinks } from "@/config/site";
 import { Logo } from "@/components/brand/logo";
 
 const socialIcons = {
@@ -39,10 +40,21 @@ export function Footer() {
             ))}
             <li>
               <a
-                href={`mailto:${contactConfig.email}`}
+                href={contactLinks.mailto}
                 className="inline-block py-3 text-ink-300 transition-colors hover:text-paper"
               >
                 {contactConfig.email}
+              </a>
+            </li>
+            <li>
+              <a
+                href={contactLinks.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 py-3 text-ink-300 transition-colors hover:text-paper"
+              >
+                <WhatsappIcon width={15} height={15} />
+                WhatsApp
               </a>
             </li>
           </ul>

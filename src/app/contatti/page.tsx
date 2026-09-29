@@ -5,7 +5,7 @@ import { Contact } from "@/components/sections/contact";
 export const metadata: Metadata = {
   title: "Contatti e preventivi",
   description:
-    "Richiedi un preventivo per il tuo sito web, web app o software su misura: scrivici una email e ti rispondiamo con una prima valutazione.",
+    "Richiedi un preventivo per il tuo sito web, web app o software su misura: scrivici via email o WhatsApp e ti rispondiamo con una prima valutazione.",
   alternates: { canonical: "/contatti/" },
 };
 
@@ -14,7 +14,7 @@ export default function ContattiPage() {
     <>
       <PageHero
         title="Parliamo del tuo *progetto*"
-        description="Bastano una email e pochi dettagli: ti rispondiamo con una prima valutazione, senza impegno."
+        description="Scrivici via email o WhatsApp: il messaggio è già pronto, ti basta inviarlo. Ti rispondiamo con una prima valutazione, senza impegno."
       />
       <Contact />
     </>

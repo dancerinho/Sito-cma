@@ -2,7 +2,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Reveal, SlideHeading } from "@/components/ui/motion";
-import { contactConfig } from "@/config/site";
+import { WhatsappIcon } from "@/components/icons/social-icons";
+import { contactLinks } from "@/config/site";
 
 /** Chiusura di pagina: domanda semplice e due modi per contattarci. */
 export function FinalCta() {
@@ -24,8 +25,9 @@ export function FinalCta() {
             Richiedi un preventivo
             <ArrowRight size={16} aria-hidden className="transition-transform group-hover:translate-x-1" />
           </Link>
-          <a href={`mailto:${contactConfig.email}`} className="btn-ghost">
-            {contactConfig.email}
+          <a href={contactLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="btn-ghost">
+            <WhatsappIcon width={16} height={16} className="text-[#25D366]" />
+            Scrivici su WhatsApp
           </a>
         </Reveal>
       </Container>

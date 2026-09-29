@@ -68,6 +68,7 @@ const structuredData = {
   name: siteConfig.name,
   url: siteConfig.url,
   email: contactConfig.email,
+  telephone: contactConfig.phone.replace(/\s/g, ""),
   description: siteConfig.description,
   logo: `${siteConfig.url}/favicon.svg`,
   image: `${siteConfig.url}/media/cinematic-poster.jpg`,

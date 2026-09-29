@@ -31,11 +31,33 @@ export const navItems: NavItem[] = [
 
 export const contactConfig = {
   email: "info@cma-enterprise.it",
-  // TODO: aggiungere un numero di telefono reale se disponibile, altrimenti lasciare vuoto.
-  phone: "",
+  /** Oggetto e testo proposti quando si apre una nuova email dal sito. */
+  emailSubject: "Richiesta preventivo dal sito",
+  emailBody: "Ciao, sarei interessato ai vostri servizi.\n\nProgetto:\nTempistiche:\nBudget indicativo:\n",
+  /** Numero mostrato sul sito e usato per WhatsApp. */
+  phone: "+39 366 9959041",
+  whatsappMessage: "Ciao, sarei interessato ai vostri servizi",
   // TODO: aggiungere una città/area operativa se si desidera mostrarla.
   location: "",
 } as const;
+
+const encode = encodeURIComponent;
+
+/**
+ * Link di contatto già precompilati: destinatario, oggetto e testo sono
+ * inseriti in automatico, così chi scrive deve solo premere invio.
+ */
+export const contactLinks = {
+  /** App di posta predefinita del dispositivo (Mail, Gmail, Outlook…). */
+  mailto: `mailto:${contactConfig.email}?subject=${encode(contactConfig.emailSubject)}&body=${encode(contactConfig.emailBody)}`,
+  /** Nuovo messaggio in Gmail, nel browser o nell'app. */
+  gmail: `https://mail.google.com/mail/?view=cm&fs=1&to=${contactConfig.email}&su=${encode(contactConfig.emailSubject)}&body=${encode(contactConfig.emailBody)}`,
+  /** Nuovo messaggio in Outlook / Hotmail. */
+  outlook: `https://outlook.live.com/mail/0/deeplink/compose?to=${contactConfig.email}&subject=${encode(contactConfig.emailSubject)}&body=${encode(contactConfig.emailBody)}`,
+  /** Chat WhatsApp con il messaggio iniziale già scritto. */
+  whatsapp: `https://wa.me/${contactConfig.phone.replace(/\D/g, "")}?text=${encode(contactConfig.whatsappMessage)}`,
+  tel: `tel:${contactConfig.phone.replace(/\s/g, "")}`,
+};
 
 /**
  * Profili social: lascia la stringa vuota (o rimuovi la voce) per non mostrare

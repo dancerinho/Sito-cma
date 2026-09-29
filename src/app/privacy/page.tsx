@@ -31,16 +31,19 @@ export default function PrivacyPage() {
         <p>
           Il sito non contiene moduli di raccolta dati. Vengono trattati
           esclusivamente i dati che l&apos;utente sceglie di inviare scrivendo
-          all&apos;indirizzo email indicato: di norma nome, indirizzo email e
-          il contenuto del messaggio.
+          all&apos;indirizzo email indicato o tramite WhatsApp al numero
+          indicato: di norma nome, indirizzo email o numero di telefono e il
+          contenuto del messaggio. I messaggi WhatsApp sono gestiti anche da
+          WhatsApp Ireland Ltd. secondo la sua informativa privacy.
         </p>
       </LegalSection>
 
       <LegalSection title="Finalità del trattamento">
         <p>
           I dati sono trattati esclusivamente per rispondere alle richieste
-          di informazioni o preventivo ricevute via email, e non sono utilizzati per finalità di marketing senza
-          un consenso specifico e separato.
+          di informazioni o preventivo ricevute via email o WhatsApp, e non
+          sono utilizzati per finalità di marketing senza un consenso
+          specifico e separato.
         </p>
       </LegalSection>
 
