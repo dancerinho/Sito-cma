@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Marchio CMA: tre pentagoni arrotondati e ruotati, tracciati a linea.
- * `animated` attiva il disegno progressivo del tratto e la rotazione lenta.
+ * `animated` attiva la rotazione lenta.
  */
 
 export const pentagonPaths = {
@@ -57,17 +57,14 @@ export function LogoMark({
         <path
           d={pentagonPaths.outer}
           opacity="0.95"
-          className={cn(animated && "[stroke-dasharray:1400] animate-draw-in")}
         />
         <path
           d={pentagonPaths.middle}
           opacity="0.7"
-          className={cn(animated && "[stroke-dasharray:1400] animate-draw-in [animation-delay:180ms]")}
         />
         <path
           d={pentagonPaths.inner}
           opacity="0.45"
-          className={cn(animated && "[stroke-dasharray:1400] animate-draw-in [animation-delay:360ms]")}
         />
       </g>
     </svg>

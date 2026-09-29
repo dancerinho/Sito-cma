@@ -1,23 +1,29 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { PageTransition } from "@/components/layout/page-transition";
-import { OceanBackground } from "@/components/graphics/ocean-background";
 import "./globals.css";
 
-const inter = Inter({
+const sans = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const serif = Instrument_Serif({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-serif",
   display: "swap",
-  weight: ["500", "600", "700"],
+  weight: "400",
+  style: ["normal", "italic"],
+});
+
+const mono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -65,10 +71,9 @@ export default function RootLayout({
   return (
     <html
       lang="it"
-      className={`${inter.variable} ${spaceGrotesk.variable} bg-ink-950`}
+      className={`${sans.variable} ${serif.variable} ${mono.variable}`}
     >
-      <body className="flex min-h-screen flex-col bg-transparent font-sans text-paper">
-        <OceanBackground />
+      <body className="flex min-h-screen flex-col font-sans">
         <Header />
         <main id="main" className="flex-1">
           <PageTransition>{children}</PageTransition>

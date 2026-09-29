@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import {
   GithubIcon,
@@ -24,14 +25,14 @@ export function Footer() {
   const activeSocials = Object.entries(socialLinks).filter(([, url]) => url);
 
   return (
-    <footer className="relative border-t border-ink-800/80">
-      <Container className="py-16">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
-          <div className="max-w-sm">
+    <footer className="relative overflow-hidden border-t border-ink-800">
+      <Container className="pt-16 sm:pt-20">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
+          <div className="md:col-span-5">
             <Logo />
-            <p className="mt-4 text-sm leading-relaxed text-ink-300">
-              Siti, web app, software e automazioni su misura, dalla
-              strategia al lancio.
+            <p className="mt-6 max-w-sm text-sm leading-relaxed text-ink-400">
+              Siti, web app, software e automazioni su misura, dalla strategia
+              al lancio.
             </p>
             {activeSocials.length > 0 ? (
               <div className="mt-6 flex items-center gap-4">
@@ -54,11 +55,9 @@ export function Footer() {
             ) : null}
           </div>
 
-          <div>
-            <h3 className="text-xs font-medium uppercase tracking-[0.14em] text-ink-400">
-              Navigazione
-            </h3>
-            <ul className="mt-5 flex flex-col gap-3">
+          <div className="md:col-span-3 md:col-start-7">
+            <h2 className="label">Pagine</h2>
+            <ul className="mt-5 flex flex-col gap-2.5">
               {footerNavItems.map((item) => (
                 <li key={item.href}>
                   <Link
@@ -72,27 +71,21 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-xs font-medium uppercase tracking-[0.14em] text-ink-400">
-              Contatti
-            </h3>
-            <ul className="mt-5 flex flex-col gap-3 text-sm text-ink-300">
-              {contactConfig.email ? (
-                <li>
-                  <a
-                    href={`mailto:${contactConfig.email}`}
-                    className="transition-colors hover:text-paper"
-                  >
-                    {contactConfig.email}
-                  </a>
-                </li>
-              ) : null}
+          <div className="md:col-span-3">
+            <h2 className="label">Contatti</h2>
+            <ul className="mt-5 flex flex-col gap-2.5 text-sm text-ink-300">
+              <li>
+                <a
+                  href={`mailto:${contactConfig.email}`}
+                  className="group inline-flex items-center gap-1.5 transition-colors hover:text-paper"
+                >
+                  {contactConfig.email}
+                  <ArrowUpRight size={14} aria-hidden className="text-ink-500 group-hover:text-accent" />
+                </a>
+              </li>
               {contactConfig.phone ? (
                 <li>
-                  <a
-                    href={`tel:${contactConfig.phone}`}
-                    className="transition-colors hover:text-paper"
-                  >
+                  <a href={`tel:${contactConfig.phone}`} className="transition-colors hover:text-paper">
                     {contactConfig.phone}
                   </a>
                 </li>
@@ -102,19 +95,24 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-ink-800 pt-8 text-xs text-ink-400 sm:flex-row sm:items-center sm:justify-between">
+        {/* Firma a tutta larghezza: il nome come elemento grafico. */}
+        <p
+          aria-hidden
+          className="mt-20 select-none whitespace-nowrap font-serif text-[min(16.8vw,15.2rem)] leading-[0.8] tracking-[-0.04em] text-ink-850"
+        >
+          CMA Enterprise
+        </p>
+
+        <div className="flex flex-col gap-3 border-t border-ink-800 py-6 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-500 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {siteConfig.name}. Tutti i diritti riservati.
+            © {year} {siteConfig.name}
           </p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="transition-colors hover:text-paper">
-              Privacy Policy
+              Privacy
             </Link>
-            <Link
-              href="/cookie-policy"
-              className="transition-colors hover:text-paper"
-            >
-              Cookie Policy
+            <Link href="/cookie-policy" className="transition-colors hover:text-paper">
+              Cookie
             </Link>
           </div>
         </div>

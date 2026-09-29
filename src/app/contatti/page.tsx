@@ -12,12 +12,12 @@ export default function ContattiPage() {
   return (
     <>
       <PageHero
+        index="03"
         eyebrow="Contatti"
-        title="Parliamo del tuo progetto."
+        title="Parliamo del tuo *progetto.*"
         description="Bastano una email e pochi dettagli per iniziare: ti rispondiamo con una prima valutazione concreta."
       />
       <Contact />
-      <div className="h-20" />
     </>
   );
 }

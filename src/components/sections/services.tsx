@@ -1,10 +1,6 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
-  ArrowRight,
-  Check,
+  ArrowUpRight,
   Code2,
   Globe,
   LayoutGrid,
@@ -15,10 +11,8 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { SpotlightCard } from "@/components/ui/motion-primitives";
+import { Reveal } from "@/components/ui/motion";
 import { services, servicesDisclaimer } from "@/config/site";
-
-const easePremium = [0.16, 1, 0.3, 1] as const;
 
 const icons: Record<string, LucideIcon> = {
   Globe,
@@ -30,93 +24,75 @@ const icons: Record<string, LucideIcon> = {
   LifeBuoy,
 };
 
+/**
+ * Schede di servizio come voci di catalogo: indice e icona a sinistra,
+ * titolo e descrizione al centro, punti concreti a destra.
+ */
 export function Services() {
   return (
-    <section id="servizi" className="py-8 sm:py-12">
+    <section id="servizi" className="pb-24 sm:pb-32">
       <Container>
-        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <ul>
           {services.map((service, index) => {
             const Icon = icons[service.icon] ?? Code2;
             return (
-              <motion.li
+              <li
                 key={service.id}
                 id={service.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.65, delay: (index % 2) * 0.08, ease: easePremium }}
-                className="scroll-mt-28"
+                className="scroll-mt-20 border-b border-ink-800 py-14 sm:py-20"
               >
-                <SpotlightCard className="h-full">
-                  <article className="group flex h-full flex-col gap-5 p-8">
-                    <div className="flex items-center gap-4">
-                      <span className="relative inline-flex h-12 w-12 items-center justify-center rounded border border-ink-700 bg-ink-900/70 text-accent-light">
-                        <span
-                          aria-hidden
-                          className="absolute inset-0 rounded bg-accent/20 opacity-0 blur-md transition-opacity duration-500 group-hover:opacity-100"
-                        />
-                        <Icon size={22} strokeWidth={1.6} aria-hidden className="relative" />
-                      </span>
-                      <h2 className="font-display text-xl font-medium text-paper">
-                        {service.title}
-                      </h2>
-                    </div>
+                <article className="grid grid-cols-1 gap-8 md:grid-cols-12">
+                  <Reveal className="flex items-center gap-4 md:col-span-2 md:flex-col md:items-start">
+                    <span className="font-mono text-xs text-accent">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <Icon size={22} strokeWidth={1.4} aria-hidden className="text-ink-400" />
+                  </Reveal>
 
-                    <p className="text-sm leading-relaxed text-ink-300">
+                  <Reveal delay={0.05} className="md:col-span-5">
+                    <h2 className="font-serif text-4xl leading-[1.05] text-paper sm:text-5xl">
+                      {service.title}
+                    </h2>
+                    <p className="mt-5 max-w-md text-pretty leading-relaxed text-ink-300">
                       {service.description}
                     </p>
+                  </Reveal>
 
-                    <ul className="mt-auto flex flex-col gap-3 border-t border-ink-800 pt-5">
-                      {service.highlights.map((highlight, hIndex) => (
-                        <motion.li
+                  <Reveal delay={0.1} className="md:col-span-4 md:col-start-9">
+                    <ul className="border-t border-ink-800">
+                      {service.highlights.map((highlight) => (
+                        <li
                           key={highlight}
-                          initial={{ opacity: 0, x: -8 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{
-                            duration: 0.45,
-                            delay: 0.1 + hIndex * 0.07,
-                            ease: easePremium,
-                          }}
-                          className="flex items-start gap-3 text-sm text-ink-200"
+                          className="flex items-start gap-3 border-b border-ink-800 py-3.5 text-sm text-ink-200"
                         >
-                          <Check
-                            size={15}
-                            aria-hidden
-                            className="mt-0.5 shrink-0 text-accent-aqua"
-                          />
+                          <span aria-hidden className="mt-[0.55em] h-px w-3 shrink-0 bg-accent" />
                           {highlight}
-                        </motion.li>
+                        </li>
                       ))}
                     </ul>
-
                     <Link
                       href="/contatti"
-                      className="group/link inline-flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-paper"
+                      className="group mt-6 inline-flex items-center gap-2 text-sm text-paper transition-colors hover:text-accent"
                     >
                       Richiedi una valutazione
-                      <ArrowRight
+                      <ArrowUpRight
                         size={15}
                         aria-hidden
-                        className="transition-transform duration-300 ease-premium group-hover/link:translate-x-1"
+                        className="transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                       />
                     </Link>
-                  </article>
-                </SpotlightCard>
-              </motion.li>
+                  </Reveal>
+                </article>
+              </li>
             );
           })}
         </ul>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: easePremium }}
-          className="mt-10 max-w-3xl text-xs leading-relaxed text-ink-400"
-        >
-          {servicesDisclaimer}
-        </motion.p>
+        <Reveal className="mt-12 grid grid-cols-1 md:grid-cols-12">
+          <p className="text-xs leading-relaxed text-ink-500 md:col-span-8 md:col-start-3">
+            {servicesDisclaimer}
+          </p>
+        </Reveal>
       </Container>
     </section>
   );

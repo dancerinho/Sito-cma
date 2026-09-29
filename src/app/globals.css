@@ -4,43 +4,26 @@
 
 @layer base {
   * {
-    @apply border-ink-700;
+    @apply border-ink-800;
   }
 
   html {
     scroll-behavior: smooth;
+    @apply bg-ink-950;
   }
 
   body {
-    @apply bg-ink-950 text-paper antialiased;
-    font-feature-settings: "ss01" 1, "cv11" 1;
+    @apply text-paper antialiased;
+    font-feature-settings: "ss01" 1;
   }
 
   ::selection {
-    @apply bg-accent/30 text-paper;
+    @apply bg-accent text-ink-950;
   }
 
   :focus-visible {
-    outline: 2px solid theme("colors.accent.light");
+    outline: 2px solid theme("colors.accent.DEFAULT");
     outline-offset: 3px;
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: theme("colors.ink.950");
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-      to bottom,
-      theme("colors.accent.dim"),
-      theme("colors.accent.deep")
-    );
-    border-radius: 999px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -58,60 +41,42 @@
   }
 }
 
+@layer components {
+  /* Etichetta tecnica in mono: indici, sezioni, metadati. */
+  .label {
+    @apply font-mono text-[11px] uppercase tracking-[0.18em] text-ink-400;
+  }
+
+  /* Pulsante primario: pieno, squadrato, freccia che scorre. */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-3 rounded-sm bg-paper px-6 py-3.5 text-sm font-medium text-ink-950 transition-colors duration-300 ease-out hover:bg-accent;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-3 rounded-sm border border-ink-700 px-6 py-3.5 text-sm font-medium text-paper transition-colors duration-300 ease-out hover:border-paper;
+  }
+}
+
 @layer utilities {
   .container-px {
-    @apply px-6 sm:px-8 lg:px-12;
+    @apply px-5 sm:px-8 lg:px-12;
   }
 
   .text-balance {
     text-wrap: balance;
   }
 
-  /* Testo con gradiente oceano animato. */
-  .text-ocean {
-    @apply bg-ocean-text bg-clip-text text-transparent;
-    background-size: 220% 220%;
-    @apply animate-gradient-pan;
+  .text-pretty {
+    text-wrap: pretty;
   }
 
-  /* Bordo con gradiente oceano (usa una maschera per lasciare vuoto l'interno). */
-  .border-ocean {
-    position: relative;
-  }
-
-  .border-ocean::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      130deg,
-      rgba(111, 224, 255, 0.55),
-      rgba(31, 162, 255, 0.15) 42%,
-      rgba(37, 224, 200, 0.5)
+  /* Griglia di fondo a 12 colonne, solo filetti verticali. */
+  .grid-lines {
+    background-image: linear-gradient(
+      to right,
+      rgba(242, 240, 235, 0.045) 1px,
+      transparent 1px
     );
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-
-  /* Le superfici a vetro non usano backdrop-filter: sopra allo sfondo
-     animato costringerebbe il browser a rifare la sfocatura a ogni frame.
-     Solo l'header, che è piccolo e fisso, se lo può permettere. */
-  .glass {
-    background: linear-gradient(
-      160deg,
-      rgba(8, 33, 52, 0.88),
-      rgba(2, 8, 15, 0.82)
-    );
-  }
-
-  .glass-nav {
-    background: rgba(2, 8, 15, 0.78);
-    backdrop-filter: blur(12px);
+    background-size: calc(100% / 12) 100%;
   }
 }

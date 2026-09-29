@@ -1,61 +1,58 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/ui/container";
-import { AnimatedHeading } from "@/components/ui/motion-primitives";
-import { LogoMark } from "@/components/brand/logo-mark";
-
-const easePremium = [0.16, 1, 0.3, 1] as const;
+import { SplitHeading, easeOut } from "@/components/ui/motion";
 
 /**
- * Intestazione comune alle pagine interne: eyebrow, titolo animato e
- * marchio in filigrana sullo sfondo.
+ * Intestazione delle pagine interne: indice di sezione, titolo serif su
+ * tutta la larghezza e descrizione sfalsata sulla colonna di destra.
+ * Nel titolo, una parola tra asterischi (`*così*`) va in corsivo.
  */
 export function PageHero({
+  index,
   eyebrow,
   title,
   description,
 }: {
+  index: string;
   eyebrow: string;
   title: string;
   description: string;
 }) {
+  const reduce = useReducedMotion();
+
   return (
-    <section className="relative overflow-hidden pb-16 pt-32 sm:pb-20 sm:pt-40">
-      <motion.div
-        aria-hidden
-        initial={{ opacity: 0, scale: 0.9, rotate: -12 }}
-        animate={{ opacity: 0.14, scale: 1, rotate: 0 }}
-        transition={{ duration: 1.6, ease: easePremium }}
-        className="pointer-events-none absolute -right-24 -top-10 hidden lg:block"
-      >
-        <LogoMark className="h-96 w-96 transform-gpu animate-spin-slow [will-change:transform]" />
-      </motion.div>
-
+    <section className="relative border-b border-ink-800 pb-14 pt-32 sm:pb-20 sm:pt-44">
       <Container>
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: easePremium }}
-          className="mb-5 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-accent-light"
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="label flex items-center gap-3"
         >
-          <span className="h-1 w-1 rounded-full bg-accent-aqua" aria-hidden />
+          <span className="text-accent">{index}</span>
+          <span className="h-px w-8 bg-ink-700" aria-hidden />
           {eyebrow}
-        </motion.span>
+        </motion.p>
 
-        <AnimatedHeading
+        <SplitHeading
           text={title}
-          className="max-w-3xl text-balance text-display-lg font-display font-medium text-paper"
+          immediate
+          delay={0.1}
+          className="mt-8 max-w-5xl text-balance font-serif text-display-xl text-paper"
         />
 
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.35, ease: easePremium }}
-          className="mt-6 max-w-2xl text-balance text-lg leading-relaxed text-ink-300"
-        >
-          {description}
-        </motion.p>
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-12">
+          <motion.p
+            initial={{ opacity: 0, y: reduce ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.45, ease: easeOut }}
+            className="text-pretty text-lg leading-relaxed text-ink-300 md:col-span-6 md:col-start-7"
+          >
+            {description}
+          </motion.p>
+        </div>
       </Container>
     </section>
   );

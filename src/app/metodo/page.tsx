@@ -13,8 +13,9 @@ export default function MetodoPage() {
   return (
     <>
       <PageHero
+        index="02.1"
         eyebrow="Metodo"
-        title="Un processo chiaro, dall'analisi al lancio."
+        title="Un processo chiaro, dall'analisi al *lancio.*"
         description="Lavoriamo in quattro fasi, mantenendo visibilità e controllo su ogni passaggio del progetto."
       />
       <Method />

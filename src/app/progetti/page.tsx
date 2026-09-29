@@ -14,8 +14,9 @@ export default function ProgettiPage() {
   return (
     <>
       <PageHero
+        index="02.3"
         eyebrow="Progetti"
-        title="Il tipo di prodotti che costruiamo."
+        title="Il tipo di prodotti che *costruiamo.*"
         description={projectTypesNote}
       />
       <Projects />

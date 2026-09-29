@@ -1,48 +1,43 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Container } from "@/components/ui/container";
-import { SpotlightCard } from "@/components/ui/motion-primitives";
+import { Reveal } from "@/components/ui/motion";
 import { LogoMark } from "@/components/brand/logo-mark";
 import { projectTypes } from "@/config/site";
 
-const easePremium = [0.16, 1, 0.3, 1] as const;
-
+/**
+ * Tipologie di progetto, in attesa dei primi case study pubblicabili.
+ * Ogni tavola ha un'area visiva a filetti con il marchio come segnaposto.
+ */
 export function Projects() {
   return (
-    <section id="progetti" className="py-8 sm:py-12">
+    <section id="progetti" className="py-14 sm:py-20">
       <Container>
-        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {projectTypes.map((project, index) => (
-            <motion.li
-              key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.65, delay: index * 0.08, ease: easePremium }}
-            >
-              <SpotlightCard className="group h-full">
-                <div
-                  className="relative flex h-48 items-center justify-center overflow-hidden"
-                  aria-hidden
-                >
-                  <div
-                    className="absolute inset-0 opacity-80 [background:linear-gradient(135deg,rgba(31,162,255,0.30),rgba(37,224,200,0.12)_45%,rgba(2,8,15,0)_75%)]"
-                    style={{ transform: `rotate(${index * 14}deg) scale(1.5)` }}
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:28px_28px]" />
-                  <LogoMark className="relative h-24 w-24 opacity-40 transition-all duration-700 ease-premium group-hover:rotate-[72deg] group-hover:opacity-70" />
-                </div>
-                <div className="border-t border-ink-800 p-6">
-                  <h2 className="font-display text-base font-medium text-paper">
+            <Reveal as="li" key={project.title} delay={index * 0.08} className="group">
+              <div
+                aria-hidden
+                className="relative flex aspect-[4/3] items-center justify-center overflow-hidden border border-ink-800 bg-ink-900"
+              >
+                <div className="grid-lines absolute inset-0" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(242,240,235,0.045)_1px,transparent_1px)] bg-[size:100%_calc(100%/8)]" />
+                <LogoMark className="relative h-28 w-28 opacity-60 transition-transform duration-1000 ease-out group-hover:rotate-[72deg]" />
+                <span className="label absolute left-5 top-5">Tipologia {String(index + 1).padStart(2, "0")}</span>
+                <span className="label absolute bottom-5 right-5">Case study in arrivo</span>
+              </div>
+              <div className="mt-6 flex items-baseline gap-5">
+                <span className="font-mono text-xs text-accent">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h2 className="font-serif text-3xl leading-tight text-paper sm:text-4xl">
                     {project.title}
                   </h2>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-300">
+                  <p className="mt-3 max-w-md leading-relaxed text-ink-300">
                     {project.description}
                   </p>
                 </div>
-              </SpotlightCard>
-            </motion.li>
+              </div>
+            </Reveal>
           ))}
         </ul>
       </Container>

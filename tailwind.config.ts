@@ -1,134 +1,71 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: "class",
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
-        /* Blu oceano profondo: base scura del sito. */
+        /* Grafite: base scura, neutra con una punta calda. */
         ink: {
-          950: "#02080F",
-          900: "#04121F",
-          850: "#06192A",
-          800: "#082134",
-          700: "#0E3049",
-          600: "#164463",
-          500: "#255F86",
-          400: "#5389AD",
-          300: "#96BFDA",
-          200: "#CBE5F5",
-          100: "#E6F3FB",
+          950: "#0A0B0D",
+          900: "#101216",
+          850: "#15181C",
+          800: "#1C2025",
+          700: "#282D33",
+          600: "#3A4048",
+          500: "#5A616B",
+          400: "#8B929C",
+          300: "#B3B9C1",
+          200: "#D4D8DD",
+          100: "#ECEDEF",
         },
+        /* Carta: il bianco caldo dei testi. */
         paper: {
-          DEFAULT: "#F1FAFF",
-          dim: "#DCEDF8",
+          DEFAULT: "#F2F0EB",
+          dim: "#DAD7CF",
         },
-        /* Accento oceano: dal blu profondo al turchese di superficie. */
+        /* Ciano del marchio, usato solo per accenti puntuali. */
         accent: {
-          DEFAULT: "#1FA2FF",
-          light: "#6FE0FF",
-          dim: "#0B6FC4",
-          deep: "#0A3D77",
+          DEFAULT: "#4CC9FF",
+          dim: "#1FA2FF",
           aqua: "#25E0C8",
-          soft: "rgba(31, 162, 255, 0.12)",
         },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "var(--font-sans)", "system-ui", "sans-serif"],
-        mono: ["var(--font-mono)", "monospace"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       fontSize: {
-        "display-xl": ["clamp(2.75rem, 6vw, 5.25rem)", { lineHeight: "1.02", letterSpacing: "-0.03em" }],
-        "display-lg": ["clamp(2.25rem, 4.5vw, 3.75rem)", { lineHeight: "1.05", letterSpacing: "-0.025em" }],
-        "display-md": ["clamp(1.75rem, 3vw, 2.5rem)", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
+        "display-2xl": ["clamp(3.25rem, 9vw, 8.5rem)", { lineHeight: "0.92", letterSpacing: "-0.035em" }],
+        "display-xl": ["clamp(2.75rem, 6.4vw, 6rem)", { lineHeight: "0.95", letterSpacing: "-0.03em" }],
+        "display-lg": ["clamp(2.25rem, 4.6vw, 4.25rem)", { lineHeight: "1", letterSpacing: "-0.025em" }],
+        "display-md": ["clamp(1.875rem, 3.2vw, 2.875rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
       },
       maxWidth: {
-        content: "1280px",
+        content: "1360px",
       },
       borderRadius: {
-        sm: "6px",
-        DEFAULT: "10px",
-        lg: "16px",
-        xl: "22px",
-      },
-      boxShadow: {
-        subtle: "0 1px 0 0 rgba(255,255,255,0.05) inset, 0 12px 32px -16px rgba(0,0,0,0.6)",
-        glow: "0 0 0 1px rgba(31,162,255,0.28), 0 8px 40px -8px rgba(31,162,255,0.45)",
-        aqua: "0 0 0 1px rgba(37,224,200,0.25), 0 10px 44px -10px rgba(37,224,200,0.35)",
-      },
-      backgroundImage: {
-        "grid-fade":
-          "linear-gradient(to bottom, rgba(241,250,255,0) 0%, rgba(2,8,15,1) 92%)",
-        "ocean-text":
-          "linear-gradient(100deg, #6FE0FF 0%, #1FA2FF 38%, #25E0C8 68%, #6FE0FF 100%)",
+        sm: "2px",
+        DEFAULT: "4px",
+        lg: "8px",
       },
       transitionTimingFunction: {
-        premium: "cubic-bezier(0.16, 1, 0.3, 1)",
+        out: "cubic-bezier(0.22, 1, 0.36, 1)",
       },
       keyframes: {
-        "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(14px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        marquee: {
-          "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(-50%)" },
-        },
-        /* Correnti oceaniche: le macchie di gradiente si spostano lentamente. */
-        "current-a": {
-          "0%, 100%": { transform: "translate3d(-6%, -4%, 0)" },
-          "50%": { transform: "translate3d(9%, 7%, 0)" },
-        },
-        "current-b": {
-          "0%, 100%": { transform: "translate3d(7%, 6%, 0)" },
-          "50%": { transform: "translate3d(-8%, -7%, 0)" },
-        },
-        "current-c": {
-          "0%, 100%": { transform: "translate3d(0, 4%, 0)" },
-          "33%": { transform: "translate3d(-10%, -6%, 0)" },
-          "66%": { transform: "translate3d(10%, 3%, 0)" },
-        },
-        "gradient-pan": {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
-        "pulse-ring": {
-          "0%": { opacity: "0.55", transform: "scale(0.92)" },
-          "70%": { opacity: "0", transform: "scale(1.35)" },
-          "100%": { opacity: "0", transform: "scale(1.35)" },
-        },
-        shimmer: {
-          "0%": { transform: "translateX(-120%)" },
-          "100%": { transform: "translateX(220%)" },
-        },
-        "draw-in": {
-          "0%": { strokeDashoffset: "1400", opacity: "0" },
-          "20%": { opacity: "1" },
-          "100%": { strokeDashoffset: "0", opacity: "1" },
-        },
         "spin-slow": {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
         },
+        blink: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.25" },
+        },
       },
       animation: {
-        "fade-up": "fade-up 0.7s cubic-bezier(0.16,1,0.3,1) both",
-        marquee: "marquee 28s linear infinite",
-        "current-a": "current-a 22s ease-in-out infinite",
-        "current-b": "current-b 28s ease-in-out infinite",
-        "current-c": "current-c 34s ease-in-out infinite",
-        "gradient-pan": "gradient-pan 14s ease-in-out infinite",
-        float: "float 7s ease-in-out infinite",
-        "pulse-ring": "pulse-ring 3.2s cubic-bezier(0.16,1,0.3,1) infinite",
-        shimmer: "shimmer 2.4s ease-in-out infinite",
-        "draw-in": "draw-in 2.6s cubic-bezier(0.16,1,0.3,1) both",
-        "spin-slow": "spin-slow 48s linear infinite",
+        "spin-slow": "spin-slow 60s linear infinite",
+        blink: "blink 2.4s ease-in-out infinite",
       },
     },
   },

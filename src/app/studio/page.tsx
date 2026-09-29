@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { PageHero } from "@/components/layout/page-hero";
 import { Container } from "@/components/ui/container";
-import { SpotlightCard } from "@/components/ui/motion-primitives";
+import { Reveal } from "@/components/ui/motion";
 import { Presentation } from "@/components/sections/presentation";
 import { FinalCta } from "@/components/sections/final-cta";
 import { navItems } from "@/config/site";
@@ -20,37 +20,43 @@ export default function StudioPage() {
   return (
     <>
       <PageHero
+        index="02"
         eyebrow="Studio"
-        title="Come lavoriamo, cosa sappiamo fare, cosa costruiamo."
-        description="Tre pagine per capire lo studio senza scorrere una home infinita: il metodo, le competenze e le tipologie di progetto."
+        title="Come lavoriamo, cosa sappiamo fare, cosa *costruiamo.*"
+        description="Tre pagine per conoscere lo studio: il metodo, le competenze e le tipologie di progetto."
       />
 
-      <section className="py-8 sm:py-12">
+      <section className="py-14 sm:py-20">
         <Container>
-          <ul className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {studioGroup?.children?.map((child) => (
-              <li key={child.href}>
-                <SpotlightCard className="h-full">
-                  <Link href={child.href} className="flex h-full flex-col gap-4 p-8">
-                    <h2 className="font-display text-xl font-medium text-paper">
-                      {child.label}
-                    </h2>
-                    <p className="flex-1 text-sm leading-relaxed text-ink-300">
-                      {child.description}
-                    </p>
-                    <span className="inline-flex items-center gap-2 text-sm font-medium text-accent-light">
-                      Apri la pagina
-                      <ArrowUpRight size={15} aria-hidden />
-                    </span>
-                  </Link>
-                </SpotlightCard>
-              </li>
+          <ul className="border-t border-ink-800">
+            {studioGroup?.children?.map((child, i) => (
+              <Reveal as="li" key={child.href} delay={i * 0.06} className="border-b border-ink-800">
+                <Link
+                  href={child.href}
+                  className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-5 py-8 sm:gap-x-8 md:grid-cols-12 md:py-10"
+                >
+                  <span className="font-mono text-xs text-ink-500 group-hover:text-accent md:col-span-1">
+                    02.{i + 1}
+                  </span>
+                  <span className="font-serif text-4xl leading-none text-paper transition-transform duration-500 ease-out group-hover:translate-x-2 sm:text-5xl md:col-span-5">
+                    {child.label}
+                  </span>
+                  <span className="col-start-2 mt-3 text-sm leading-relaxed text-ink-400 md:col-span-5 md:col-start-auto md:mt-0">
+                    {child.description}
+                  </span>
+                  <ArrowUpRight
+                    size={22}
+                    aria-hidden
+                    className="col-start-3 row-start-1 text-ink-600 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-accent md:col-start-12 md:justify-self-end"
+                  />
+                </Link>
+              </Reveal>
             ))}
           </ul>
         </Container>
       </section>
 
-      <Presentation />
+      <Presentation index="02.4" />
       <FinalCta />
     </>
   );

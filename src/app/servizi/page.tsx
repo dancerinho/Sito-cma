@@ -13,8 +13,9 @@ export default function ServiziPage() {
   return (
     <>
       <PageHero
+        index="01"
         eyebrow="Servizi"
-        title="Un supporto completo, dalla prima idea al prodotto in produzione."
+        title="Un supporto completo, dalla prima idea al prodotto in *produzione.*"
         description="Interveniamo su ogni fase del progetto digitale, con un metodo di lavoro coerente indipendentemente dalla complessità."
       />
       <Services />

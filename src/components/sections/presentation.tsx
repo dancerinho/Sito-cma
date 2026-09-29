@@ -1,51 +1,43 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Container } from "@/components/ui/container";
-import { CountUp } from "@/components/ui/motion-primitives";
-import { methodSteps, services, skillItems } from "@/config/site";
+import { Reveal, SplitHeading } from "@/components/ui/motion";
+import { skillItems } from "@/config/site";
 
-const easePremium = [0.16, 1, 0.3, 1] as const;
-
-const figures = [
-  { value: services.length, suffix: "", label: "aree di servizio" },
-  { value: methodSteps.length, suffix: "", label: "fasi di lavoro" },
-  { value: skillItems.length, suffix: "", label: "competenze chiave" },
-  { value: 100, suffix: "%", label: "progetti su misura" },
-];
-
-export function Presentation() {
+/**
+ * Dichiarazione dello studio: una frase grande e, sotto, i principi che
+ * restano costanti in ogni progetto.
+ */
+export function Presentation({ index = "03" }: { index?: string }) {
   return (
-    <section className="py-20 sm:py-28">
+    <section className="border-t border-ink-800 py-24 sm:py-32">
       <Container>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease: easePremium }}
-          className="max-w-4xl text-balance text-display-md font-display font-medium leading-tight text-ink-100"
-        >
-          Uniamo progettazione, sviluppo e attenzione ai dettagli per costruire{" "}
-          <span className="text-ocean">esperienze digitali chiare</span>, veloci
-          e <span className="text-ocean">orientate a obiettivi reali</span>.
-        </motion.p>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
+          <Reveal className="label flex items-center gap-3 md:col-span-3 md:pt-3">
+            <span className="text-accent">{index}</span>
+            <span className="h-px w-8 bg-ink-700" aria-hidden />
+            Principi
+          </Reveal>
+          <SplitHeading
+            as="p"
+            text="Niente template, niente scorciatoie: ogni progetto parte da zero ed è costruito per *durare*."
+            className="text-balance font-serif text-display-md text-paper md:col-span-9"
+          />
+        </div>
 
-        <ul className="mt-16 grid grid-cols-2 gap-8 border-t border-ink-800 pt-10 lg:grid-cols-4">
-          {figures.map((figure, index) => (
-            <motion.li
-              key={figure.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: index * 0.08, ease: easePremium }}
+        <ul className="mt-16 grid grid-cols-1 border-l border-t border-ink-800 sm:mt-20 sm:grid-cols-2 lg:grid-cols-3">
+          {skillItems.map((skill, i) => (
+            <Reveal
+              as="li"
+              key={skill.title}
+              delay={i * 0.05}
+              y={10}
+              className="border-b border-r border-ink-800 p-7 sm:p-8"
             >
-              <CountUp
-                to={figure.value}
-                suffix={figure.suffix}
-                className="font-display text-4xl font-medium text-ocean sm:text-5xl"
-              />
-              <p className="mt-2 text-sm text-ink-300">{figure.label}</p>
-            </motion.li>
+              <p className="font-mono text-[10px] text-ink-500">
+                {String(i + 1).padStart(2, "0")}
+              </p>
+              <h3 className="mt-8 text-lg font-medium text-paper">{skill.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-400">{skill.description}</p>
+            </Reveal>
           ))}
         </ul>
       </Container>

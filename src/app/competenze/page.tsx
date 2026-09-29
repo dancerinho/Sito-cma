@@ -13,8 +13,9 @@ export default function CompetenzePage() {
   return (
     <>
       <PageHero
+        index="02.2"
         eyebrow="Competenze"
-        title="Ciò che portiamo in ogni progetto."
+        title="Ciò che portiamo in *ogni* progetto."
         description="Un insieme di competenze tecniche e di design che restano costanti, indipendentemente dal tipo di prodotto."
       />
       <Skills />
