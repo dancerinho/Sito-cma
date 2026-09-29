@@ -48,15 +48,10 @@ const encode = encodeURIComponent;
  * inseriti in automatico, così chi scrive deve solo premere invio.
  */
 export const contactLinks = {
-  /** App di posta predefinita del dispositivo (Mail, Gmail, Outlook…). */
+  /** App di posta predefinita del visitatore (Mail, Gmail, Outlook…). */
   mailto: `mailto:${contactConfig.email}?subject=${encode(contactConfig.emailSubject)}&body=${encode(contactConfig.emailBody)}`,
-  /** Nuovo messaggio in Gmail, nel browser o nell'app. */
-  gmail: `https://mail.google.com/mail/?view=cm&fs=1&to=${contactConfig.email}&su=${encode(contactConfig.emailSubject)}&body=${encode(contactConfig.emailBody)}`,
-  /** Nuovo messaggio in Outlook / Hotmail. */
-  outlook: `https://outlook.live.com/mail/0/deeplink/compose?to=${contactConfig.email}&subject=${encode(contactConfig.emailSubject)}&body=${encode(contactConfig.emailBody)}`,
   /** Chat WhatsApp con il messaggio iniziale già scritto. */
   whatsapp: `https://wa.me/${contactConfig.phone.replace(/\D/g, "")}?text=${encode(contactConfig.whatsappMessage)}`,
-  tel: `tel:${contactConfig.phone.replace(/\s/g, "")}`,
 };
 
 /**
