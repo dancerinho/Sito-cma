@@ -1,41 +1,32 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { Reveal, SplitHeading } from "@/components/ui/motion";
+import { Reveal, SlideHeading } from "@/components/ui/motion";
 import { contactConfig } from "@/config/site";
 
-/** Chiusura di pagina: domanda grande e contatto diretto. */
+/** Chiusura di pagina: domanda semplice e due modi per contattarci. */
 export function FinalCta() {
   return (
-    <section className="relative overflow-hidden border-t border-ink-800 py-24 sm:py-36">
-      <div aria-hidden className="grid-lines pointer-events-none absolute inset-0 -z-10" />
-      <Container>
-        <Reveal className="label flex items-center gap-3">
-          <span className="h-1.5 w-1.5 animate-blink rounded-full bg-accent" aria-hidden />
-          Nuovo progetto
-        </Reveal>
+    <section className="border-t border-ink-800 py-16 sm:py-24">
+      <Container className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+        <div>
+          <SlideHeading
+            text="Hai un progetto in mente? *Parliamone.*"
+            className="max-w-2xl text-balance font-serif text-display-lg text-paper"
+          />
+          <Reveal from="left" delay={0.2} as="p" className="mt-4 text-ink-300">
+            Ti rispondiamo con una prima valutazione, senza impegno.
+          </Reveal>
+        </div>
 
-        <SplitHeading
-          as="h2"
-          text="Hai un progetto in mente? *Parliamone.*"
-          className="mt-8 max-w-5xl text-balance font-serif text-display-xl text-paper"
-        />
-
-        <Reveal delay={0.3} className="mt-14 flex flex-col gap-8 border-t border-ink-800 pt-8 md:flex-row md:items-end md:justify-between">
-          <a
-            href={`mailto:${contactConfig.email}`}
-            className="group inline-flex items-center gap-3 break-all font-serif text-3xl text-paper transition-colors hover:text-accent sm:text-5xl"
-          >
-            {contactConfig.email}
-            <ArrowUpRight
-              aria-hidden
-              className="h-7 w-7 shrink-0 transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:translate-x-1 sm:h-10 sm:w-10"
-            />
-          </a>
-          <Link href="/contatti" className="btn-primary shrink-0 self-start md:self-auto">
-            Come iniziare
-            <ArrowUpRight size={16} aria-hidden />
+        <Reveal from="right" delay={0.25} className="flex flex-col gap-3 sm:flex-row md:flex-col lg:flex-row">
+          <Link href="/contatti/" className="btn-primary group">
+            Richiedi un preventivo
+            <ArrowRight size={16} aria-hidden className="transition-transform group-hover:translate-x-1" />
           </Link>
+          <a href={`mailto:${contactConfig.email}`} className="btn-ghost">
+            {contactConfig.email}
+          </a>
         </Reveal>
       </Container>
     </section>

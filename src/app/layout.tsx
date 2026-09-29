@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
-import { siteConfig } from "@/config/site";
+import { Geist, Instrument_Serif } from "next/font/google";
+import { contactConfig, services, siteConfig } from "@/config/site";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { PageTransition } from "@/components/layout/page-transition";
@@ -20,12 +20,6 @@ const serif = Instrument_Serif({
   style: ["normal", "italic"],
 });
 
-const mono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -35,8 +29,10 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: [
     "sviluppo siti web",
-    "web app",
+    "realizzazione siti web",
+    "web app su misura",
     "software su misura",
+    "automazioni aziendali",
     "agenzia sviluppo software",
     "CMA Enterprise",
   ],
@@ -48,11 +44,13 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: `${siteConfig.name} — Siti web, software e prodotti digitali su misura`,
     description: siteConfig.description,
+    images: [{ url: "/media/cinematic-poster.jpg", width: 1920, height: 1080, alt: siteConfig.name }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${siteConfig.name} — Siti web, software e prodotti digitali su misura`,
     description: siteConfig.description,
+    images: ["/media/cinematic-poster.jpg"],
   },
   icons: {
     icon: "/favicon.svg",
@@ -60,6 +58,33 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+};
+
+/** Dati strutturati: aiutano i motori di ricerca a capire chi siamo. */
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  email: contactConfig.email,
+  description: siteConfig.description,
+  logo: `${siteConfig.url}/favicon.svg`,
+  image: `${siteConfig.url}/media/cinematic-poster.jpg`,
+  areaServed: "IT",
+  knowsLanguage: "it",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Servizi",
+    itemListElement: services.map((service) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: service.title,
+        description: service.description,
+        url: `${siteConfig.url}/servizi/#${service.id}`,
+      },
+    })),
   },
 };
 
@@ -71,11 +96,15 @@ export default function RootLayout({
   return (
     <html
       lang="it"
-      className={`${sans.variable} ${serif.variable} ${mono.variable}`}
+      className={`${sans.variable} ${serif.variable}`}
     >
       <body className="flex min-h-screen flex-col font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <Header />
-        <main id="main" className="flex-1">
+        <main id="main" className="flex-1 overflow-x-clip">
           <PageTransition>{children}</PageTransition>
         </main>
         <Footer />

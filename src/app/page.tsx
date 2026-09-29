@@ -1,20 +1,33 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Hero } from "@/components/sections/hero";
-import { ServicesIndex } from "@/components/sections/home/services-index";
-import { MethodStrip } from "@/components/sections/home/method-strip";
-import { Presentation } from "@/components/sections/presentation";
+import { ServicesList } from "@/components/sections/services-list";
+import { Steps } from "@/components/sections/steps";
 import { FinalCta } from "@/components/sections/final-cta";
+import { ScrollBand } from "@/components/ui/motion";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 /**
- * Home come sommario: cinematica del marchio, indice dei servizi, metodo in
- * breve, principi e contatto. I contenuti estesi vivono nelle pagine del menu.
+ * Home breve e lineare: chi siamo, cosa facciamo, come lavoriamo, contatto.
  */
 export default function Home() {
   return (
     <>
       <Hero />
-      <ServicesIndex />
-      <MethodStrip />
-      <Presentation />
+      <ScrollBand words={["Siti web", "Web app", "Software su misura", "Automazioni", "Manutenzione"]} />
+      <ServicesList />
+      <Steps
+        action={
+          <Link href="/studio/" className="btn-ghost group">
+            Chi siamo
+            <ArrowRight size={16} aria-hidden className="transition-transform group-hover:translate-x-1" />
+          </Link>
+        }
+      />
       <FinalCta />
     </>
   );

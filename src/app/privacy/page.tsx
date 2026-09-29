@@ -5,6 +5,7 @@ import { contactConfig, siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: `Informativa sul trattamento dei dati personali di ${siteConfig.name}.`,
+  alternates: { canonical: "/privacy/" },
 };
 
 export default function PrivacyPage() {

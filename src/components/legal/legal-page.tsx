@@ -15,9 +15,8 @@ export function LegalPage({
       <Container>
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
-            <p className="label">Documenti legali</p>
-            <h1 className="mt-6 font-serif text-display-lg text-paper">{title}</h1>
-            <p className="mt-4 font-mono text-xs text-ink-500">
+            <h1 className="font-serif text-display-lg text-paper">{title}</h1>
+            <p className="mt-4 text-xs text-ink-500">
               Ultimo aggiornamento: {updatedAt}
             </p>
           </div>

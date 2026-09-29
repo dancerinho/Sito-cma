@@ -1,26 +1,39 @@
 "use client";
 
-import { ReactNode } from "react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { ReactNode, useRef } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type Variants,
+} from "framer-motion";
 
 /** Curva unica per tutto il sito: arrivo deciso, frenata lunga. */
 export const easeOut = [0.22, 1, 0.36, 1] as const;
 
+type Side = "left" | "right" | "bottom";
+
+const offset = (side: Side, distance: number) =>
+  side === "left" ? { x: -distance } : side === "right" ? { x: distance } : { y: distance / 2 };
+
 /**
- * Contenuto che sale ed entra in dissolvenza quando arriva nel viewport.
+ * Contenuto che entra dal lato indicato quando arriva nel viewport.
  */
 export function Reveal({
   children,
   className,
+  from = "bottom",
   delay = 0,
-  y = 18,
+  distance = 64,
   as = "div",
 }: {
   children: ReactNode;
   className?: string;
+  from?: Side;
   delay?: number;
-  y?: number;
-  as?: "div" | "li" | "p" | "span";
+  distance?: number;
+  as?: "div" | "li" | "p";
 }) {
   const reduce = useReducedMotion();
   const MotionTag = motion[as];
@@ -28,10 +41,10 @@ export function Reveal({
   return (
     <MotionTag
       className={className}
-      initial={{ opacity: 0, y: reduce ? 0 : y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.8, delay, ease: easeOut }}
+      initial={{ opacity: 0, ...(reduce ? {} : offset(from, distance)) }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.9, delay, ease: easeOut }}
     >
       {children}
     </MotionTag>
@@ -39,19 +52,21 @@ export function Reveal({
 }
 
 /**
- * Titolo che entra parola per parola, ognuna risale da sotto una maschera.
- * Le parole tra asterischi (`*così*`) vengono rese in corsivo.
+ * Titolo che entra parola per parola scivolando dal lato indicato.
+ * Una parola tra asterischi (`*così*`) viene resa in corsivo colorato.
  */
-export function SplitHeading({
+export function SlideHeading({
   text,
   className,
-  as = "h1",
+  as = "h2",
+  from = "left",
   delay = 0,
   immediate = false,
 }: {
   text: string;
   className?: string;
   as?: "h1" | "h2" | "p";
+  from?: "left" | "right";
   delay?: number;
   /** Anima al caricamento invece che all'ingresso nel viewport. */
   immediate?: boolean;
@@ -62,17 +77,17 @@ export function SplitHeading({
 
   const container: Variants = {
     hidden: {},
-    visible: { transition: { staggerChildren: reduce ? 0 : 0.05, delayChildren: delay } },
+    visible: { transition: { staggerChildren: reduce ? 0 : 0.06, delayChildren: delay } },
   };
 
   const word: Variants = {
-    hidden: { y: reduce ? 0 : "110%" },
-    visible: { y: 0, transition: { duration: 0.9, ease: easeOut } },
+    hidden: { opacity: 0, x: reduce ? 0 : from === "left" ? -48 : 48 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: easeOut } },
   };
 
   const trigger = immediate
     ? { animate: "visible" }
-    : { whileInView: "visible", viewport: { once: true, margin: "-60px" } };
+    : { whileInView: "visible", viewport: { once: true, margin: "-40px" } };
 
   return (
     <MotionTag className={className} variants={container} initial="hidden" {...trigger}>
@@ -80,15 +95,14 @@ export function SplitHeading({
         const italic = raw.startsWith("*") && raw.replace(/[.,:;!?]$/, "").endsWith("*");
         const clean = raw.replace(/\*/g, "");
         return (
-          <span key={`${clean}-${i}`} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
-            <motion.span
-              variants={word}
-              className={italic ? "inline-block italic text-accent" : "inline-block"}
-            >
-              {clean}
-              {i < words.length - 1 ? " " : ""}
-            </motion.span>
-          </span>
+          <motion.span
+            key={`${clean}-${i}`}
+            variants={word}
+            className={italic ? "inline-block italic text-accent" : "inline-block"}
+          >
+            {clean}
+            {i < words.length - 1 ? " " : ""}
+          </motion.span>
         );
       })}
     </MotionTag>
@@ -96,18 +110,31 @@ export function SplitHeading({
 }
 
 /**
- * Filetto orizzontale che si traccia da sinistra a destra.
+ * Fascia di parole che scorre di lato mentre si scorre la pagina:
+ * la riga superiore va verso sinistra, quella inferiore verso destra.
  */
-export function Rule({ className, delay = 0 }: { className?: string; delay?: number }) {
+export function ScrollBand({ words }: { words: string[] }) {
   const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const toLeft = useTransform(scrollYProgress, [0, 1], ["5%", "-35%"]);
+  const toRight = useTransform(scrollYProgress, [0, 1], ["-35%", "5%"]);
+  const line = [...words, ...words].join("  ·  ");
+
   return (
-    <motion.span
-      aria-hidden
-      className={`block h-px origin-left bg-ink-700 ${className ?? ""}`}
-      initial={{ scaleX: reduce ? 1 : 0 }}
-      whileInView={{ scaleX: 1 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 1.1, delay, ease: easeOut }}
-    />
+    <div ref={ref} aria-hidden className="overflow-hidden py-10 sm:py-14">
+      <motion.p
+        style={reduce ? undefined : { x: toLeft }}
+        className="whitespace-nowrap font-serif text-5xl text-paper sm:text-7xl"
+      >
+        {line}
+      </motion.p>
+      <motion.p
+        style={reduce ? undefined : { x: toRight }}
+        className="mt-2 whitespace-nowrap font-serif text-5xl italic text-ink-600 sm:text-7xl"
+      >
+        {line}
+      </motion.p>
+    </div>
   );
 }

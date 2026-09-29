@@ -1,26 +1,30 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/layout/page-hero";
-import { Projects } from "@/components/sections/projects";
-import { FinalCta } from "@/components/sections/final-cta";
-import { projectTypesNote } from "@/config/site";
+import Link from "next/link";
+import { Container } from "@/components/ui/container";
 
 export const metadata: Metadata = {
-  title: "Progetti",
-  description:
-    "Le tipologie di prodotto che costruiamo: siti vetrina, applicazioni web su misura e software dedicato.",
+  title: "Pagina spostata",
+  robots: { index: false, follow: true },
+  alternates: { canonical: "/studio/" },
 };
 
-export default function ProgettiPage() {
+/**
+ * Pagina unita a /studio. Il sito è statico (niente redirect lato server),
+ * quindi il vecchio indirizzo rimanda con un meta refresh.
+ */
+export default function LegacyPage() {
   return (
-    <>
-      <PageHero
-        index="02.3"
-        eyebrow="Progetti"
-        title="Il tipo di prodotti che *costruiamo.*"
-        description={projectTypesNote}
-      />
-      <Projects />
-      <FinalCta />
-    </>
+    <section className="pb-24 pt-40">
+      <meta httpEquiv="refresh" content="0; url=/studio/" />
+      <Container>
+        <p className="text-ink-300">
+          Questa pagina è stata spostata.{" "}
+          <Link href="/studio/" className="text-paper underline underline-offset-4">
+            Vai a Chi siamo
+          </Link>
+          .
+        </p>
+      </Container>
+    </section>
   );
 }

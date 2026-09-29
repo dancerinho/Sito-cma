@@ -4,19 +4,18 @@ import { Services } from "@/components/sections/services";
 import { FinalCta } from "@/components/sections/final-cta";
 
 export const metadata: Metadata = {
-  title: "Servizi",
+  title: "Servizi: siti web, web app e software su misura",
   description:
-    "Siti web, web app, software su misura, automazioni, bot per investimenti e manutenzione: le aree di lavoro di CMA Enterprise.",
+    "Sviluppo di siti web e landing page, web app, software su misura, automazioni, bot per investimenti e manutenzione. Scopri cosa include ogni servizio.",
+  alternates: { canonical: "/servizi/" },
 };
 
 export default function ServiziPage() {
   return (
     <>
       <PageHero
-        index="01"
-        eyebrow="Servizi"
-        title="Un supporto completo, dalla prima idea al prodotto in *produzione.*"
-        description="Interveniamo su ogni fase del progetto digitale, con un metodo di lavoro coerente indipendentemente dalla complessità."
+        title="I nostri *servizi*"
+        description="Dal sito vetrina al software gestionale: ecco cosa possiamo costruire per te e cosa include ogni servizio."
       />
       <Services />
       <FinalCta />

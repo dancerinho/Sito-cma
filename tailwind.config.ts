@@ -34,16 +34,14 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         serif: ["var(--font-serif)", "Georgia", "serif"],
-        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       fontSize: {
-        "display-2xl": ["clamp(3.25rem, 9vw, 8.5rem)", { lineHeight: "0.92", letterSpacing: "-0.035em" }],
-        "display-xl": ["clamp(2.75rem, 6.4vw, 6rem)", { lineHeight: "0.95", letterSpacing: "-0.03em" }],
-        "display-lg": ["clamp(2.25rem, 4.6vw, 4.25rem)", { lineHeight: "1", letterSpacing: "-0.025em" }],
-        "display-md": ["clamp(1.875rem, 3.2vw, 2.875rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
+        "display-xl": ["clamp(2.5rem, 6vw, 5.25rem)", { lineHeight: "1", letterSpacing: "-0.03em" }],
+        "display-lg": ["clamp(2.125rem, 4.2vw, 3.75rem)", { lineHeight: "1.05", letterSpacing: "-0.025em" }],
+        "display-md": ["clamp(1.75rem, 3vw, 2.5rem)", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
       },
       maxWidth: {
-        content: "1360px",
+        content: "1200px",
       },
       borderRadius: {
         sm: "2px",

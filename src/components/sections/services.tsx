@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
-  ArrowUpRight,
+  ArrowRight,
+  Check,
   Code2,
   Globe,
   LayoutGrid,
@@ -25,61 +26,43 @@ const icons: Record<string, LucideIcon> = {
 };
 
 /**
- * Schede di servizio come voci di catalogo: indice e icona a sinistra,
- * titolo e descrizione al centro, punti concreti a destra.
+ * Scheda completa di ogni servizio: descrizione a sinistra, cosa include a
+ * destra. Le due colonne entrano da lati opposti.
  */
 export function Services() {
   return (
-    <section id="servizi" className="pb-24 sm:pb-32">
+    <section className="pb-16 sm:pb-24">
       <Container>
-        <ul>
-          {services.map((service, index) => {
+        <ul className="border-t border-ink-800">
+          {services.map((service) => {
             const Icon = icons[service.icon] ?? Code2;
             return (
-              <li
-                key={service.id}
-                id={service.id}
-                className="scroll-mt-20 border-b border-ink-800 py-14 sm:py-20"
-              >
-                <article className="grid grid-cols-1 gap-8 md:grid-cols-12">
-                  <Reveal className="flex items-center gap-4 md:col-span-2 md:flex-col md:items-start">
-                    <span className="font-mono text-xs text-accent">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <Icon size={22} strokeWidth={1.4} aria-hidden className="text-ink-400" />
-                  </Reveal>
-
-                  <Reveal delay={0.05} className="md:col-span-5">
-                    <h2 className="font-serif text-4xl leading-[1.05] text-paper sm:text-5xl">
-                      {service.title}
-                    </h2>
-                    <p className="mt-5 max-w-md text-pretty leading-relaxed text-ink-300">
+              <li key={service.id} id={service.id} className="scroll-mt-20 border-b border-ink-800 py-12 sm:py-16">
+                <article className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
+                  <Reveal from="left">
+                    <Icon size={24} strokeWidth={1.5} aria-hidden className="text-accent" />
+                    <h2 className="mt-5 font-serif text-display-md text-paper">{service.title}</h2>
+                    <p className="mt-4 max-w-md text-pretty leading-relaxed text-ink-300">
                       {service.description}
                     </p>
                   </Reveal>
 
-                  <Reveal delay={0.1} className="md:col-span-4 md:col-start-9">
-                    <ul className="border-t border-ink-800">
+                  <Reveal from="right" delay={0.1}>
+                    <h3 className="text-sm font-medium text-ink-400">Cosa include</h3>
+                    <ul className="mt-4 flex flex-col gap-3">
                       {service.highlights.map((highlight) => (
-                        <li
-                          key={highlight}
-                          className="flex items-start gap-3 border-b border-ink-800 py-3.5 text-sm text-ink-200"
-                        >
-                          <span aria-hidden className="mt-[0.55em] h-px w-3 shrink-0 bg-accent" />
+                        <li key={highlight} className="flex items-start gap-3 text-ink-200">
+                          <Check size={18} aria-hidden className="mt-0.5 shrink-0 text-accent" />
                           {highlight}
                         </li>
                       ))}
                     </ul>
                     <Link
-                      href="/contatti"
-                      className="group mt-6 inline-flex items-center gap-2 text-sm text-paper transition-colors hover:text-accent"
+                      href="/contatti/"
+                      className="group mt-7 inline-flex items-center gap-2 text-sm font-medium text-paper transition-colors hover:text-accent"
                     >
-                      Richiedi una valutazione
-                      <ArrowUpRight
-                        size={15}
-                        aria-hidden
-                        className="transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                      />
+                      Richiedi un preventivo
+                      <ArrowRight size={15} aria-hidden className="transition-transform group-hover:translate-x-1" />
                     </Link>
                   </Reveal>
                 </article>
@@ -88,11 +71,7 @@ export function Services() {
           })}
         </ul>
 
-        <Reveal className="mt-12 grid grid-cols-1 md:grid-cols-12">
-          <p className="text-xs leading-relaxed text-ink-500 md:col-span-8 md:col-start-3">
-            {servicesDisclaimer}
-          </p>
-        </Reveal>
+        <p className="mt-10 max-w-3xl text-xs leading-relaxed text-ink-500">{servicesDisclaimer}</p>
       </Container>
     </section>
   );

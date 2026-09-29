@@ -1,25 +1,30 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/layout/page-hero";
-import { Skills } from "@/components/sections/skills";
-import { FinalCta } from "@/components/sections/final-cta";
+import Link from "next/link";
+import { Container } from "@/components/ui/container";
 
 export const metadata: Metadata = {
-  title: "Competenze",
-  description:
-    "Design su misura, sviluppo responsive, prestazioni, codice scalabile ed esperienza utente: ciò che portiamo in ogni progetto.",
+  title: "Pagina spostata",
+  robots: { index: false, follow: true },
+  alternates: { canonical: "/studio/" },
 };
 
-export default function CompetenzePage() {
+/**
+ * Pagina unita a /studio. Il sito è statico (niente redirect lato server),
+ * quindi il vecchio indirizzo rimanda con un meta refresh.
+ */
+export default function LegacyPage() {
   return (
-    <>
-      <PageHero
-        index="02.2"
-        eyebrow="Competenze"
-        title="Ciò che portiamo in *ogni* progetto."
-        description="Un insieme di competenze tecniche e di design che restano costanti, indipendentemente dal tipo di prodotto."
-      />
-      <Skills />
-      <FinalCta />
-    </>
+    <section className="pb-24 pt-40">
+      <meta httpEquiv="refresh" content="0; url=/studio/" />
+      <Container>
+        <p className="text-ink-300">
+          Questa pagina è stata spostata.{" "}
+          <Link href="/studio/" className="text-paper underline underline-offset-4">
+            Vai a Chi siamo
+          </Link>
+          .
+        </p>
+      </Container>
+    </section>
   );
 }

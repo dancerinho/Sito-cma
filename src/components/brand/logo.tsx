@@ -30,13 +30,8 @@ export function Logo({
         )}
       />
       {showWordmark ? (
-        <span className="flex items-baseline gap-2 leading-none">
-          <span className="text-[15px] font-semibold tracking-tight text-paper">
-            {siteConfig.name}
-          </span>
-          <span className="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-ink-500 sm:inline">
-            Digital Studio
-          </span>
+        <span className="text-[15px] font-semibold tracking-tight text-paper">
+          {siteConfig.name}
         </span>
       ) : null}
     </Link>

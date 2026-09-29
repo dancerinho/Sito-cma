@@ -3,19 +3,18 @@ import { PageHero } from "@/components/layout/page-hero";
 import { Contact } from "@/components/sections/contact";
 
 export const metadata: Metadata = {
-  title: "Contatti",
+  title: "Contatti e preventivi",
   description:
-    "Scrivici per raccontarci il tuo progetto: ti rispondiamo con una prima valutazione concreta.",
+    "Richiedi un preventivo per il tuo sito web, web app o software su misura: scrivici una email e ti rispondiamo con una prima valutazione.",
+  alternates: { canonical: "/contatti/" },
 };
 
 export default function ContattiPage() {
   return (
     <>
       <PageHero
-        index="03"
-        eyebrow="Contatti"
-        title="Parliamo del tuo *progetto.*"
-        description="Bastano una email e pochi dettagli per iniziare: ti rispondiamo con una prima valutazione concreta."
+        title="Parliamo del tuo *progetto*"
+        description="Bastano una email e pochi dettagli: ti rispondiamo con una prima valutazione, senza impegno."
       />
       <Contact />
     </>

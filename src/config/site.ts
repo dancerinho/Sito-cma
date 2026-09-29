@@ -14,94 +14,19 @@ export const siteConfig = {
   locale: "it_IT",
 } as const;
 
-export type NavChild = {
-  label: string;
-  href: string;
-  description: string;
-};
-
 export type NavItem = {
   label: string;
   href: string;
-  description?: string;
-  children?: NavChild[];
 };
 
 /**
- * Navigazione principale: ogni voce è una pagina dedicata, così la home
- * resta corta e le sezioni sono raggruppate nel menu in alto invece di
- * accumularsi tutte nello scroll.
+ * Navigazione principale: tre pagine, nessun sottomenu, così chi arriva
+ * capisce subito dove trovare cosa.
  */
 export const navItems: NavItem[] = [
-  {
-    label: "Servizi",
-    href: "/servizi",
-    description: "Tutto quello che costruiamo, dal sito al software su misura.",
-    children: [
-      {
-        label: "Siti web e landing page",
-        href: "/servizi#siti-web",
-        description: "Presenza online veloce, chiara e costruita per convertire.",
-      },
-      {
-        label: "Web app e prodotti digitali",
-        href: "/servizi#web-app",
-        description: "Applicazioni su misura per processi, dati e servizi.",
-      },
-      {
-        label: "Software su misura",
-        href: "/servizi#software",
-        description: "Soluzioni dedicate quando gli strumenti standard non bastano.",
-      },
-      {
-        label: "Automazioni e integrazioni",
-        href: "/servizi#automazioni",
-        description: "Colleghiamo strumenti e togliamo lavoro ripetitivo ai team.",
-      },
-      {
-        label: "Bot e software per investimenti",
-        href: "/servizi#trading-bot",
-        description: "Automazione di strategie definite dal cliente, con backtest e controlli di rischio.",
-      },
-      {
-        label: "Manutenzione ed evoluzione",
-        href: "/servizi#manutenzione",
-        description: "Aggiornamenti, correzioni e nuove funzionalità nel tempo.",
-      },
-    ],
-  },
-  {
-    label: "Studio",
-    href: "/studio",
-    description: "Chi siamo e come lavoriamo.",
-    children: [
-      {
-        label: "Il metodo",
-        href: "/metodo",
-        description: "Le quattro fasi con cui portiamo un progetto dal via al lancio.",
-      },
-      {
-        label: "Competenze",
-        href: "/competenze",
-        description: "Design, sviluppo, prestazioni e comunicazione chiara.",
-      },
-      {
-        label: "Progetti",
-        href: "/progetti",
-        description: "Le tipologie di lavoro che seguiamo oggi.",
-      },
-    ],
-  },
-  { label: "Contatti", href: "/contatti", description: "Parliamo del tuo progetto." },
-];
-
-/** Voci usate nel footer (elenco piatto, senza raggruppamenti). */
-export const footerNavItems: NavChild[] = [
-  { label: "Servizi", href: "/servizi", description: "" },
-  { label: "Metodo", href: "/metodo", description: "" },
-  { label: "Competenze", href: "/competenze", description: "" },
-  { label: "Progetti", href: "/progetti", description: "" },
-  { label: "Contatti", href: "/contatti", description: "" },
+  { label: "Servizi", href: "/servizi/" },
+  { label: "Studio", href: "/studio/" },
+  { label: "Contatti", href: "/contatti/" },
 ];
 
 export const contactConfig = {
@@ -215,32 +140,27 @@ export const services: ServiceItem[] = [
 ];
 
 export type MethodStep = {
-  number: string;
   title: string;
   description: string;
 };
 
 export const methodSteps: MethodStep[] = [
   {
-    number: "01",
     title: "Ascolto e analisi",
     description:
       "Partiamo dagli obiettivi reali del progetto: contesto, utenti, vincoli tecnici e di tempo.",
   },
   {
-    number: "02",
     title: "Strategia e progettazione",
     description:
       "Definiamo struttura, contenuti e interfaccia, con scelte motivate e coerenti con l'obiettivo.",
   },
   {
-    number: "03",
     title: "Sviluppo e verifica",
     description:
       "Costruiamo il prodotto con codice solido, testandolo su dispositivi e scenari d'uso reali.",
   },
   {
-    number: "04",
     title: "Lancio ed evoluzione",
     description:
       "Pubblichiamo, misuriamo i risultati e continuiamo a migliorare il prodotto nel tempo.",
@@ -279,26 +199,6 @@ export const skillItems: SkillItem[] = [
   },
 ];
 
-export type ProjectType = {
-  title: string;
-  description: string;
-};
-
-/**
- * Tipologie di progetto mostrate finché non sono disponibili case study reali.
- * Sostituire con progetti effettivi (titolo, descrizione, immagine/link) quando pronti.
- */
-export const projectTypes: ProjectType[] = [
-  {
-    title: "Siti vetrina e landing page",
-    description: "Presenza online chiara, orientata alla generazione di contatti.",
-  },
-  {
-    title: "Applicazioni web su misura",
-    description: "Strumenti digitali costruiti attorno a processi specifici.",
-  },
-];
-
 /**
  * Nota mostrata sotto la griglia dei servizi: chiarisce che il lavoro sui
  * bot di investimento è sviluppo software su specifica del cliente e non
@@ -307,5 +207,3 @@ export const projectTypes: ProjectType[] = [
 export const servicesDisclaimer =
   "I bot e i software per investimenti sono sviluppati su specifica del cliente: CMA Enterprise realizza la tecnologia e non presta servizi di investimento, consulenza finanziaria o gestione di patrimoni, né garantisce risultati o rendimenti.";
 
-export const projectTypesNote =
-  "Non abbiamo ancora case study pubblicabili: questa sezione verrà aggiornata con i progetti realizzati.";
