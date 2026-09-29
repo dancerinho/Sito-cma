@@ -23,8 +23,7 @@ export default function CookiePolicyPage() {
           Allo stato attuale il sito non installa cookie di profilazione o
           di terze parti. Questa sezione verrà aggiornata nel dettaglio non
           appena verranno attivati strumenti di analisi, marketing o
-          integrazioni esterne (ad esempio un servizio di invio email per il
-          modulo di contatto).
+          integrazioni esterne.
         </p>
       </LegalSection>
 

@@ -28,26 +28,25 @@ export default function PrivacyPage() {
 
       <LegalSection title="Dati raccolti">
         <p>
-          Attraverso il modulo di contatto vengono raccolti i dati forniti
-          volontariamente dall&apos;utente: nome, indirizzo email, tipologia
-          di progetto, budget indicativo (facoltativo) e il contenuto del
-          messaggio.
+          Il sito non contiene moduli di raccolta dati. Vengono trattati
+          esclusivamente i dati che l&apos;utente sceglie di inviare scrivendo
+          all&apos;indirizzo email indicato: di norma nome, indirizzo email e
+          il contenuto del messaggio.
         </p>
       </LegalSection>
 
       <LegalSection title="Finalità del trattamento">
         <p>
           I dati sono trattati esclusivamente per rispondere alle richieste
-          di informazioni o preventivo inviate tramite il modulo di
-          contatto, e non sono utilizzati per finalità di marketing senza
+          di informazioni o preventivo ricevute via email, e non sono utilizzati per finalità di marketing senza
           un consenso specifico e separato.
         </p>
       </LegalSection>
 
       <LegalSection title="Base giuridica e conservazione">
         <p>
-          Il trattamento si basa sul consenso espresso dall&apos;utente al
-          momento dell&apos;invio del modulo. I dati sono conservati per il
+          Il trattamento si basa sulla richiesta inviata dall&apos;utente e
+          sulle misure precontrattuali da lui richieste. I dati sono conservati per il
           tempo necessario a gestire la richiesta e, successivamente, secondo
           i termini che verranno definiti da [Ragione sociale].
         </p>

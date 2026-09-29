@@ -1,3 +1,6 @@
+"use client";
+
+import { useId } from "react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -23,6 +26,10 @@ export function LogoMark({
   animated?: boolean;
   title?: string;
 }) {
+  // Un id per istanza: con un id fisso, se la prima copia del logo nella
+  // pagina è nascosta (display:none) il gradiente sparisce anche nelle altre.
+  const gradientId = `cma-mark-stroke-${useId().replace(/:/g, "")}`;
+
   return (
     <svg
       viewBox="0 0 200 200"
@@ -32,7 +39,7 @@ export function LogoMark({
       aria-hidden={title ? undefined : true}
     >
       <defs>
-        <linearGradient id="cma-mark-stroke" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#6FE0FF" />
           <stop offset="55%" stopColor="#1FA2FF" />
           <stop offset="100%" stopColor="#25E0C8" />
@@ -41,7 +48,7 @@ export function LogoMark({
 
       <g
         fill="none"
-        stroke="url(#cma-mark-stroke)"
+        stroke={`url(#${gradientId})`}
         strokeWidth="4"
         strokeLinecap="round"
         strokeLinejoin="round"

@@ -30,8 +30,8 @@ export function Footer() {
           <div className="max-w-sm">
             <Logo />
             <p className="mt-4 text-sm leading-relaxed text-ink-300">
-              {siteConfig.tagline} Progettiamo e sviluppiamo siti, software e
-              prodotti digitali su misura, dalla strategia al lancio.
+              Siti, web app, software e automazioni su misura, dalla
+              strategia al lancio.
             </p>
             {activeSocials.length > 0 ? (
               <div className="mt-6 flex items-center gap-4">
