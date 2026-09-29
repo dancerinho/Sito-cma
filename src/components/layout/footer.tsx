@@ -29,10 +29,10 @@ export function Footer() {
         </div>
 
         <nav aria-label="Navigazione secondaria">
-          <ul className="flex flex-wrap gap-x-8 gap-y-3 text-sm">
+          <ul className="-my-2 flex flex-wrap gap-x-6 text-sm">
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-ink-300 transition-colors hover:text-paper">
+                <Link href={item.href} className="inline-block py-3 text-ink-300 transition-colors hover:text-paper">
                   {item.label}
                 </Link>
               </li>
@@ -40,7 +40,7 @@ export function Footer() {
             <li>
               <a
                 href={`mailto:${contactConfig.email}`}
-                className="text-ink-300 transition-colors hover:text-paper"
+                className="inline-block py-3 text-ink-300 transition-colors hover:text-paper"
               >
                 {contactConfig.email}
               </a>
@@ -68,15 +68,15 @@ export function Footer() {
         </nav>
       </Container>
 
-      <Container className="flex flex-col gap-3 border-t border-ink-800 py-6 text-xs text-ink-500 sm:flex-row sm:justify-between">
+      <Container className="flex flex-col gap-1 border-t border-ink-800 py-4 text-xs text-ink-500 sm:flex-row sm:items-center sm:justify-between">
         <p>
           © {year} {siteConfig.name}
         </p>
-        <div className="flex gap-6">
-          <Link href="/privacy/" className="transition-colors hover:text-paper">
+        <div className="-mx-2 flex">
+          <Link href="/privacy/" className="inline-block px-2 py-3 transition-colors hover:text-paper">
             Privacy Policy
           </Link>
-          <Link href="/cookie-policy/" className="transition-colors hover:text-paper">
+          <Link href="/cookie-policy/" className="inline-block px-2 py-3 transition-colors hover:text-paper">
             Cookie Policy
           </Link>
         </div>

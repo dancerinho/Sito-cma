@@ -59,7 +59,7 @@ export function Services() {
                     </ul>
                     <Link
                       href="/contatti/"
-                      className="group mt-7 inline-flex items-center gap-2 text-sm font-medium text-paper transition-colors hover:text-accent"
+                      className="group mt-4 inline-flex items-center gap-2 py-3 text-sm font-medium text-paper transition-colors hover:text-accent"
                     >
                       Richiedi un preventivo
                       <ArrowRight size={15} aria-hidden className="transition-transform group-hover:translate-x-1" />

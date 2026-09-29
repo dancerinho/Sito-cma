@@ -17,7 +17,7 @@ export default function PrivacyPage() {
           <strong>[Ragione sociale / Nominativo], P.IVA [P.IVA da inserire]</strong>,
           contattabile all&apos;indirizzo{" "}
           {contactConfig.email ? (
-            <a href={`mailto:${contactConfig.email}`} className="text-paper underline underline-offset-2">
+            <a href={`mailto:${contactConfig.email}`} className="inline-block py-2 text-paper underline underline-offset-2">
               {contactConfig.email}
             </a>
           ) : (

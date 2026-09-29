@@ -69,7 +69,7 @@ export function Header() {
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
                     className={cn(
-                      "text-sm transition-colors duration-200",
+                      "inline-block py-3 text-sm transition-colors duration-200",
                       isActive(item.href) ? "text-paper" : "text-ink-300 hover:text-paper",
                     )}
                   >

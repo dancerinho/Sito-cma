@@ -18,7 +18,7 @@ export function Hero() {
         initial={{ opacity: 0, x: reduce ? 0 : 80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.6, ease: easeOut }}
-        className="pointer-events-none absolute -right-[25%] top-14 -z-10 h-[40svh] w-[150%] mix-blend-screen sm:-right-[10%] sm:w-[120%] lg:-right-[4%] lg:top-[12%] lg:h-[76%] lg:w-[52%]"
+        className="pointer-events-none absolute -right-[25%] top-14 -z-10 h-[40svh] w-[150%] mix-blend-screen sm:-right-[10%] sm:w-[120%] lg:-right-[4%] lg:top-[12%] lg:h-[76%] lg:w-[52%] [@media(max-height:500px)]:left-auto [@media(max-height:500px)]:right-0 [@media(max-height:500px)]:top-12 [@media(max-height:500px)]:h-[85svh] [@media(max-height:500px)]:w-1/2"
       >
         <div className="h-full w-full [mask-image:radial-gradient(closest-side,#000_45%,transparent_92%)]">
           <video
@@ -35,13 +35,13 @@ export function Hero() {
         </div>
       </motion.div>
 
-      <Container className="pt-[26svh] lg:pt-0">
+      <Container className="pt-[26svh] lg:pt-0 [@media(max-height:500px)]:pt-0">
         <SlideHeading
           as="h1"
           text="Siti web e software *su misura* per la tua azienda."
           immediate
           delay={0.1}
-          className="max-w-[16ch] text-balance font-serif text-display-xl text-paper"
+          className="max-w-[16ch] text-balance font-serif text-display-xl text-paper [@media(max-height:500px)]:max-w-[55%]"
         />
 
         <motion.p
