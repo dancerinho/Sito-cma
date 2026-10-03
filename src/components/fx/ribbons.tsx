@@ -34,7 +34,17 @@ type Anchor = {
   i: number;
   /** Incandescenza: 1 sulla curva dell'hero. */
   g: number;
+  /** Sezione che ha dichiarato l'ancoraggio. */
+  sec?: number;
+  /** Ingresso o uscita dell'hero: cede il posto se si scontra con la sezione vicina. */
+  soft?: boolean;
 };
+
+/**
+ * Pendenza massima del nastro tra due sezioni, in pixel orizzontali per
+ * pixel verticali: oltre, il percorso diventerebbe quasi orizzontale.
+ */
+const MAX_SLOPE = 1.4;
 
 const STRAND = /* glsl */ `
 uniform highp sampler2D u_path;
@@ -55,14 +65,25 @@ vec2 strand(float fj, vec4 s) {
   vec4 A = texelFetch(u_path, ivec2(j, 0), 0);
   vec4 B = texelFetch(u_path, ivec2(j, 1), 0);
   g_b = B;
-  vec2 n = vec2(-A.w, A.z);
   // Y è la posizione lungo la pagina in altezze di schermo: torsione e
   // ondulazioni sono legate al documento e scorrono insieme a lui.
   float Y = B.w;
-  float twist = cos(Y * 2.3 + u_time * 0.16 + s.y * 1.3);
-  float off = s.x * B.x * (0.4 + 0.6 * twist);
-  off += (sin(Y * 9.0 + u_time * 0.6 + s.z * 6.28) * 0.05 + sin(Y * 23.0 - u_time * 0.9 + s.y * 9.0) * 0.012) * (0.2 + B.x);
-  vec2 p = A.xy + n * off;
+  // Il nastro respira (si stringe e si allarga) ma non si ribalta mai, e
+  // tutti i fili lo fanno insieme.
+  float spread = B.x * (0.6 + 0.4 * cos(Y * 2.3 + u_time * 0.16)) + 0.008;
+  // Le onde cambiano fase in modo continuo da un bordo all'altro del nastro,
+  // mai a caso da un filo al vicino. La variazione di fase è limitata così
+  // che lo spostamento cresca sempre con s.x: l'ordine dei fili non cambia
+  // e non si incrociano.
+  float amp = 0.05 * (0.2 + B.x);
+  float phase = min(1.6, 0.6 * spread / amp);
+  float off = s.x * spread;
+  off += (sin(Y * 9.0 + u_time * 0.6 + s.x * phase) * 0.05 + sin(Y * 23.0 - u_time * 0.9 + s.x * phase * 1.5) * 0.012) * (0.2 + B.x);
+  // Spostamento orizzontale invece che lungo la normale: ogni filo è una
+  // curva x = f(y) e nelle curve strette non si ripiega su se stesso. La
+  // correzione con la pendenza mantiene la larghezza dove il nastro è obliquo.
+  float slope = max(-A.w, 0.4);
+  vec2 p = A.xy + vec2(off / slope, 0.0);
 
   // Parallasse: i fili più vicini si spostano di più col puntatore.
   p += u_par * (s.w - 0.35) * 0.05;
@@ -76,7 +97,7 @@ vec2 strand(float fj, vec4 s) {
   g_f = f;
   p -= dm * pull * 0.22;
   p += dm / (sqrt(r2) + 0.025) * f * 0.11;
-  p += u_mVel * (f + pull * 0.4) * 0.06;
+  p += u_mVel * (f + pull * 0.4) * 0.04;
   return p;
 }
 `;
@@ -587,18 +608,25 @@ export function Ribbons() {
 
     /**
      * Legge dalla pagina dove deve passare il nastro. Su schermi verticali
-     * il testo occupa tutta la larghezza, quindi la S resta stretta lungo il
-     * bordo destro, dove le righe finiscono prima.
+     * la S attraversa tutta la larghezza come da computer, solo un po' più
+     * raccolta verso il centro, con un nastro più stretto e più tenue.
      */
     const readAnchors = () => {
       const U = unit;
       const portrait = cssW / U < 0.8;
-      const mapX = (x: number) => (portrait ? 0.86 + (x - 0.5) * 0.24 : x);
+      const mapX = (x: number) => (portrait ? 0.5 + (x - 0.5) * 0.9 : x);
       const list: Anchor[] = [];
+      let sec = 0;
+      const tops = new Set<number>();
       for (const el of document.querySelectorAll<HTMLElement>("[data-path]")) {
         const r = el.getBoundingClientRect();
         if (!r.height) continue;
         const top = r.top + window.scrollY;
+        // Sezioni affiancate alla stessa altezza (le slide di un carosello):
+        // conta solo la prima, così il percorso non cambia scorrendo le slide.
+        if (tops.has(Math.round(top))) continue;
+        tops.add(Math.round(top));
+        sec++;
         const h = r.height;
         const kind = el.dataset.path;
         if (kind === "hero") {
@@ -606,21 +634,28 @@ export function Ribbons() {
           // a sinistra delle card e riparte verso il basso a destra.
           const span = Math.min(h, U);
           if (portrait) {
-            // In verticale la curva scende in basso, sul bordo destro, sotto ai pulsanti.
-            list.push({ y: top - 0.45 * U, x: 1.15, w: 0.2, i: 0.55, g: 0 });
-            list.push({ y: top + span * 0.97, x: 0.86, w: 0.012, i: 1, g: 1 });
-            list.push({ y: top + h + 0.15 * U, x: 1.08, w: 0.14, i: 0.8, g: 0 });
+            // In verticale il testo occupa tutta la larghezza: il nastro scende
+            // tenue lungo il bordo destro, poi sotto ai pulsanti attraversa lo
+            // schermo, gira incandescente a sinistra in fondo e torna al centro.
+            list.push({ y: top - 0.45 * U, x: 1.15, w: 0.2, i: 0.55, g: 0, sec, soft: true });
+            list.push({ y: top + span * 0.6, x: 0.95, w: 0.07, i: 0.45, g: 0.1, sec });
+            // L'uscita resta abbastanza lontana dalla curva da non essere
+            // scartata: è lei che allarga e spegne il nastro prima del testo.
+            const turn = top + span * 0.97;
+            list.push({ y: turn, x: 0.3, w: 0.012, i: 1, g: 1, sec });
+            list.push({ y: Math.max(top + h + 0.12 * U, turn + 0.2 * U), x: 0.62, w: 0.18, i: 0.3, g: 0, sec, soft: true });
           } else {
-            list.push({ y: top - 0.45 * U, x: 1.3, w: 0.5, i: 1, g: 0 });
-            list.push({ y: top + span * 0.66, x: 0.4, w: 0.02, i: 1, g: 1 });
-            list.push({ y: top + h + 0.12 * U, x: 1.05, w: 0.38, i: 1, g: 0 });
+            list.push({ y: top - 0.45 * U, x: 1.3, w: 0.5, i: 1, g: 0, sec, soft: true });
+            list.push({ y: top + span * 0.66, x: 0.4, w: 0.02, i: 1, g: 1, sec });
+            list.push({ y: top + h + 0.12 * U, x: 1.05, w: 0.38, i: 1, g: 0, sec, soft: true });
           }
         } else if (kind === "page") {
           const span = Math.min(h, U);
           const k = portrait ? 0.4 : 1;
-          list.push({ y: top - 0.45 * U, x: 1.3, w: 0.45 * k, i: 0.9, g: 0 });
-          list.push({ y: top + span * (portrait ? 0.9 : 0.55), x: portrait ? 0.88 : 0.8, w: 0.025 * k, i: 0.9, g: 0.8 });
-          list.push({ y: top + h + 0.1 * U, x: 1.05, w: 0.32 * k, i: 0.9, g: 0 });
+          list.push({ y: top - 0.45 * U, x: 1.3, w: 0.45 * k, i: 0.9, g: 0, sec, soft: true });
+          const turn = top + span * (portrait ? 0.9 : 0.55);
+          list.push({ y: turn, x: portrait ? 0.88 : 0.8, w: 0.025 * k, i: 0.9, g: 0.8, sec });
+          list.push({ y: Math.max(top + h + 0.1 * U, turn + 0.2 * U), x: 1.05, w: 0.32 * k, i: 0.9, g: 0, sec, soft: true });
         } else {
           const x = Number(kind);
           if (Number.isNaN(x)) continue;
@@ -630,12 +665,38 @@ export function Ribbons() {
             w: Number(el.dataset.pathW ?? 0.28) * (portrait ? 0.32 : 1),
             i: Number(el.dataset.pathI ?? 1) * (portrait ? 0.6 : 1),
             g: 0,
+            sec,
           });
         }
       }
       list.sort((a, b) => a.y - b.y);
-      // Ancoraggi troppo vicini creerebbero curve strette: tiene il primo.
-      const anchors = list.filter((a, k) => k === 0 || a.y - list[k - 1]!.y > 0.18 * U);
+      // Ancoraggi troppo vicini creerebbero curve strette, e tra due sezioni
+      // un salto laterale troppo corto renderebbe il nastro quasi orizzontale.
+      // In conflitto cede l'ingresso o l'uscita dell'hero; altrimenti resta il
+      // primo e il secondo si avvicina quanto basta.
+      const anchors: Anchor[] = [];
+      for (const raw of list) {
+        const a = { ...raw };
+        let keep = true;
+        while (anchors.length) {
+          const prev = anchors[anchors.length - 1]!;
+          const dy = a.y - prev.y;
+          const close = dy <= 0.18 * U;
+          const steep = prev.sec !== a.sec && Math.abs(a.x - prev.x) * cssW > MAX_SLOPE * dy;
+          if (!close && !steep) break;
+          if (prev.soft && !a.soft) {
+            anchors.pop();
+            continue;
+          }
+          if (close || a.soft) {
+            keep = false;
+            break;
+          }
+          a.x = prev.x + Math.sign(a.x - prev.x) * ((MAX_SLOPE * dy) / cssW);
+          break;
+        }
+        if (keep) anchors.push(a);
+      }
       if (anchors.length < 2) {
         const docH = document.documentElement.scrollHeight;
         anchors.splice(0, anchors.length, { y: 0, x: 0.85, w: 0.3, i: 0.8, g: 0 }, { y: docH, x: 0.85, w: 0.3, i: 0.8, g: 0 });
@@ -847,9 +908,10 @@ export function Ribbons() {
           pointer.vx += (vx - pointer.vx) * kv;
           pointer.vy += (vy - pointer.vy) * kv;
           const speed = Math.hypot(pointer.vx, pointer.vy);
-          if (speed > 4) {
-            pointer.vx *= 4 / speed;
-            pointer.vy *= 4 / speed;
+          // Limite di velocità: oltre, la scia del puntatore ripiegherebbe i fili.
+          if (speed > 2.5) {
+            pointer.vx *= 2.5 / speed;
+            pointer.vy *= 2.5 / speed;
           }
         }
         const awake = pointer.inside && now - pointer.lastMove < 2200;
