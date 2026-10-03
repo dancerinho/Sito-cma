@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/layout/page-hero";
 import { Steps } from "@/components/sections/steps";
+import { Statement } from "@/components/sections/statement";
 import { Principles } from "@/components/sections/principles";
 import { FinalCta } from "@/components/sections/final-cta";
 
@@ -15,10 +16,12 @@ export default function StudioPage() {
   return (
     <>
       <PageHero
-        title="Chi *siamo*"
+        tag="studio"
+        title="Chi *siamo*."
         description="Progettiamo e sviluppiamo prodotti digitali partendo dagli obiettivi reali di chi li usa. Ogni progetto parte da zero, senza template."
       />
       <Steps />
+      <Statement />
       <Principles />
       <FinalCta />
     </>

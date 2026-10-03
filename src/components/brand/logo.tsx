@@ -30,7 +30,7 @@ export function Logo({
         )}
       />
       {showWordmark ? (
-        <span className="text-[15px] font-semibold tracking-tight text-paper">
+        <span className="text-[15px] font-medium tracking-tight text-paper">
           {siteConfig.name}
         </span>
       ) : null}

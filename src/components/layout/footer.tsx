@@ -1,98 +1,104 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
-import {
-  GithubIcon,
-  InstagramIcon,
-  LinkedinIcon,
-  TiktokIcon,
-  WhatsappIcon,
-} from "@/components/icons/social-icons";
-import { contactConfig, contactLinks, navItems, siteConfig, socialLinks } from "@/config/site";
 import { Logo } from "@/components/brand/logo";
+import { contactConfig, contactLinks, navItems, services, siteConfig, socialLinks } from "@/config/site";
 
-const socialIcons = {
-  linkedin: LinkedinIcon,
-  instagram: InstagramIcon,
-  tiktok: TiktokIcon,
-  github: GithubIcon,
-} as const;
+const strip = [
+  "prima valutazione senza impegno",
+  "un unico team, dall'idea alla messa online",
+  "ogni progetto parte da zero",
+];
 
 export function Footer() {
   const year = new Date().getFullYear();
-  const activeSocials = Object.entries(socialLinks).filter(([, url]) => url);
+
+  const columns = [
+    {
+      title: "navigazione",
+      links: [{ label: "Home", href: "/" }, ...navItems],
+    },
+    {
+      title: "servizi",
+      links: services.map((s) => ({ label: s.title, href: `/servizi/#${s.id}` })),
+    },
+    {
+      title: "contatti",
+      links: [
+        { label: contactConfig.email, href: contactLinks.mailto },
+        { label: contactConfig.phone, href: contactLinks.tel },
+        { label: "WhatsApp", href: contactLinks.whatsapp, external: true },
+        ...(socialLinks.instagram ? [{ label: "Instagram", href: socialLinks.instagram, external: true }] : []),
+        ...(socialLinks.tiktok ? [{ label: "TikTok", href: socialLinks.tiktok, external: true }] : []),
+      ],
+    },
+  ];
 
   return (
-    <footer className="border-t border-ink-800">
-      <Container className="flex flex-col gap-8 py-12 md:flex-row md:items-start md:justify-between">
-        <div className="max-w-xs">
-          <Logo />
-          <p className="mt-4 text-sm leading-relaxed text-ink-400">
-            Siti web, web app, software e automazioni su misura.
-          </p>
+    <footer data-path="0.97" data-path-i="0.45" className="relative">
+      <Container>
+        <ul className="hidden flex-col gap-2 border-y border-white/[0.06] py-5 font-mono text-[11px] text-ink-400 md:flex md:flex-row md:justify-between">
+          {strip.map((item) => (
+            <li key={item} className="flex items-center gap-2">
+              <span className="h-1 w-1 rounded-full bg-accent shadow-[0_0_8px_rgb(var(--accent))]" />
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8 border-t border-white/[0.06] py-10 md:grid-cols-12 md:border-t-0 md:py-14">
+          <div className="col-span-2 md:col-span-4">
+            <Logo />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-400">
+              Siti web, web app, software e automazioni su misura.
+            </p>
+          </div>
+
+          {columns.map((col) => (
+            <nav
+              key={col.title}
+              aria-label={col.title}
+              className={col.title === "servizi" ? "hidden md:col-span-3 md:block" : "md:col-span-2 md:last:col-span-3"}
+            >
+              <p className="font-mono text-[11px] text-ink-500">{col.title}</p>
+              <ul className="mt-3 flex flex-col">
+                {col.links.map((link) => {
+                  const external = "external" in link && link.external;
+                  const cls = "inline-block py-1.5 text-sm text-ink-300 transition-colors hover:text-paper break-all";
+                  return (
+                    <li key={link.label}>
+                      {link.href.startsWith("/") ? (
+                        <Link href={link.href} className={cls}>
+                          {link.label}
+                        </Link>
+                      ) : (
+                        <a
+                          href={link.href}
+                          className={cls}
+                          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        >
+                          {link.label}
+                        </a>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          ))}
         </div>
 
-        <nav aria-label="Navigazione secondaria">
-          <ul className="-my-2 flex flex-wrap gap-x-6 text-sm">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="inline-block py-3 text-ink-300 transition-colors hover:text-paper">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <a
-                href={contactLinks.mailto}
-                className="inline-block py-3 text-ink-300 transition-colors hover:text-paper"
-              >
-                {contactConfig.email}
-              </a>
-            </li>
-            <li>
-              <a
-                href={contactLinks.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 py-3 text-ink-300 transition-colors hover:text-paper"
-              >
-                <WhatsappIcon width={15} height={15} />
-                WhatsApp
-              </a>
-            </li>
-          </ul>
-          {activeSocials.length > 0 ? (
-            <div className="mt-4 flex items-center gap-5">
-              {activeSocials.map(([key, url]) => {
-                const Icon = socialIcons[key as keyof typeof socialIcons];
-                return (
-                  <a
-                    key={key}
-                    href={url}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    aria-label={key === "tiktok" ? "TikTok" : key.charAt(0).toUpperCase() + key.slice(1)}
-                    className="-m-2 inline-flex p-2 text-ink-400 transition-colors hover:text-paper"
-                  >
-                    <Icon width={18} height={18} />
-                  </a>
-                );
-              })}
-            </div>
-          ) : null}
-        </nav>
-      </Container>
-
-      <Container className="flex flex-col gap-1 border-t border-ink-800 py-4 text-xs text-ink-500 sm:flex-row sm:items-center sm:justify-between">
-        <p>
-          © {year} {siteConfig.name}
-        </p>
-        <div className="-mx-2 flex">
-          <Link href="/privacy/" className="inline-block px-2 py-3 transition-colors hover:text-paper">
-            Privacy Policy
-          </Link>
-          <Link href="/cookie-policy/" className="inline-block px-2 py-3 transition-colors hover:text-paper">
-            Cookie Policy
-          </Link>
+        <div className="flex flex-col gap-1 border-t border-white/[0.06] py-5 font-mono text-[11px] text-ink-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {year} {siteConfig.name}
+          </p>
+          <div className="-mx-2 flex">
+            <Link href="/privacy/" className="inline-block px-2 py-3 transition-colors hover:text-paper">
+              privacy policy
+            </Link>
+            <Link href="/cookie-policy/" className="inline-block px-2 py-3 transition-colors hover:text-paper">
+              cookie policy
+            </Link>
+          </div>
         </div>
       </Container>
     </footer>

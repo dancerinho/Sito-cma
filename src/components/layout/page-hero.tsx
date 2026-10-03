@@ -5,26 +5,37 @@ import { Container } from "@/components/ui/container";
 import { SlideHeading, easeOut } from "@/components/ui/motion";
 
 /**
- * Intestazione delle pagine interne: titolo che entra da sinistra e
- * descrizione che arriva da destra. Nel titolo, `*parola*` va in corsivo.
+ * Intestazione delle pagine interne: etichetta, titolo che entra parola per
+ * parola e descrizione da destra. Nel titolo, `*parole*` vanno in corsivo.
  */
-export function PageHero({ title, description }: { title: string; description: string }) {
+export function PageHero({ tag, title, description }: { tag?: string; title: string; description: string }) {
   const reduce = useReducedMotion();
 
   return (
-    <section className="pb-12 pt-32 sm:pb-16 sm:pt-40">
+    <section data-path="page" className="flex items-end pb-10 pt-28 sm:min-h-[60svh] sm:pb-20 sm:pt-40 lg:min-h-[72svh] lg:pb-28 lg:pt-44">
       <Container>
+        {tag ? (
+          <motion.span
+            initial={{ opacity: 0, x: reduce ? 0 : -32 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9, delay: 0.1, ease: easeOut }}
+            className="tag"
+          >
+            {tag}
+          </motion.span>
+        ) : null}
         <SlideHeading
           as="h1"
           text={title}
           immediate
-          className="max-w-4xl text-balance font-serif text-display-xl text-paper"
+          delay={0.2}
+          className="mt-6 max-w-4xl text-balance text-display-xl font-medium text-paper sm:mt-7"
         />
         <motion.p
-          initial={{ opacity: 0, x: reduce ? 0 : 48 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9, delay: 0.35, ease: easeOut }}
-          className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-ink-300"
+          initial={{ opacity: 0, x: reduce ? 0 : 48, filter: reduce ? "none" : "blur(8px)" }}
+          animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+          transition={{ duration: 1, delay: 0.55, ease: easeOut }}
+          className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-ink-300 sm:mt-7 sm:text-lg"
         >
           {description}
         </motion.p>

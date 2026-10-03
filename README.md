@@ -24,7 +24,8 @@ Il sito è disponibile su `http://localhost:3000`.
 - `src/components/layout` — header, footer
 - `src/components/sections` — sezioni della homepage
 - `src/components/ui` — componenti UI riutilizzabili
-- `src/components/graphics` — grafica SVG originale
+- `src/components/fx` — sfondo WebGL a fili luminosi (`ribbons.tsx`) e scroll morbido
+- `src/components/mockups` — interfacce illustrative animate dei servizi
 - `src/config/site.ts` — **configurazione centrale**: nome, navigazione, servizi, contatti, social
 
 ## Deploy

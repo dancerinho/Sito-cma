@@ -1,14 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { contactConfig, services, siteConfig, socialLinks } from "@/config/site";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { PageTransition } from "@/components/layout/page-transition";
+import { Ribbons } from "@/components/fx/ribbons";
+import { SmoothScroll } from "@/components/fx/smooth-scroll";
+import { Cursor } from "@/components/fx/cursor";
 import "./globals.css";
 
 const sans = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+const mono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -98,13 +107,18 @@ export default function RootLayout({
   return (
     <html
       lang="it"
-      className={`${sans.variable} ${serif.variable}`}
+      className={`${sans.variable} ${serif.variable} ${mono.variable}`}
     >
-      <body className="flex min-h-screen flex-col font-sans">
+      {/* Le estensioni del browser (es. ColorZilla) aggiungono attributi al
+          body prima che React parta: non è un errore del sito. */}
+      <body className="relative flex min-h-screen flex-col font-sans" suppressHydrationWarning>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
+        <Ribbons />
+        <SmoothScroll />
+        <Cursor />
         <Header />
         <main id="main" className="flex-1 overflow-x-clip">
           <PageTransition>{children}</PageTransition>

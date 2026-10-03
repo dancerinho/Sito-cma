@@ -18,12 +18,15 @@ export const pentagonPaths = {
 } as const;
 
 export function LogoMark({
-  className,
+  className = "h-9 w-9",
   animated = false,
+  mono = false,
   title,
 }: {
   className?: string;
   animated?: boolean;
+  /** Tratto nel colore del testo invece del gradiente del marchio. */
+  mono?: boolean;
   title?: string;
 }) {
   // Un id per istanza: con un id fisso, se la prima copia del logo nella
@@ -33,7 +36,7 @@ export function LogoMark({
   return (
     <svg
       viewBox="0 0 200 200"
-      className={cn("h-9 w-9", className)}
+      className={className}
       role={title ? "img" : "presentation"}
       aria-label={title}
       aria-hidden={title ? undefined : true}
@@ -48,7 +51,7 @@ export function LogoMark({
 
       <g
         fill="none"
-        stroke={`url(#${gradientId})`}
+        stroke={mono ? "currentColor" : `url(#${gradientId})`}
         strokeWidth="4"
         strokeLinecap="round"
         strokeLinejoin="round"

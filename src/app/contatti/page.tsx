@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Contact, ContactBanner } from "@/components/sections/contact";
+import { PageHero } from "@/components/layout/page-hero";
+import { Contact } from "@/components/sections/contact";
 
 export const metadata: Metadata = {
   title: "Contatti e preventivi",
@@ -11,7 +12,11 @@ export const metadata: Metadata = {
 export default function ContattiPage() {
   return (
     <>
-      <ContactBanner />
+      <PageHero
+        tag="contatti"
+        title="Parliamo del tuo *progetto*."
+        description="Chiamaci o scrivici su WhatsApp o via email: ti rispondiamo con una prima valutazione, senza impegno."
+      />
       <Contact />
     </>
   );
