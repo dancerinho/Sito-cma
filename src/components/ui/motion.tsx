@@ -61,8 +61,8 @@ export function Reveal({
 type Token = { text: string; italic: boolean } | "break";
 
 /**
- * Divide un titolo in parole. `*parole tra asterischi*` vanno in corsivo
- * serif, una `|` isolata manda a capo.
+ * Divide un titolo in parole. `*parole tra asterischi*` vanno nel tono
+ * attenuato, una `|` isolata manda a capo.
  */
 function tokenize(text: string): Token[] {
   let inItalic = false;
@@ -79,12 +79,12 @@ function tokenize(text: string): Token[] {
 
 /**
  * Titolo che entra parola per parola, scivolando dal lato indicato e
- * mettendosi a fuoco. Le parole in corsivo usano il serif del marchio.
+ * mettendosi a fuoco. Le parole tra asterischi usano il tono attenuato.
  */
 export function SlideHeading({
   text,
   className,
-  italicClassName = "text-paper",
+  italicClassName = "text-[#8E98CF]",
   as = "h2",
   from = "left",
   delay = 0,
@@ -128,7 +128,7 @@ export function SlideHeading({
               variants={word}
               className={
                 token.italic
-                  ? `inline-block pr-[0.06em] font-serif text-[1.08em] font-normal italic leading-[0.9] tracking-[-0.01em] ${italicClassName}`
+                  ? `inline-block ${italicClassName}`
                   : "inline-block"
               }
             >

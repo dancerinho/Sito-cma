@@ -34,7 +34,7 @@ export function Footer() {
   ];
 
   return (
-    <footer data-path="0.97" data-path-i="0.45" className="relative">
+    <footer className="relative bg-gradient-to-b from-transparent via-ink-1000/80 to-ink-1000">
       <Container>
         <ul className="hidden flex-col gap-2 border-y border-white/[0.06] py-5 font-mono text-[11px] text-ink-400 md:flex md:flex-row md:justify-between">
           {strip.map((item) => (

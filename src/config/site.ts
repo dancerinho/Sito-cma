@@ -70,6 +70,8 @@ export const socialLinks = {
 export type ServiceItem = {
   id: string;
   title: string;
+  /** Riassunto in poche parole, mostrato accanto al nucleo in home. */
+  short: string;
   description: string;
   /** Nome dell'icona lucide-react usata nel menu e nelle card. */
   icon:
@@ -94,6 +96,7 @@ export const services: ServiceItem[] = [
       "Caricamento rapido su mobile e desktop",
     ],
     title: "Siti web e landing page",
+    short: "Veloci, chiari, pensati per convertire",
     description:
       "Progettiamo siti e landing page veloci, chiari e costruiti per convertire, dal primo contatto alla richiesta di preventivo.",
   },
@@ -106,6 +109,7 @@ export const services: ServiceItem[] = [
       "Architettura pronta a crescere",
     ],
     title: "Web app e prodotti digitali",
+    short: "Su misura, pronte a crescere",
     description:
       "Costruiamo applicazioni web su misura per gestire processi, dati e servizi, pensate per crescere insieme al progetto.",
   },
@@ -118,6 +122,7 @@ export const services: ServiceItem[] = [
       "Documentazione e passaggio di consegne",
     ],
     title: "Software su misura",
+    short: "Quando gli strumenti standard non bastano",
     description:
       "Realizziamo soluzioni software personalizzate quando gli strumenti standard non bastano a coprire le esigenze reali.",
   },
@@ -130,6 +135,7 @@ export const services: ServiceItem[] = [
       "Report e notifiche dove servono",
     ],
     title: "Automazioni e integrazioni",
+    short: "Meno attività ripetitive, più tempo",
     description:
       "Colleghiamo strumenti e automatizziamo processi ripetitivi, per far risparmiare tempo a persone e team.",
   },
@@ -142,6 +148,7 @@ export const services: ServiceItem[] = [
       "Limiti di rischio, log delle operazioni e arresto di emergenza",
     ],
     title: "Bot e software per investimenti",
+    short: "Strategie definite dal cliente",
     description:
       "Sviluppiamo software che automatizza strategie di investimento definite dal cliente: connessione ai broker, esecuzione, monitoraggio e report.",
   },
@@ -154,6 +161,7 @@ export const services: ServiceItem[] = [
       "Monitoraggio delle prestazioni",
     ],
     title: "Manutenzione ed evoluzione",
+    short: "Sicuri e performanti nel tempo",
     description:
       "Seguiamo i progetti nel tempo con aggiornamenti, correzioni e nuove funzionalità, mantenendoli sicuri e performanti.",
   },

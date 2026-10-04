@@ -11,7 +11,7 @@ export function LegalPage({
   children: ReactNode;
 }) {
   return (
-    <section data-path="0.92" data-path-i="0.4" className="pb-24 pt-32 sm:pt-44">
+    <section className="pb-24 pt-32 sm:pt-44">
       <Container>
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
           <div className="md:col-span-4">

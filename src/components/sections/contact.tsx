@@ -60,7 +60,7 @@ export function Contact() {
   const reduce = useReducedMotion();
 
   return (
-    <section data-path="0.5" data-path-w="0.4" className="pb-16 sm:pb-28 lg:pb-36">
+    <section className="pb-16 sm:pb-28 lg:pb-36">
       <Container>
         <ul className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-4">
           {channels.map((channel, i) => (
@@ -120,7 +120,7 @@ export function Contact() {
             <div>
               <p className="font-mono text-[11px] text-ink-500">social</p>
               <p className="mt-2 text-xl font-medium tracking-tight text-paper">
-                Seguici, <span className="font-serif text-[1.1em] font-normal italic">anche lì.</span>
+                Seguici, <span className="text-ink-400">anche lì.</span>
               </p>
             </div>
             <ul className="flex gap-3">

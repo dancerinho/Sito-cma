@@ -14,7 +14,6 @@ export default function ServiziPage() {
   return (
     <>
       <PageHero
-        tag="servizi"
         title="I nostri *servizi*."
         description="Dal sito vetrina al software gestionale: ecco cosa possiamo costruire per te e cosa include ogni servizio."
       />

@@ -45,7 +45,7 @@ export function Steps({ action }: { action?: ReactNode }) {
   const progress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section data-path="0.12" data-path-i="0.8" className="py-16 sm:py-28 lg:py-36">
+    <section className="py-16 sm:py-28 lg:py-36">
       <Container>
         <SectionHeader
           tag="metodo"

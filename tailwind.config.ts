@@ -5,37 +5,36 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        /* Nero profondo dello sfondo e scala di grigi per testi e superfici. */
+        /* Nero spaziale dello sfondo e scala di grigi freddi per testi e superfici. */
         ink: {
-          1000: "#040506",
-          950: "#07080A",
-          900: "#0C0E11",
-          850: "#111418",
-          800: "#181B20",
-          700: "#252A31",
-          600: "#3A4048",
-          500: "#5A616B",
-          400: "#8B929C",
-          300: "#B3B9C1",
-          200: "#D4D8DD",
-          100: "#ECEDEF",
+          1000: "#020309",
+          950: "#05060E",
+          900: "#0A0C18",
+          850: "#0F1220",
+          800: "#161A2A",
+          700: "#232838",
+          600: "#363C50",
+          500: "#575E76",
+          400: "#8A90A8",
+          300: "#B2B7CB",
+          200: "#D3D6E4",
+          100: "#ECEEF5",
         },
         paper: {
-          DEFAULT: "#F3F4F2",
-          dim: "#DAD7CF",
+          DEFAULT: "#F4F6FF",
+          dim: "#D7DAEA",
         },
-        /* Ciano del marchio: definito come variabile in globals.css,
+        /* Blu delle particelle: definito come variabile in globals.css,
            così cambiare l'accento del sito è una modifica di una riga. */
         accent: {
           DEFAULT: "rgb(var(--accent) / <alpha-value>)",
           ink: "rgb(var(--accent-ink) / <alpha-value>)",
-          dim: "#1FA2FF",
-          aqua: "#25E0C8",
+          dim: "#3A52F5",
+          aqua: "#7FA2FF",
         },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "Georgia", "serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       fontSize: {

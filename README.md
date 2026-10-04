@@ -22,9 +22,10 @@ Il sito è disponibile su `http://localhost:3000`.
 
 - `src/app` — pagine (App Router)
 - `src/components/layout` — header, footer
-- `src/components/sections` — sezioni della homepage
+- `src/components/home` — home a scene (`scenes.tsx`): caricamento, hero, servizi, approccio, metodo, contatti
+- `src/components/sections` — sezioni delle pagine interne
 - `src/components/ui` — componenti UI riutilizzabili
-- `src/components/fx` — sfondo WebGL a fili luminosi (`ribbons.tsx`) e scroll morbido
+- `src/components/fx` — sfondo WebGL a particelle (`universe.tsx`) che cambia forma scorrendo e reagisce al mouse, e scroll morbido
 - `src/components/mockups` — interfacce illustrative animate dei servizi
 - `src/config/site.ts` — **configurazione centrale**: nome, navigazione, servizi, contatti, social
 

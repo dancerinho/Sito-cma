@@ -16,7 +16,6 @@ export default function StudioPage() {
   return (
     <>
       <PageHero
-        tag="studio"
         title="Chi *siamo*."
         description="Progettiamo e sviluppiamo prodotti digitali partendo dagli obiettivi reali di chi li usa. Ogni progetto parte da zero, senza template."
       />

@@ -21,7 +21,7 @@ export function Statement() {
   const tileY = useTransform(scrollYProgress, [0.4, 1], [40, 0]);
 
   return (
-    <section ref={ref} data-path="0.55" data-path-w="0.35" data-path-i="0.6" className="px-3 py-10 sm:px-4 sm:py-24 lg:py-32">
+    <section ref={ref} className="px-3 py-10 sm:px-4 sm:py-24 lg:py-32">
       <motion.div
         style={reduce ? { borderRadius: 28 } : { scale, borderRadius: radius }}
         className="dot-grid relative mx-auto flex max-w-[1600px] flex-col items-center justify-center overflow-hidden bg-accent px-5 py-14 text-center text-accent-ink sm:min-h-[70svh] sm:py-24 lg:min-h-[78svh]"
@@ -33,7 +33,7 @@ export function Statement() {
           <span className="block">
             <motion.span
               style={reduce ? undefined : { x: italicX, opacity: italicOpacity }}
-              className="inline-block pr-[0.12em] font-serif text-[1.1em] font-normal italic tracking-[-0.01em] text-accent-ink/55"
+              className="inline-block pr-[0.12em] text-accent-ink/55"
             >
               da zero,
             </motion.span>

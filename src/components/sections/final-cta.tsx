@@ -17,7 +17,7 @@ const socials = [
  */
 export function FinalCta() {
   return (
-    <section data-path="0.5" data-path-w="0.42" className="pb-8 pt-4 sm:pb-10 sm:pt-20 lg:pt-28">
+    <section className="pb-8 pt-4 sm:pb-10 sm:pt-20 lg:pt-28">
       <Container className="grid grid-cols-1 gap-4 lg:grid-cols-12">
         <Reveal from="left" className="hidden md:block lg:col-span-5">
           <div className="panel relative flex h-full min-h-[300px] flex-col overflow-hidden p-7 sm:p-8">
@@ -67,7 +67,7 @@ export function FinalCta() {
                   <Mail size={15} aria-hidden className="shrink-0" />
                   <span className="truncate">{contactConfig.email}</span>
                 </span>
-                <span className="flex shrink-0 items-center gap-2 rounded-full bg-accent-ink px-4 py-2.5 text-[13px] font-medium text-white">
+                <span className="flex shrink-0 items-center gap-2 rounded-full bg-accent px-4 py-2.5 text-[13px] font-semibold text-white">
                   Scrivici
                   <ArrowRight size={14} aria-hidden className="transition-transform group-hover:translate-x-0.5" />
                 </span>

@@ -1,8 +1,8 @@
 /**
  * Un solo requestAnimationFrame per tutto il sito, con un ordine fisso:
- * prima lo scroll morbido aggiorna la posizione, poi lo sfondo si disegna
- * leggendo quella stessa posizione. Così i fili non restano mai indietro
- * di un fotogramma rispetto alla pagina.
+ * prima lo scroll morbido aggiorna la posizione, poi le scene della home la
+ * leggono e decidono la forma, infine lo sfondo si disegna. Così le
+ * particelle non restano mai indietro di un fotogramma rispetto alla pagina.
  */
 
 type Callback = (time: number) => void;
@@ -28,4 +28,4 @@ export function addTick(callback: Callback, order: number) {
 }
 
 /** Ordine di esecuzione nel fotogramma. */
-export const TICK = { scroll: 0, background: 1 } as const;
+export const TICK = { scroll: 0, scenes: 1, background: 2 } as const;

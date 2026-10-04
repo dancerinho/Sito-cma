@@ -44,7 +44,6 @@ export function ServiceShowcase({ detailed = false }: { detailed?: boolean }) {
       <article
         key={service.id}
         id={detailed ? service.id : undefined}
-        data-path={flip ? "0.3" : "0.7"}
         className="flex w-[86%] shrink-0 snap-start scroll-mt-28 flex-col gap-6 sm:w-[64%] lg:grid lg:w-auto lg:shrink lg:grid-cols-12 lg:items-center lg:gap-12"
       >
         {/* Su telefono prima l'interfaccia e sotto il testo; su desktop si alternano. */}

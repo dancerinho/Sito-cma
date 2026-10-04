@@ -235,7 +235,7 @@ function PrincipleCard({ title, description, index }: { title: string; descripti
 
 export function Principles() {
   return (
-    <section data-path="0.86" className="py-16 sm:py-28 lg:py-36">
+    <section className="py-16 sm:py-28 lg:py-36">
       <Container>
         <SectionHeader
           tag="in ogni progetto"

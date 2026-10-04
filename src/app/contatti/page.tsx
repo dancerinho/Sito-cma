@@ -13,7 +13,6 @@ export default function ContattiPage() {
   return (
     <>
       <PageHero
-        tag="contatti"
         title="Parliamo del tuo *progetto*."
         description="Chiamaci o scrivici su WhatsApp o via email: ti rispondiamo con una prima valutazione, senza impegno."
       />

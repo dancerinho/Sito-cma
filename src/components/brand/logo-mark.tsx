@@ -5,7 +5,8 @@ import { cn } from "@/lib/utils";
 
 /**
  * Marchio CMA: tre pentagoni arrotondati e ruotati, tracciati a linea.
- * `animated` attiva la rotazione lenta.
+ * `animated` attiva la rotazione lenta; `fan` fa separare e riunire i tre
+ * pentagoni, come se il marchio respirasse.
  */
 
 export const pentagonPaths = {
@@ -21,12 +22,15 @@ export function LogoMark({
   className = "h-9 w-9",
   animated = false,
   mono = false,
+  fan = false,
   title,
 }: {
   className?: string;
   animated?: boolean;
   /** Tratto nel colore del testo invece del gradiente del marchio. */
   mono?: boolean;
+  /** I pentagoni ruotano l'uno rispetto all'altro, aprendosi e richiudendosi. */
+  fan?: boolean;
   title?: string;
 }) {
   // Un id per istanza: con un id fisso, se la prima copia del logo nella
@@ -43,9 +47,9 @@ export function LogoMark({
     >
       <defs>
         <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#6FE0FF" />
-          <stop offset="55%" stopColor="#1FA2FF" />
-          <stop offset="100%" stopColor="#25E0C8" />
+          <stop offset="0%" stopColor="#BAC6FF" />
+          <stop offset="55%" stopColor="#5B74FF" />
+          <stop offset="100%" stopColor="#7FCBFF" />
         </linearGradient>
       </defs>
 
@@ -55,20 +59,11 @@ export function LogoMark({
         strokeWidth="4"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={cn(animated && "origin-center animate-spin-slow")}
+        className={cn(animated && "origin-center animate-spin-slow", fan && "mark-fan")}
       >
-        <path
-          d={pentagonPaths.outer}
-          opacity="0.95"
-        />
-        <path
-          d={pentagonPaths.middle}
-          opacity="0.7"
-        />
-        <path
-          d={pentagonPaths.inner}
-          opacity="0.45"
-        />
+        <path d={pentagonPaths.outer} opacity="0.95" />
+        <path d={pentagonPaths.middle} opacity="0.7" className={fan ? "mark-fan-1" : undefined} />
+        <path d={pentagonPaths.inner} opacity="0.45" className={fan ? "mark-fan-2" : undefined} />
       </g>
     </svg>
   );

@@ -5,9 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Mail } from "lucide-react";
-import { contactConfig, contactLinks, navItems, socialLinks } from "@/config/site";
-import { Container } from "@/components/ui/container";
-import { Logo } from "@/components/brand/logo";
+import { contactConfig, contactLinks, navItems, siteConfig, socialLinks } from "@/config/site";
+import { LogoMark } from "@/components/brand/logo-mark";
 import { easeOut } from "@/components/ui/motion";
 import { setScrollLocked } from "@/components/fx/smooth-scroll";
 import { InstagramIcon, TiktokIcon, WhatsappIcon } from "@/components/icons/social-icons";
@@ -50,96 +49,91 @@ export function Header() {
         Vai al contenuto principale
       </a>
 
-      <motion.header
-        initial={{ y: reduce ? 0 : -24, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.9, ease: easeOut }}
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 border-b transition-colors duration-500 ease-out",
-          isMenuOpen ? "border-transparent" : isScrolled ? "glass-nav border-white/[0.06]" : "border-transparent",
-        )}
-      >
-        <Container>
-          <nav className="flex h-[72px] items-center justify-between gap-6" aria-label="Navigazione principale">
-            <Logo />
+      {/* Tre pillole centrate: marchio, navigazione e richiesta. Su telefono
+          restano marchio e menu. */}
+      <header className="site-header fixed inset-x-0 top-0 z-50">
+        <nav
+          className={cn(
+            "mx-auto flex max-w-content items-center justify-between gap-2 px-4 pt-3 transition-[padding] duration-500 sm:px-8 md:justify-center md:pt-5",
+            isScrolled && "md:pt-3",
+          )}
+          aria-label="Navigazione principale"
+        >
+          <Link
+            href="/"
+            aria-label={siteConfig.name}
+            className="pill group flex h-10 items-center gap-2 pl-2.5 pr-4 text-[13px] font-bold tracking-tight text-paper"
+          >
+            <LogoMark className="h-6 w-6 transition-transform duration-700 ease-out group-hover:rotate-[72deg]" />
+            {siteConfig.name}
+          </Link>
 
-            <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-9 md:flex">
-              {navItems.map((item) => (
+          <ul className="pill hidden h-10 items-center px-2 md:flex">
+            {[{ label: "Home", href: "/" }, ...navItems].map((item) => {
+              const current = item.href === "/" ? pathname === "/" : isActive(item.href);
+              return (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    aria-current={isActive(item.href) ? "page" : undefined}
+                    aria-current={current ? "page" : undefined}
                     className={cn(
-                      "inline-block py-3 text-[13px] transition-colors duration-200",
-                      isActive(item.href) ? "text-paper" : "text-ink-400 hover:text-paper",
+                      "inline-block rounded-full px-3.5 py-2 text-[13px] font-bold transition-colors duration-200",
+                      current ? "text-paper" : "text-ink-300 hover:text-paper",
                     )}
                   >
                     {item.label}
                   </Link>
                 </li>
-              ))}
-            </ul>
+              );
+            })}
+          </ul>
 
-            <div className="hidden items-center gap-3 md:flex">
-              <a
-                href={contactLinks.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group hidden items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-3.5 py-2 font-mono text-[11px] text-ink-300 transition-colors hover:border-white/20 hover:text-paper lg:inline-flex"
-              >
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inset-0 animate-ping rounded-full bg-accent" />
-                  <span className="relative h-1.5 w-1.5 rounded-full bg-accent" />
-                </span>
-                scrivici su whatsapp
-              </a>
-              <Link href="/contatti/" className="btn-primary px-5 py-2.5 text-[13px]">
-                Richiedi un preventivo
-              </Link>
-            </div>
+          <Link href="/contatti/" className="btn-blue hidden h-10 gap-2 px-5 py-0 md:inline-flex">
+            Richiedi un preventivo
+            <span aria-hidden className="h-1 w-1 rounded-full bg-white/80" />
+          </Link>
 
-            {/* Due linee che diventano una X. */}
-            <button
-              type="button"
-              className="relative -mr-2 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] md:hidden"
-              aria-label={isMenuOpen ? "Chiudi menu" : "Apri menu"}
-              aria-expanded={isMenuOpen}
-              aria-controls="mobile-menu"
-              onClick={() => setIsMenuOpen((v) => !v)}
-            >
-              <span
-                aria-hidden
-                className={cn(
-                  "absolute h-[1.5px] w-[18px] rounded-full bg-paper transition-transform duration-500 ease-out",
-                  isMenuOpen ? "rotate-45" : "-translate-y-[4px]",
-                )}
-              />
-              <span
-                aria-hidden
-                className={cn(
-                  "absolute h-[1.5px] rounded-full bg-paper transition-all duration-500 ease-out",
-                  isMenuOpen ? "w-[18px] -rotate-45" : "w-3 translate-x-[3px] translate-y-[4px]",
-                )}
-              />
-            </button>
-          </nav>
-        </Container>
-      </motion.header>
+          {/* Due linee che diventano una X. */}
+          <button
+            type="button"
+            className="pill relative flex h-10 w-10 items-center justify-center md:hidden"
+            aria-label={isMenuOpen ? "Chiudi menu" : "Apri menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setIsMenuOpen((v) => !v)}
+          >
+            <span
+              aria-hidden
+              className={cn(
+                "absolute h-[1.5px] w-[16px] rounded-full bg-paper transition-transform duration-500 ease-out",
+                isMenuOpen ? "rotate-45" : "-translate-y-[3.5px]",
+              )}
+            />
+            <span
+              aria-hidden
+              className={cn(
+                "absolute h-[1.5px] rounded-full bg-paper transition-all duration-500 ease-out",
+                isMenuOpen ? "w-[16px] -rotate-45" : "w-2.5 translate-x-[3px] translate-y-[3.5px]",
+              )}
+            />
+          </button>
+        </nav>
+      </header>
 
       <AnimatePresence>
         {isMenuOpen ? (
           <motion.div
             id="mobile-menu"
             // Si apre come un cerchio che parte dal pulsante, in alto a destra.
-            initial={{ clipPath: reduce ? "circle(150% at 100% 0%)" : "circle(0% at calc(100% - 38px) 36px)" }}
-            animate={{ clipPath: "circle(150% at calc(100% - 38px) 36px)" }}
-            exit={{ clipPath: reduce ? "circle(150% at 100% 0%)" : "circle(0% at calc(100% - 38px) 36px)", transition: { duration: 0.5, ease: [0.65, 0, 0.35, 1] } }}
+            initial={{ clipPath: reduce ? "circle(150% at 100% 0%)" : "circle(0% at calc(100% - 36px) 32px)" }}
+            animate={{ clipPath: "circle(150% at calc(100% - 36px) 32px)" }}
+            exit={{ clipPath: reduce ? "circle(150% at 100% 0%)" : "circle(0% at calc(100% - 36px) 32px)", transition: { duration: 0.5, ease: [0.65, 0, 0.35, 1] } }}
             transition={{ duration: 0.7, ease: [0.65, 0, 0.35, 1] }}
-            className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-ink-1000 px-4 pb-8 pt-24 md:hidden"
+            className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-ink-1000 px-4 pb-8 pt-20 md:hidden"
           >
             <div aria-hidden className="dot-grid-light pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,#000,transparent_70%)]" />
-            <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(111,224,255,0.22),transparent_65%)]" />
-            <div aria-hidden className="pointer-events-none absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(31,162,255,0.16),transparent_65%)]" />
+            <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(79,108,255,0.3),transparent_65%)]" />
+            <div aria-hidden className="pointer-events-none absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(58,82,245,0.2),transparent_65%)]" />
 
             <nav aria-label="Menu" className="relative">
               <motion.p
