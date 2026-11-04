@@ -15,7 +15,7 @@ export function Footer() {
   const columns = [
     {
       title: "navigazione",
-      links: [{ label: "Home", href: "/" }, ...navItems],
+      links: [{ label: "Home", href: "/" }, ...navItems, { label: "Checklist per B&B", href: "/checklist-bb/" }],
     },
     {
       title: "servizi",

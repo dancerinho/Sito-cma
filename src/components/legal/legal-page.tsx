@@ -22,13 +22,7 @@ export function LegalPage({
           </div>
 
           <div className="md:col-span-7 md:col-start-6">
-            <div className="panel px-5 py-4 text-sm leading-relaxed text-ink-300">
-              Questa è una bozza strutturale, da completare con i dati legali
-              reali dell&apos;attività e da far verificare da un consulente
-              legale/privacy prima della pubblicazione definitiva.
-            </div>
-
-            <div className="mt-12 flex flex-col text-[15px] leading-relaxed text-ink-300">
+            <div className="flex flex-col text-[15px] leading-relaxed text-ink-300">
               {children}
             </div>
           </div>

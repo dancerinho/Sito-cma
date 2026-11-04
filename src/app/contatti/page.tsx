@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { Container } from "@/components/ui/container";
 import { PageHero } from "@/components/layout/page-hero";
 import { Contact } from "@/components/sections/contact";
 
@@ -18,6 +20,11 @@ export default function ContattiPage() {
         description="Chiamaci o scrivici su WhatsApp o via email: ti rispondiamo con una prima valutazione, senza impegno."
       />
       <Contact />
+      <Container>
+        <div className="pb-16 text-ink-300">
+          <Link href="/checklist-bb/" className="inline-block py-2 text-paper underline underline-offset-4">Leggi la checklist gratuita per il sito del tuo B&B</Link>
+        </div>
+      </Container>
     </>
   );
 }

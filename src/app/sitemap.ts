@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteConfig.url}/servizi/`, lastModified, priority: 0.9 },
     { url: `${siteConfig.url}/studio/`, lastModified, priority: 0.8 },
     { url: `${siteConfig.url}/contatti/`, lastModified, priority: 0.9 },
+    { url: `${siteConfig.url}/checklist-bb/`, lastModified, priority: 0.7 },
     { url: `${siteConfig.url}/privacy/`, lastModified, priority: 0.3 },
     { url: `${siteConfig.url}/cookie-policy/`, lastModified, priority: 0.3 },
   ];

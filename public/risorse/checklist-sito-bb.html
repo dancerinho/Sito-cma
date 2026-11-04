@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="it"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checklist gratuita per il sito del tuo B&amp;B · CMA Enterprise</title>
+<meta name="description" content="Dieci controlli pratici per verificare se il sito del tuo B&B facilita le prenotazioni e dove intervenire per primo.">
+<style>
+:root{color-scheme:light;--ink:#18222a;--muted:#43515b;--paper:#fffdf8;--ground:#f4f2ea;--accent:#285b4e;--line:#dadfd7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font:1rem/1.55 system-ui,sans-serif}
+main{width:min(100% - 2rem,48rem);margin:2.5rem auto;background:var(--paper);border:1px solid var(--line);padding:clamp(1.25rem,5vw,3rem)}
+.eyebrow{color:var(--accent);font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;font-weight:750;margin:0 0 .8rem}
+h1{font:700 clamp(2.25rem,7vw,4rem)/1.02 Georgia,serif;letter-spacing:-.045em;max-width:15ch;margin:0}
+h2{font-size:1.25rem;line-height:1.2;margin:0 0 .75rem}
+.intro{max-width:61ch;color:var(--muted);margin:1.15rem 0 1.5rem}
+.actions{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem}
+button{border:1px solid var(--accent);background:none;color:var(--accent);border-radius:.25rem;padding:.65rem .85rem;font:inherit;font-weight:650;cursor:pointer}
+a{color:var(--accent);text-underline-offset:.18em}
+:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+ol{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+li{border-bottom:1px solid var(--line)}
+label{display:grid;grid-template-columns:auto 1fr;gap:.85rem;padding:.8rem 0;cursor:pointer}
+input{accent-color:var(--accent);width:1.2rem;height:1.2rem;margin:.2rem 0 0}
+.item-title,.item-copy{display:block}
+.item-title{font-weight:750}
+.item-copy{color:var(--muted);font-size:.96rem}
+.next{background:#edf2eb;padding:1.15rem 1.25rem;margin-top:1.65rem}
+.next p,footer p{margin:.3rem 0 0}
+footer{padding-top:1.25rem;color:var(--muted);font-size:.92rem}
+@media print{
+ @page{size:A4;margin:12mm 14mm}
+ body{background:#fff;color:#15202a;font-size:10pt;line-height:1.35}
+ main{margin:0;padding:0;border:0;width:auto}
+ h1{font-size:28pt;max-width:none}
+ h2{font-size:13pt}
+ .intro{margin:.4rem 0 .7rem;max-width:none}
+ .actions{display:none}
+ label{padding:.42rem 0}
+ .item-copy{font-size:9pt}
+ .next{margin-top:.8rem;padding:.6rem .75rem;break-inside:avoid;border:1px solid var(--line)}
+ li,footer{break-inside:avoid}
+ footer{padding-top:.65rem}
+}
+</style>
+<main>
+  <header>
+    <p class="eyebrow">CMA Enterprise · Guida gratuita</p>
+    <h1>Il sito del tuo B&amp;B aiuta a prenotare?</h1>
+    <p class="intro">Dieci controlli da fare in 15 minuti. Apri il sito dal telefono, come farebbe un ospite che non conosce la struttura. Spunta solo quello che funziona.</p>
+    <div class="actions"><button type="button" id="print">Stampa o salva in PDF</button></div>
+  </header>
+  <section aria-labelledby="controlli">
+    <h2 id="controlli">La checklist</h2>
+    <ol>
+        <li><label><input type="checkbox"><span><span class="item-title">Trovi le informazioni essenziali al primo colpo?</span><span class="item-copy">Dalla home si capisce dove si trova il B&B, a chi si rivolge e come verificare disponibilità o chiedere un preventivo.</span></span></label></li>
+        <li><label><input type="checkbox"><span><span class="item-title">Il sito è facile da usare con una mano?</span><span class="item-copy">Aprilo sul telefono. Il testo si legge senza zoom e i pulsanti di prenotazione, telefono e menu si toccano senza errori.</span></span></label></li>
+        <li><label><input type="checkbox"><span><span class="item-title">Prenotare è davvero semplice?</span><span class="item-copy">Parti dalla home e prova a selezionare due notti. Verifica che il percorso funzioni fino al riepilogo e che eventuali costi e condizioni siano chiari.</span></span></label></li>
+        <li><label><input type="checkbox"><span><span class="item-title">Le camere si possono confrontare?</span><span class="item-copy">Per ogni camera indica posti letto, bagno, dotazioni e foto aggiornate. Specifica cosa è incluso nella tariffa.</span></span></label></li>
+        <li><label><input type="checkbox"><span><span class="item-title">Le foto rispondono alle domande degli ospiti?</span><span class="item-copy">Mostra camere, bagni, ingresso e spazi comuni. Metti in evidenza le differenze reali tra le camere e descrivi le immagini utili.</span></span></label></li>
+        <li><label><input type="checkbox"><span><span class="item-title">Arrivare è semplice anche per chi non conosce la zona?</span><span class="item-copy">Verifica l’indirizzo sulla mappa e spiega parcheggio, eventuale ZTL, trasporti e orari di check-in.</span></span></label></li>
+        <li><label><input type="checkbox"><span><span class="item-title">La home è rapida anche fuori dal Wi-Fi?</span><span class="item-copy">Aprila con la rete mobile: foto, testo e pulsante principale dovrebbero essere disponibili presto, senza salti fastidiosi della pagina.</span></span></label></li>
+        <li><label><input type="checkbox"><span><span class="item-title">I contatti funzionano tutti?</span><span class="item-copy">Tocca telefono, email e WhatsApp. Se hai un modulo, prova a inviarlo con un recapito di test e controlla che la richiesta arrivi.</span></span></label></li>
+        <li><label><input type="checkbox"><span><span class="item-title">Le informazioni sono coerenti con Google e i portali?</span><span class="item-copy">Confronta nome, indirizzo, telefono, orari e servizi con Google Maps e con i portali su cui la struttura è presente.</span></span></label></li>
+        <li><label><input type="checkbox"><span><span class="item-title">Gli ospiti trovano risposte prima di contattarti?</span><span class="item-copy">Rendi facili da trovare regole per animali, colazione, accessibilità, check-in, cancellazioni ed eventuali costi extra.</span></span></label></li>
+    </ol>
+  </section>
+  <section class="next" aria-labelledby="priorita">
+    <h2 id="priorita">Da dove partire</h2>
+    <p>Se un ospite non riesce a prenotare, a contattarti o a trovare la struttura, risolvi quel problema per primo. Poi scegli due caselle rimaste vuote che rispondono alle domande che ricevi più spesso.</p>
+  </section>
+  <footer><p>Vuoi una seconda opinione? <a href="https://cma-enterprise.it/contatti/">Chiedi a CMA Enterprise una prima valutazione</a>, senza impegno.</p></footer>
+</main>
+<script>document.getElementById('print').addEventListener('click',()=>window.print());</script>
+</html>
