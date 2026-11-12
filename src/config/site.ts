@@ -19,12 +19,10 @@ export type NavItem = {
   href: string;
 };
 
-/**
- * Navigazione principale: tre pagine, nessun sottomenu, così chi arriva
- * capisce subito dove trovare cosa.
- */
+/** Navigazione principale a un livello. */
 export const navItems: NavItem[] = [
   { label: "Servizi", href: "/servizi/" },
+  { label: "Lavori", href: "/portfolio/" },
   { label: "Studio", href: "/studio/" },
   { label: "Contatti", href: "/contatti/" },
 ];

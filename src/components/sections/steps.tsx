@@ -1,9 +1,9 @@
 "use client";
 
 import { ReactNode, useRef } from "react";
-import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { Container } from "@/components/ui/container";
-import { Reveal, SlideHeading, easeOut } from "@/components/ui/motion";
+import { Reveal, SlideHeading, easeOut, useReducedMotionAfterMount } from "@/components/ui/motion";
 import { SectionHeader } from "@/components/ui/section-header";
 import { methodSteps } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -14,7 +14,7 @@ const SEGMENTS = 12;
 function Meter({ filled, delay }: { filled: number; delay: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const on = useInView(ref, { once: true, margin: "-15% 0px" });
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
 
   return (
     <div ref={ref} className="flex h-12 items-end gap-1" aria-hidden>
@@ -39,7 +39,7 @@ function Meter({ filled, delay }: { filled: number; delay: number }) {
 
 /** Le fasi di lavoro, affiancate, con una linea che si riempie scorrendo. */
 export function Steps({ action }: { action?: ReactNode }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
   const ref = useRef<HTMLOListElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 85%", "end 60%"] });
   const progress = useTransform(scrollYProgress, [0, 1], [0, 1]);

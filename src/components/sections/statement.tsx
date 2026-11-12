@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useReducedMotionAfterMount } from "@/components/ui/motion";
 import { LogoMark } from "@/components/brand/logo-mark";
 
 /**
@@ -9,7 +10,7 @@ import { LogoMark } from "@/components/brand/logo-mark";
  * ai bordi dello schermo, e la parola in corsivo scivola al suo posto.
  */
 export function Statement() {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "center center"] });
 

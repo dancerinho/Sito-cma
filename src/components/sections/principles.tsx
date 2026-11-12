@@ -1,10 +1,10 @@
 "use client";
 
 import { type JSX, useEffect, useRef, useState } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Zap } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { Reveal, easeOut } from "@/components/ui/motion";
+import { Reveal, easeOut, useReducedMotionAfterMount } from "@/components/ui/motion";
 import { SectionHeader } from "@/components/ui/section-header";
 import { skillItems } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -17,7 +17,7 @@ import { Swipe } from "@/components/ui/swipe";
  */
 
 function useLoop(on: boolean, count: number, ms: number) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
   const [i, setI] = useState(0);
   useEffect(() => {
     if (!on || reduce) return;
@@ -50,7 +50,7 @@ function DesignVisual({ on }: { on: boolean }) {
 }
 
 function ResponsiveVisual({ on }: { on: boolean }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
   return (
     <div className="flex h-full items-center justify-center">
       <motion.div
@@ -105,7 +105,7 @@ function SpeedVisual({ on }: { on: boolean }) {
 
 /** Prismi isometrici che crescono uno dopo l'altro. */
 function ScaleVisual({ on }: { on: boolean }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
   const heights = [26, 38, 50, 62, 78];
   const w = 18;
   return (
@@ -142,7 +142,7 @@ function ScaleVisual({ on }: { on: boolean }) {
 }
 
 function UxVisual({ on }: { on: boolean }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
   const loop = on && !reduce;
   return (
     <div className="relative h-full">

@@ -1,15 +1,15 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Container } from "@/components/ui/container";
-import { SlideHeading, easeOut } from "@/components/ui/motion";
+import { SlideHeading, easeOut, useReducedMotionAfterMount } from "@/components/ui/motion";
 
 /**
  * Intestazione delle pagine interne: etichetta, titolo che entra parola per
  * parola e descrizione da destra. Nel titolo, `*parole*` vanno in corsivo.
  */
 export function PageHero({ tag, title, description }: { tag?: string; title: string; description: string }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
 
   return (
     <section data-path="page" className="flex items-end pb-10 pt-28 sm:min-h-[60svh] sm:pb-20 sm:pt-40 lg:min-h-[72svh] lg:pb-28 lg:pt-44">
@@ -18,8 +18,8 @@ export function PageHero({ tag, title, description }: { tag?: string; title: str
           <motion.span
             initial={{ opacity: 0, x: reduce ? 0 : -32 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 0.1, ease: easeOut }}
-            className="tag"
+            transition={{ duration: reduce ? 0 : 0.7, delay: reduce ? 0 : 0.1, ease: easeOut }}
+            className="tag motion-reduce:!opacity-100 motion-reduce:!transform-none"
           >
             {tag}
           </motion.span>
@@ -34,8 +34,8 @@ export function PageHero({ tag, title, description }: { tag?: string; title: str
         <motion.p
           initial={{ opacity: 0, x: reduce ? 0 : 48, filter: reduce ? "none" : "blur(8px)" }}
           animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1, delay: 0.55, ease: easeOut }}
-          className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-ink-300 sm:mt-7 sm:text-lg"
+          transition={{ duration: reduce ? 0 : 0.65, delay: reduce ? 0 : 0.28, ease: easeOut }}
+          className="motion-reduce:!opacity-100 motion-reduce:!transform-none motion-reduce:!filter-none mt-5 max-w-xl text-pretty text-base leading-relaxed text-ink-300 sm:mt-7 sm:text-lg"
         >
           {description}
         </motion.p>

@@ -1,0 +1,151 @@
+export type PortfolioProject = {
+  id: string;
+  title: string;
+  sector: string;
+  kind: "Sito pubblicato" | "Anteprima";
+  url: string;
+  image: string;
+  featured?: boolean;
+};
+
+export const portfolioProjects: readonly PortfolioProject[] = [
+  {
+    id: "hotel-croce-del-sud",
+    title: "Hotel Croce del Sud",
+    sector: "Ospitalità",
+    kind: "Sito pubblicato",
+    url: "https://crocedelsudhotel.com/",
+    image: "/portfolio/hotel-croce-del-sud.webp",
+    featured: true,
+  },
+  {
+    id: "albergo-eden",
+    title: "Albergo Eden",
+    sector: "Ospitalità",
+    kind: "Anteprima",
+    url: "https://hotel-eden-villa-dalegno.pages.dev/",
+    image: "/portfolio/albergo-eden.webp",
+  },
+  {
+    id: "hotel-avio",
+    title: "Hotel Avio",
+    sector: "Ospitalità",
+    kind: "Anteprima",
+    url: "https://hotel-avio-temu-restyle.pages.dev/",
+    image: "/portfolio/hotel-avio.webp",
+  },
+  {
+    id: "bergman-mountain-hotel",
+    title: "Bergman Mountain Hotel",
+    sector: "Ospitalità",
+    kind: "Anteprima",
+    url: "https://bergman-hotel.pages.dev/it",
+    image: "/portfolio/bergman-mountain-hotel.webp",
+    featured: true,
+  },
+  {
+    id: "ciasa-gabriel",
+    title: "Ciasa Gabriel",
+    sector: "Ospitalità",
+    kind: "Anteprima",
+    url: "https://ciasa-gabriel.pages.dev/",
+    image: "/portfolio/ciasa-gabriel.webp",
+  },
+  {
+    id: "hotel-azola",
+    title: "Hotel Azola",
+    sector: "Ospitalità",
+    kind: "Anteprima",
+    url: "https://hotel-azola-canazei.pages.dev/",
+    image: "/portfolio/hotel-azola.webp",
+  },
+  {
+    id: "hotel-cassana",
+    title: "Hotel Cassana",
+    sector: "Ospitalità",
+    kind: "Anteprima",
+    url: "https://hotel-cassana-livigno.pages.dev/",
+    image: "/portfolio/hotel-cassana.webp",
+  },
+  {
+    id: "hotel-europa",
+    title: "Hotel Europa",
+    sector: "Ospitalità",
+    kind: "Anteprima",
+    url: "https://hotel-europa-val-di-fassa.pages.dev/",
+    image: "/portfolio/hotel-europa.webp",
+  },
+  {
+    id: "hotel-donnini",
+    title: "Hotel Donnini",
+    sector: "Ospitalità",
+    kind: "Anteprima",
+    url: "https://v8.hotel-donnini-v5-preview.pages.dev/",
+    image: "/portfolio/hotel-donnini.webp",
+  },
+  {
+    id: "milano-bb-caterina",
+    title: "Milano B&B di Caterina",
+    sector: "Ospitalità",
+    kind: "Anteprima",
+    url: "https://milano-bb-caterina-anteprima.pages.dev/",
+    image: "/portfolio/milano-bb-caterina.webp",
+  },
+  {
+    id: "residenza-garibaldi",
+    title: "Residenza Garibaldi",
+    sector: "Ospitalità",
+    kind: "Anteprima",
+    url: "https://residenza-garibaldi-molveno.pages.dev/",
+    image: "/portfolio/residenza-garibaldi.webp",
+  },
+  {
+    id: "residenza-sveva",
+    title: "Residenza Sveva",
+    sector: "Ospitalità",
+    kind: "Anteprima",
+    url: "https://residenza-sveva.pages.dev/",
+    image: "/portfolio/residenza-sveva.webp",
+  },
+  {
+    id: "dream-ristorante-coreano",
+    title: "Dream Ristorante Coreano",
+    sector: "Ristorazione",
+    kind: "Anteprima",
+    url: "https://dream-ristorante-coreano.pages.dev/",
+    image: "/portfolio/dream-ristorante-coreano.webp",
+  },
+  {
+    id: "ilpartycolare",
+    title: "ilPartycolare · Lissone",
+    sector: "Catering",
+    kind: "Anteprima",
+    url: "https://ilpartycolare-catering.pages.dev/",
+    image: "/portfolio/ilpartycolare.webp",
+  },
+  {
+    id: "libeccio-ristorantino",
+    title: "Libeccio Ristorantino",
+    sector: "Ristorazione",
+    kind: "Anteprima",
+    url: "https://libeccio-bellaria.pages.dev/",
+    image: "/portfolio/libeccio-ristorantino.webp",
+  },
+  {
+    id: "le-vele",
+    title: "Le Vele",
+    sector: "Ristorazione",
+    kind: "Anteprima",
+    url: "https://le-vele-bellaria.pages.dev/",
+    image: "/portfolio/le-vele.webp",
+  },
+  {
+    id: "madama-piola",
+    title: "Madama Piola",
+    sector: "Ristorazione",
+    kind: "Anteprima",
+    url: "https://madama-piola-torino.pages.dev/",
+    image: "/portfolio/madama-piola.webp",
+    featured: true,
+  },
+];

@@ -1,10 +1,10 @@
 "use client";
 
 import { ReactNode } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight, Mail, Smartphone } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { easeOut } from "@/components/ui/motion";
+import { easeOut, useReducedMotionAfterMount } from "@/components/ui/motion";
 import { InstagramIcon, TiktokIcon, WhatsappIcon } from "@/components/icons/social-icons";
 import { contactConfig, contactLinks, socialLinks } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -57,7 +57,7 @@ const socials = [
 ].filter((s) => s.href);
 
 export function Contact() {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
 
   return (
     <section data-path="0.5" data-path-w="0.4" className="pb-16 sm:pb-28 lg:pb-36">

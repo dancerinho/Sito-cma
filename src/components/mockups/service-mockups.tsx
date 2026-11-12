@@ -1,7 +1,7 @@
 "use client";
 
 import { type JSX, type ReactNode, type Ref, useEffect, useRef, useState } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import {
   Activity,
   Check,
@@ -31,7 +31,7 @@ function useActive() {
 
 /** Contatore che avanza a intervalli regolari finché la card è visibile. */
 function useStep(on: boolean, count: number, ms: number) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
   const [step, setStep] = useState(0);
   useEffect(() => {
     if (!on || reduce) return;
@@ -319,7 +319,7 @@ const totalChars = code.reduce((n, line) => n + lineLength(line), 0);
 
 export function SoftwareMockup() {
   const { ref, on } = useActive();
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
   const [count, setTyped] = useState(0);
   const typed = reduce ? totalChars : count;
 
@@ -405,7 +405,7 @@ const tools = [
 
 export function AutomationMockup() {
   const { ref, on } = useActive();
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
   const step = useStep(on, tools.length, 1100);
   const hub = { x: 260, y: 160 };
 
@@ -608,8 +608,7 @@ const checks = [
 
 export function MaintenanceMockup() {
   const { ref, on } = useActive();
-  const reduce = useReducedMotion();
-  const calm = useReducedMotionAfterMount();
+  const reduce = useReducedMotionAfterMount();
 
   return (
     <Frame innerRef={ref} title="il tuo progetto, seguito nel tempo" status="attivo">
@@ -637,7 +636,7 @@ export function MaintenanceMockup() {
             strokeDasharray="0.22 0.78"
             style={{ stroke: "rgb(var(--accent))", filter: "drop-shadow(0 0 6px rgb(var(--accent) / 0.8))" }}
           >
-            {calm ? null : <animate attributeName="stroke-dashoffset" from="1" to="0" dur="2.8s" repeatCount="indefinite" />}
+            {reduce ? null : <animate attributeName="stroke-dashoffset" from="1" to="0" dur="2.8s" repeatCount="indefinite" />}
           </path>
         </svg>
       </div>

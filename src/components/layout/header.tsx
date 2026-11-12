@@ -1,23 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { contactConfig, contactLinks, navItems, socialLinks } from "@/config/site";
 import { Container } from "@/components/ui/container";
 import { Logo } from "@/components/brand/logo";
-import { easeOut } from "@/components/ui/motion";
+import { easeOut, useReducedMotionAfterMount } from "@/components/ui/motion";
 import { setScrollLocked } from "@/components/fx/smooth-scroll";
 import { InstagramIcon, TiktokIcon, WhatsappIcon } from "@/components/icons/social-icons";
 import { cn } from "@/lib/utils";
 
 export function Header() {
   const pathname = usePathname();
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 12);
@@ -32,12 +33,15 @@ export function Header() {
   }, [isMenuOpen]);
 
   useEffect(() => {
+    if (!isMenuOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsMenuOpen(false);
+      if (event.key !== "Escape") return;
+      setIsMenuOpen(false);
+      menuButton.current?.focus();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [isMenuOpen]);
 
   const isActive = (href: string) => pathname.startsWith(href.replace(/\/$/, ""));
 
@@ -55,8 +59,8 @@ export function Header() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.9, ease: easeOut }}
         className={cn(
-          "fixed inset-x-0 top-0 z-50 border-b transition-colors duration-500 ease-out",
-          isMenuOpen ? "border-transparent" : isScrolled ? "glass-nav border-white/[0.06]" : "border-transparent",
+          "fixed inset-x-0 top-0 z-50 border-b transition-colors duration-500 ease-out motion-reduce:!opacity-100 motion-reduce:!transform-none",
+          isMenuOpen ? "border-transparent" : isScrolled ? "glass-nav border-white/[0.06]" : "border-transparent bg-gradient-to-b from-ink-1000/80 to-ink-1000/20",
         )}
       >
         <Container>
@@ -100,6 +104,7 @@ export function Header() {
 
             {/* Due linee che diventano una X. */}
             <button
+              ref={menuButton}
               type="button"
               className="relative -mr-2 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] md:hidden"
               aria-label={isMenuOpen ? "Chiudi menu" : "Apri menu"}
@@ -110,14 +115,14 @@ export function Header() {
               <span
                 aria-hidden
                 className={cn(
-                  "absolute h-[1.5px] w-[18px] rounded-full bg-paper transition-transform duration-500 ease-out",
+                  "absolute h-[1.5px] w-[18px] rounded-full bg-paper transition-transform duration-500 ease-out motion-reduce:!opacity-100 motion-reduce:!transform-none",
                   isMenuOpen ? "rotate-45" : "-translate-y-[4px]",
                 )}
               />
               <span
                 aria-hidden
                 className={cn(
-                  "absolute h-[1.5px] rounded-full bg-paper transition-all duration-500 ease-out",
+                  "absolute h-[1.5px] rounded-full bg-paper transition-all duration-500 ease-out motion-reduce:!opacity-100 motion-reduce:!transform-none",
                   isMenuOpen ? "w-[18px] -rotate-45" : "w-3 translate-x-[3px] translate-y-[4px]",
                 )}
               />
@@ -130,6 +135,7 @@ export function Header() {
         {isMenuOpen ? (
           <motion.div
             id="mobile-menu"
+            data-lenis-prevent
             // Si apre come un cerchio che parte dal pulsante, in alto a destra.
             initial={{ clipPath: reduce ? "circle(150% at 100% 0%)" : "circle(0% at calc(100% - 38px) 36px)" }}
             animate={{ clipPath: "circle(150% at calc(100% - 38px) 36px)" }}

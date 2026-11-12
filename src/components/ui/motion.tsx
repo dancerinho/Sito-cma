@@ -1,20 +1,26 @@
 "use client";
 
 import { Fragment, ReactNode, useSyncExternalStore } from "react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
-const noop = () => () => {};
+const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
 
-/**
- * "Riduci movimento" letto solo dopo l'idratazione: il server non conosce
- * le preferenze del visitatore, quindi il primo disegno deve coincidere col
- * suo, altrimenti React segnala una differenza.
- */
-export function useReducedMotionAfterMount() {
-  const reduce = useReducedMotion();
-  const mounted = useSyncExternalStore(noop, () => true, () => false);
-  return mounted && !!reduce;
+function subscribeToMotionPreference(notify: () => void) {
+  const query = window.matchMedia(reducedMotionQuery);
+  query.addEventListener("change", notify);
+  return () => query.removeEventListener("change", notify);
 }
+
+/** La preferenza del browser si applica dopo il primo rendering. */
+export function useReducedMotionAfterMount() {
+  return useSyncExternalStore(
+    subscribeToMotionPreference,
+    () => window.matchMedia(reducedMotionQuery).matches,
+    () => false,
+  );
+}
+
+const visibleWithReducedMotion = "motion-reduce:!opacity-100 motion-reduce:!transform-none motion-reduce:!filter-none";
 
 /** Curva unica per tutto il sito: arrivo deciso, frenata lunga. */
 export const easeOut = [0.22, 1, 0.36, 1] as const;
@@ -42,16 +48,16 @@ export function Reveal({
   distance?: number;
   as?: "div" | "li" | "p";
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
   const MotionTag = motion[as];
 
   return (
     <MotionTag
-      className={className}
+      className={[className, visibleWithReducedMotion].filter(Boolean).join(" ")}
       initial={{ opacity: 0, ...(reduce ? {} : offset(from, distance)) }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 1, delay, ease: easeOut }}
+      transition={reduce ? { duration: 0 } : { duration: 0.8, delay, ease: easeOut }}
     >
       {children}
     </MotionTag>
@@ -99,18 +105,18 @@ export function SlideHeading({
   /** Anima al caricamento invece che all'ingresso nel viewport. */
   immediate?: boolean;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionAfterMount();
   const tokens = tokenize(text);
   const MotionTag = motion[as];
 
   const container: Variants = {
     hidden: {},
-    visible: { transition: { staggerChildren: reduce ? 0 : 0.07, delayChildren: delay } },
+    visible: { transition: { staggerChildren: reduce ? 0 : 0.07, delayChildren: reduce ? 0 : delay } },
   };
 
   const word: Variants = {
     hidden: { opacity: 0, x: reduce ? 0 : from === "left" ? -56 : 56, filter: reduce ? "none" : "blur(10px)" },
-    visible: { opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: 1, ease: easeOut } },
+    visible: { opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: reduce ? 0 : 0.72, ease: easeOut } },
   };
 
   const trigger = immediate
@@ -126,11 +132,12 @@ export function SlideHeading({
           <Fragment key={`${token.text}-${i}`}>
             <motion.span
               variants={word}
-              className={
+              className={[
                 token.italic
                   ? `inline-block pr-[0.06em] font-serif text-[1.08em] font-normal italic leading-[0.9] tracking-[-0.01em] ${italicClassName}`
-                  : "inline-block"
-              }
+                  : "inline-block",
+                visibleWithReducedMotion,
+              ].join(" ")}
             >
               {token.text}
             </motion.span>
