@@ -97,6 +97,42 @@ html.lenis body {
       0 30px 80px -40px rgba(0, 0, 0, 0.9);
   }
 
+  .recent-work-panels {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .recent-work-panels > li {
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .recent-work-panels {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 640px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .recent-work-panels {
+      display: flex;
+    }
+
+    .recent-work-panels > li {
+      flex: 1 1 0;
+      transition: flex-grow 340ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .recent-work-panels > li:hover,
+    .recent-work-panels > li:has(> a:focus-visible) {
+      flex-grow: 1.55;
+    }
+
+    .recent-work-panels:has(> li:hover) > li:not(:hover) {
+      flex-grow: 1;
+    }
+  }
+
   .panel-inner {
     @apply rounded-2xl border border-white/[0.06] bg-white/[0.025];
   }

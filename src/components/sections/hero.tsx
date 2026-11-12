@@ -12,7 +12,7 @@ export function Hero() {
         className="dot-grid-light pointer-events-none absolute inset-0 -z-[1] [mask-image:radial-gradient(70%_60%_at_30%_30%,#000,transparent)]"
       />
       <Container className="grid min-w-0 items-center gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-12">
-        <div className="min-w-0 lg:col-span-6">
+        <div className="min-w-0 lg:col-span-5">
           <SlideHeading
             as="h1"
             text="Siti web e software | *su misura.*"

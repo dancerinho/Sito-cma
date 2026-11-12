@@ -5,7 +5,7 @@ export type PortfolioProject = {
   kind: "Sito pubblicato" | "Anteprima";
   url: string;
   image: string;
-  featured?: boolean;
+  featuredImage?: string;
 };
 
 export const portfolioProjects: readonly PortfolioProject[] = [
@@ -16,7 +16,7 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     kind: "Sito pubblicato",
     url: "https://crocedelsudhotel.com/",
     image: "/portfolio/hotel-croce-del-sud.webp",
-    featured: true,
+    featuredImage: "/portfolio/hotel-croce-del-sud-verticale.webp",
   },
   {
     id: "albergo-eden",
@@ -41,7 +41,7 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     kind: "Anteprima",
     url: "https://bergman-hotel.pages.dev/it",
     image: "/portfolio/bergman-mountain-hotel.webp",
-    featured: true,
+    featuredImage: "/portfolio/bergman-mountain-hotel-verticale.webp",
   },
   {
     id: "ciasa-gabriel",
@@ -132,20 +132,21 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     image: "/portfolio/libeccio-ristorantino.webp",
   },
   {
-    id: "le-vele",
-    title: "Le Vele",
-    sector: "Ristorazione",
-    kind: "Anteprima",
-    url: "https://le-vele-bellaria.pages.dev/",
-    image: "/portfolio/le-vele.webp",
-  },
-  {
     id: "madama-piola",
     title: "Madama Piola",
     sector: "Ristorazione",
     kind: "Anteprima",
     url: "https://madama-piola-torino.pages.dev/",
     image: "/portfolio/madama-piola.webp",
-    featured: true,
+    featuredImage: "/portfolio/madama-piola-verticale.webp",
+  },
+  {
+    id: "lodo-sport",
+    title: "Lodo Sport",
+    sector: "E-commerce",
+    kind: "Anteprima",
+    url: "https://lodo-sport-vermiglio.pages.dev/catalogo",
+    image: "/portfolio/lodo-sport.webp",
+    featuredImage: "/portfolio/lodo-sport-verticale.webp",
   },
 ];
